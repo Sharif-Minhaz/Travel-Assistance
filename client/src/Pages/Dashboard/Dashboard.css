@@ -1,0 +1,36 @@
+.card-content {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .card-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .card-content {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}
+
+.dashboard-btn {
+    text-decoration: none;
+    padding: 7px 40px;
+    background-color: #7065f0;
+    color: white;
+    border-radius: 4px;
+}
+
+.dashboard-btn:hover {
+    background-color: white;
+    color: #7065f0;
+    border: 1px solid #7065f0;
+    transition: background-color 0.5s;
+
+}
