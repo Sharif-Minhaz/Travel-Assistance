@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./AddProperty.css";
 import Form from "react-bootstrap/Form";
 import { AuthContext } from "../../contexts/AuthProvider";
