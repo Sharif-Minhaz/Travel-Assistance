@@ -46,8 +46,6 @@ exports.addRestaurantController = asyncHandler(async (req, res) => {
 exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 	const query = req.query;
 
-	console.log(query);
-
 	if (Object.keys(query).length) {
 		let price = query.price;
 		if (price === "Low to High") {

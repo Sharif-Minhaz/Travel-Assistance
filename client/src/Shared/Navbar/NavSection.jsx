@@ -1,16 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../images/logo.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
+import Dropdown from "react-bootstrap/Dropdown";
+import Profile from "../../component/Profile/Profile";
+import { MdOutlineSecurityUpdateGood, MdLogout } from "react-icons/md";
 
 const NavSection = () => {
-	const { user, logOut } = useContext(AuthContext);
+	const { user, logOut, loading } = useContext(AuthContext);
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	const handleLogOut = () => {
 		logOut()
 			.then(() => {})
-			.catch((err) => console.log(err));
+			.catch((err) => console.error(err));
 	};
 	return (
 		<div className="container">
@@ -60,13 +67,49 @@ const NavSection = () => {
 										Dashboard
 									</Link>
 								</span>
-								<span className="navbar-text">
-									<Link>
-										<button onClick={handleLogOut} className="nav-button">
-											Logout
-										</button>
-									</Link>
-								</span>
+								<Dropdown>
+									<Dropdown.Toggle variant="light" id="dropdown-basic">
+										<img
+											className="rounded-circle"
+											style={{ height: "30px", width: "30px" }}
+											src={user.photoURL}
+											alt=""
+										/>
+									</Dropdown.Toggle>
+
+									<Dropdown.Menu>
+										<div className="d-flex gap-2 flex-column px-3">
+											{loading ? (
+												"Loading..."
+											) : (
+												<>
+													<span>{user?.displayName}</span>
+													<span>{user?.email}</span>
+												</>
+											)}
+										</div>
+										<hr />
+										<Dropdown.Item onClick={handleShow}>
+											<div className="d-flex align-items-center gap-1">
+												<MdOutlineSecurityUpdateGood />
+												<span>Update profile</span>
+											</div>
+										</Dropdown.Item>
+										<Dropdown.Item onClick={handleLogOut}>
+											<div className="d-flex align-items-center gap-1">
+												<MdLogout />
+												<span>Logout</span>
+											</div>
+										</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+								{/* ------------ profile modal here --------- */}
+								<Profile
+									show={show}
+									displayName={user?.displayName}
+									email={user?.email}
+									handleClose={handleClose}
+								/>
 							</>
 						) : (
 							<>

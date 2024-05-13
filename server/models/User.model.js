@@ -2,7 +2,7 @@ const { model, Schema } = require("mongoose");
 
 const userSchema = new Schema(
 	{
-		name: {
+		displayName: {
 			type: String,
 			required: [true, "User name is required"],
 			trim: true,
@@ -13,7 +13,7 @@ const userSchema = new Schema(
 			trim: true,
 		},
 		role: { type: String, required: true, enum: ["seller", "buyer"] },
-		image: String,
+		photoURL: { type: String, default: "https://randomuser.me/api/portraits/lego/2.jpg" },
 	},
 	{ timestamps: true }
 );

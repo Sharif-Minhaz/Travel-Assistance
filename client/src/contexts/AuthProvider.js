@@ -8,13 +8,14 @@ import {
 	signOut,
 	updateProfile,
 } from "firebase/auth";
+import axios from "../lib/axios";
 import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState({});
 	const [loading, setLoading] = useState(true);
 
 	const createUser = (email, password) => {
@@ -34,6 +35,20 @@ const AuthProvider = ({ children }) => {
 	};
 
 	const updateUser = (userInfo) => {
+		setLoading(true);
+		axios
+			.patch(`/users/${user._id}`, userInfo)
+			.then((res) => {
+				setUser({
+					...user,
+					photoURL: res.data?.user?.photoURL,
+					displayName: res.data?.user?.displayName,
+				});
+			})
+			.catch((err) => console.error(err))
+			.finally(() => {
+				setLoading(false);
+			});
 		return updateProfile(auth.currentUser, userInfo);
 	};
 
@@ -44,8 +59,18 @@ const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-			setUser(currentUser);
-			setLoading(false);
+			if (currentUser) {
+				axios.get(`/users/current/${currentUser.email}`).then((res) => {
+					setUser({
+						...currentUser,
+						photoURL: res.data?.user?.photoURL,
+						_id: res.data?.user?._id,
+					});
+					setLoading(false);
+				});
+			} else {
+				setUser({});
+			}
 		});
 		return () => {
 			unsubscribe();

@@ -15,8 +15,8 @@ const HomeSortProperty = () => {
 		function fetchData() {
 			setLoading(true);
 			try {
-				axios.get(`/products/categoryWiseData?title=${state.data.title}`).then((res) => {
-					setAdd(res.data?.restaurants);
+				axios.get(`/products/categoryWiseData?title=${state?.data.title}`).then((res) => {
+					setAdd(res?.data?.restaurants);
 				});
 			} catch (error) {
 				console.error(error.message);
@@ -26,7 +26,7 @@ const HomeSortProperty = () => {
 		}
 
 		fetchData();
-	}, [state.data.title]);
+	}, [state?.data?.title]);
 
 	return (
 		<section>
@@ -37,7 +37,7 @@ const HomeSortProperty = () => {
 				</div>
 			</div>
 			<div className="container">
-				<h4 className=" mt-5 ">All property for {state.data.title}:-</h4>
+				<h4 className=" mt-5 ">All property for {state?.data.title}:-</h4>
 				<p className="ms-2 fs-4 text-danger"> {add.length} results</p>
 				<div className="card-content">
 					{loading && <Loading />}

@@ -86,7 +86,7 @@ const Login = () => {
 							<form onSubmit={handleSubmit(handleLogin)}>
 								<div className="m-3">
 									<label
-										for="exampleFormControlInput1"
+										htmlFor="exampleFormControlInput1"
 										className="form-label float-start"
 									>
 										Email address
@@ -99,7 +99,7 @@ const Login = () => {
 										placeholder="name@example.com"
 									/>
 									<label
-										for="inputPassword"
+										htmlFor="inputPassword"
 										className="form-label float-start mt-2"
 									>
 										Password

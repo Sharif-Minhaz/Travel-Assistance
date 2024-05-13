@@ -21,9 +21,7 @@ const Signup = () => {
 
 	const handleSignUp = (data) => {
 		createUser(data.email, data.password, data.userType)
-			.then((result) => {
-				const user = result.user;
-				console.log(user);
+			.then(() => {
 				const userInfo = {
 					displayName: data.name,
 				};
@@ -32,11 +30,11 @@ const Signup = () => {
 						navigate("/");
 						saveUser(data.name, data.email, data.userType);
 					})
-					.catch((err) => console.log(err));
+					.catch((err) => console.error(err));
 			})
 
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 				setSignUPError(error.message);
 			});
 	};
