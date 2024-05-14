@@ -5,7 +5,7 @@
 }
 
 .filter-label {
-    color: #7065f0;
+    color: #1DC5CE;
 }
 
 .hero-title {
@@ -41,7 +41,7 @@
 }
 
 .search-property-form div button {
-    background-color: #7065f0;
+    background-color: #1DC5CE;
     padding: 5px 10px;
     color: #ffffff;
     border-radius: 5px;
@@ -65,13 +65,13 @@
     text-align: center;
     justify-content: center;
     color: white;
-    background-color: #7065f0;
+    background-color: #1DC5CE;
     padding: 5px 40px;
 }
 
 .all-property-btn:hover {
     background-color: white;
     /* Green */
-    color: #7065f0;
-    border: 1px solid #7065f0
+    color: #1DC5CE;
+    border: 1px solid #1DC5CE
 }

@@ -41,7 +41,7 @@ const TopListingProperty = () => {
 	return (
 		<div className="container mt-5">
 			<div className="text-center category-title my-5">
-				<p>Top Listing Property</p>
+				<p>Top Tourist Places</p>
 			</div>
 			<Swiper
 				slidesPerView={4}
@@ -132,7 +132,7 @@ const TopListingProperty = () => {
 			</Swiper>
 			<div className="text-center mt-5 mb-5">
 				<Link to="/allProperty" className="details">
-					View All Property
+					View All Places
 				</Link>
 			</div>
 		</div>

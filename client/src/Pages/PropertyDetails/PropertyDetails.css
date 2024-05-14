@@ -27,7 +27,7 @@
 }
 
 .font-awesome-icon {
-  color: #7065f0;
+  color: #1DC5CE;
 }
 
 .features {
@@ -40,7 +40,7 @@
 }
 
 .features p {
-  color: #7065f0;
+  color: #1DC5CE;
 }
 
 .description-list,
@@ -69,14 +69,14 @@
   text-decoration: none;
   padding: 10px 50px;
   border-radius: 5px;
-  background-color: #7065f0;
+  background-color: #1DC5CE;
   color: white;
 }
 
 .contact-btn a:hover {
   background-color: white;
-  color: #7065f0;
-  border: 1px solid #7065f0;
+  color: #1DC5CE;
+  border: 1px solid #1DC5CE;
   transition: background-color 0.5s;
 
 }

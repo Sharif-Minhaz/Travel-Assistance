@@ -1,3 +1,5 @@
+import "./Profile.css";
+
 import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -8,6 +10,7 @@ const DEFAULT_IMAGE = "https://randomuser.me/api/portraits/lego/2.jpg";
 
 function Profile({ show, handleClose, email, displayName, phoneNumber }) {
 	const { user, updateUser } = useContext(AuthContext);
+	const [preview, setPreview] = useState(null);
 
 	// State to manage input values
 	const [profileInfo, setProfileInfo] = useState({
@@ -20,6 +23,14 @@ function Profile({ show, handleClose, email, displayName, phoneNumber }) {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		if (name === "image") {
+			const file = e.target.files[0];
+			// Generate a preview URL for the selected file
+			if (file) {
+				const previewURL = URL.createObjectURL(file);
+				setPreview(previewURL);
+			} else {
+				setPreview(null);
+			}
 			return setProfileInfo((prevInfo) => ({ ...prevInfo, image: e.target?.files[0] }));
 		}
 		setProfileInfo((prevInfo) => ({
@@ -89,13 +100,28 @@ function Profile({ show, handleClose, email, displayName, phoneNumber }) {
 							/>
 						</Form.Group>
 					</Form>
+					{preview ? (
+						<div>
+							<img src={preview} className="selected-img" alt="selected" />
+						</div>
+					) : (
+						profileInfo.photoURL && (
+							<div>
+								<img
+									src={profileInfo.photoURL}
+									className="selected-img"
+									alt="selected"
+								/>
+							</div>
+						)
+					)}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
 					<Button variant="primary" onClick={updateProfileInfo}>
-						Save Changes
+						Update Profile
 					</Button>
 				</Modal.Footer>
 			</Modal>

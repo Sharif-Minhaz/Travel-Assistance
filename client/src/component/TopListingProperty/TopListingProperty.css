@@ -1,7 +1,7 @@
 .card {
   border-radius: 8px;
   background-color: #FFF;
-  border: 2px solid #7065f0;
+  border: 2px solid #1DC5CE;
   margin-bottom: 50px;
 }
 
@@ -25,14 +25,14 @@
 
 .availability {
   text-align: center;
-  color: #7065f0;
+  color: #1DC5CE;
 }
 
 .view-btn {
   border-radius: 3px;
   text-align: center;
   justify-content: center;
-  background-color: #7065f0;
+  background-color: #1DC5CE;
   color: white;
   padding: 3px 40px;
 }
@@ -40,8 +40,8 @@
 .view-btn:hover {
   background-color: white;
   /* Green */
-  color: #7065f0;
-  border: 1px solid #7065f0;
+  color: #1DC5CE;
+  border: 1px solid #1DC5CE;
   transition: background-color 0.5s;
 }
 

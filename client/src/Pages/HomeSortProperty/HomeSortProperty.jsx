@@ -93,7 +93,7 @@ const HomeSortProperty = () => {
 				</div>
 				<div className="text-center my-4">
 					<Link to="/allProperty" className="details">
-						View All Property
+						View All Places
 					</Link>
 				</div>
 			</div>

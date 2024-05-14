@@ -6,8 +6,12 @@ import Posts from "../../component/Posts/Posts";
 import Pagination from "../../component/Pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import { convertDate } from "../../lib/date";
+import useTitle from "../../hooks/useTitle";
 
 const AllProperty = () => {
+	useTitle("All places");
+	const [data, setData] = useState({ city: "", area: "", category: "" });
+
 	const [posts, setPosts] = useState([]);
 
 	const [loading, setLoading] = useState(false);
@@ -67,20 +71,26 @@ const AllProperty = () => {
 
 	const handleSearch = (event) => {
 		event.preventDefault();
-		const city = event.target.city.value;
-		const area = event.target.area.value;
-		const rent = event.target.rent.value;
 
 		axios
-			.get(`/products/sortProducts?city=${city}&area=${area}&rent=${rent}`)
+			.get(
+				`/products/sortProducts?city=${data.city}&area=${data.area}&category=${data.category}`
+			)
 			.then((res) => setPosts(res.data?.places));
+	};
+
+	const handleChange = (e) => {
+		setData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value,
+		}));
 	};
 
 	useEffect(() => {
 		if (homeSearch?.city) {
 			axios
 				.get(
-					`/products/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&rent=${homeSearch?.rent}`
+					`/products/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&category=${homeSearch?.category}`
 				)
 				.then((res) => setPosts(res.data?.places));
 		} else {
@@ -93,12 +103,12 @@ const AllProperty = () => {
 
 			fetchPosts();
 		}
-	}, [homeSearch?.city, homeSearch?.area, homeSearch?.rent]);
+	}, [homeSearch?.city, homeSearch?.area, homeSearch?.category]);
 
 	return (
 		<div>
 			<div className="banner-section">
-				<PropertyBanner handleSearch={handleSearch} />
+				<PropertyBanner handleChange={handleChange} handleSearch={handleSearch} />
 			</div>
 			<div className="container">
 				<h3 className="mt-5 fw-bolder">Search results:-</h3>

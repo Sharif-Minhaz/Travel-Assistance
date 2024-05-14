@@ -27,14 +27,20 @@ const Dashboard = () => {
 				<div className="col-md-3 col-lg-3 col-sm-12 mb-4">
 					{isAdmin && (
 						<>
-							<div className="">
-								<Link className="dashboard-btn " to="/dashboard/allRenters">
-									All Renters
+							<div className="w-100 text-center">
+								<Link
+									className="dashboard-btn w-100 d-inline-block"
+									to="/dashboard/allRenters"
+								>
+									All Users
 								</Link>
 							</div>
-							<div className="mt-3">
-								<Link className="dashboard-btn " to="/dashboard/allOwners">
-									All Owners
+							<div className="mt-3 w-100 text-center">
+								<Link
+									className="dashboard-btn w-100 d-inline-block"
+									to="/dashboard/allOwners"
+								>
+									All Admins
 								</Link>
 							</div>
 						</>

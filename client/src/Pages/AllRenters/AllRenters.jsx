@@ -15,7 +15,7 @@ const AllRenters = () => {
 		queryKey: ["products"],
 		queryFn: async () => {
 			try {
-				const res = await axios.get("/dashboard/allbuyers?role=buyer");
+				const res = await axios.get("/dashboard/allbuyers");
 				return res.data?.users;
 			} catch (error) {}
 		},
@@ -49,10 +49,10 @@ const AllRenters = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{allUsers.map((user, i) => (
+					{allUsers?.map((user, i) => (
 						<tr key={user._id}>
 							<th>{i + 1}</th>
-							<td>{user.name}</td>
+							<td>{user.displayName}</td>
 							<td>{user.email}</td>
 							<td>
 								<button

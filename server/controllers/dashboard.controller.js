@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/User.model");
 
 exports.getAllSellersController = asyncHandler(async (req, res) => {
-	const role = req.query.role || "seller";
+	const role = req.query.role || "user";
 
 	const users = await User.find({ role }).lean();
 
@@ -14,7 +14,7 @@ exports.getAllSellersController = asyncHandler(async (req, res) => {
 });
 
 exports.getAllBuyersController = asyncHandler(async (req, res) => {
-	const role = req.query.role || "buyer";
+	const role = req.query.role || "admin";
 
 	const users = await User.find({ role }).lean();
 

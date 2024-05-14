@@ -1,5 +1,4 @@
 import "./Footer.css";
-import logo from "../../images/logo.svg";
 import { FaFacebookSquare, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ const Footer = () => {
 				<div className="container">
 					<div className="row w-100 d-flex pt-5">
 						<Link to="/" className="col-lg-3 col-md-3 col-sm-12 text-start">
-							<img src={logo} alt="logo" />
+							<img src="/logo.svg" alt="logo" />
 						</Link>
 						<div className="col-lg-3 col-md-3 col-sm-12 text-start">
 							<h3 className="mb-3">Rent a Home</h3>
@@ -37,7 +36,7 @@ const Footer = () => {
 			<div className="container mt-2">
 				<div className="row py-2">
 					<div className="col-6 text-start">
-						<p>©{new Date().getFullYear()} DinePal. All rights reserved</p>{" "}
+						<p>©{new Date().getFullYear()} Treker. All rights reserved</p>{" "}
 					</div>
 					<div className="col-6 d-flex justify-content-end">
 						<span className="media-icon">

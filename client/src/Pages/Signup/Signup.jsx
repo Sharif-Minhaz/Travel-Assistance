@@ -31,7 +31,6 @@ const Signup = () => {
 	};
 
 	const handleSignUp = (data) => {
-		console.log(data);
 		createUser(data.email, data.password)
 			.then(() => {
 				saveUser(data.displayName, data.email, data.phoneNumber);
@@ -52,7 +51,7 @@ const Signup = () => {
 					<div className="col-md-5 col-lg-5 col-sm-12 p-2 ">
 						<div className="p-3 login-Form text-center mt-md-0 mt-lg-0 mt-sm-5">
 							<div className="login-heading">
-								<h4 className="fw-bold me-5 text-start">Welcome to DinePal</h4>
+								<h4 className="fw-bold me-5 text-start">Welcome to Treker</h4>
 								<p>
 									Have an account? <Link to="/logIn">Login</Link>
 								</p>

@@ -126,7 +126,7 @@ const Login = () => {
 									</label>
 								</div>
 								{loginError && <p>{loginError.toString()}</p>}
-								<input className="login-btn mb-5" value="login" type="submit" />
+								<input className="login-btn mb-5" value="LOGIN" type="submit" />
 							</form>
 						</div>
 					</div>

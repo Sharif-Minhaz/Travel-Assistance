@@ -32,7 +32,7 @@
 }
 
 .login-Form div h3 {
-  color: #7065F0;
+  color: #1DC5CE;
 }
 
 .login-Form {
@@ -42,7 +42,7 @@
 }
 
 .login-btn {
-  background: #7065F0;
+  background: #1DC5CE;
   color: white;
   padding: 5px 30px;
   border-radius: 8px;
@@ -50,8 +50,8 @@
 
 .login-btn:hover {
   background: white;
-  color: #7065F0;
-  border: 1px solid #7065F0;
+  color: #1DC5CE;
+  border: 1px solid #1DC5CE;
   transition: background-color 0.5s;
 }
 

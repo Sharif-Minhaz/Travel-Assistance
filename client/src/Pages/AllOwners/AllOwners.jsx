@@ -12,14 +12,12 @@ const AllOwners = () => {
 		isLoading,
 		refetch,
 	} = useQuery({
-		queryKey: ["products"],
+		queryKey: ["users"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(
-					"http://localhost:5000/api/v1/dashboard/allsellers?role=seller"
-				);
+				const res = await fetch("http://localhost:5000/api/v1/dashboard/allsellers");
 				const data = await res.json();
-				return data;
+				return data.users;
 			} catch (error) {}
 		},
 	});
@@ -52,10 +50,10 @@ const AllOwners = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{allUsers.map((user, i) => (
+					{allUsers?.map((user, i) => (
 						<tr key={user._id}>
 							<th>{i + 1}</th>
-							<td>{user.name}</td>
+							<td>{user.displayName}</td>
 							<td>{user.email}</td>
 							<td>
 								<button

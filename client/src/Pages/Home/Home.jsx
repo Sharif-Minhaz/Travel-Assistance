@@ -5,17 +5,14 @@ import Hero from "../../component/Hero/Hero";
 import Category from "../../component/Category/Category";
 import axios from "../../lib/axios";
 import TopListingProperty from "../../component/TopListingProperty/TopListingProperty";
+import useTitle from "../../hooks/useTitle";
+import { categories } from "../../constants";
 
 const Home = () => {
-	const [category, setCategory] = useState([]);
+	useTitle("Home");
+
 	const [add, setAdd] = useState([]);
 	const [totalAdd, setTotalAdd] = useState(0);
-
-	useEffect(() => {
-		fetch("category.json")
-			.then((res) => res.json())
-			.then((data) => setCategory(data));
-	}, []);
 
 	useEffect(() => {
 		axios.get(`/products/allProducts`).then((res) => {
@@ -32,16 +29,13 @@ const Home = () => {
 					<div className="category-title mt-sm-5 mt-lg-0 mt-md-0">
 						<p>Top Categories</p>
 						<span>
-							{category?.length || 0} categories {add?.length || 0} ads
+							{categories?.length || 0} categories, {add?.length || 0} venues
 						</span>
 					</div>
 					<div className="category">
-						{category?.map((categ) => (
+						{categories?.map((categ) => (
 							<Category
-								// icon={categ.category_icon}s
-								key={categ.id}
-								// title={categ.title}
-								// adds={categ.adds}
+								key={categ.name}
 								categ={categ}
 								setTotalAdd={setTotalAdd}
 								totalAdd={totalAdd}

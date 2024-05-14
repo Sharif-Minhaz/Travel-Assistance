@@ -91,7 +91,7 @@ const PropertyDetails = () => {
 					</div>
 					<div className="col-lg-4 col-md-4 col-12 m-3 m-lg-0 m-md-0  contact-section ">
 						<h4>Manage By:- </h4>
-						<h5>DinePal</h5>
+						<h5>Treker</h5>
 						<img src="./assets/img/logo.svg" alt="" />
 						<p className="mt-3">Contact With property owner for more information</p>
 						<div className="mt-2 fs-5">

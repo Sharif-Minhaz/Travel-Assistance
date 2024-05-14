@@ -7,16 +7,20 @@
 }
 
 .category-title p {
-	font-weight: 700;
+	font-weight: 500;
 	font-size: 40px;
 	line-height: 110%;
-
-	color: #000929;
+	text-transform: uppercase;
+	color: #10221B;
 
 }
 
 .caro-image {
 	background-color: #ffffff;
+}
+
+.category-img {
+	height: 60px;
 }
 
 @media screen and (min-width: 600px) {
@@ -60,10 +64,10 @@
 }
 
 .category-item p {
-	font-weight: 600;
-	font-size: 24px;
-	line-height: 110%;
-	margin-top: 10px;
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 30px;
+	margin-top: 13px;
 	letter-spacing: -0.01em;
 	text-decoration: none;
 	color: rgba(0, 9, 41, 0.86);

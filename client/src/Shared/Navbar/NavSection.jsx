@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
-import logo from "../../images/logo.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Dropdown from "react-bootstrap/Dropdown";
 import Profile from "../../component/Profile/Profile";
@@ -9,8 +8,6 @@ import { MdOutlineSecurityUpdateGood, MdLogout, MdPhone } from "react-icons/md";
 
 const NavSection = () => {
 	const { user, logOut, loading } = useContext(AuthContext);
-
-	console.log(user.displayName);
 
 	const [show, setShow] = useState(false);
 
@@ -25,10 +22,10 @@ const NavSection = () => {
 
 	return (
 		<div className="container">
-			<nav className="navbar navbar-expand-lg navbar-light">
+			<nav className="navbar z-3 navbar-expand-lg navbar-light">
 				<div className="container-fluid">
 					<Link to="/" className="navbar-brand">
-						<img src={logo} className="app-logo" alt="logo" />
+						<img src="/logo.svg" className="app-logo" alt="logo" />
 					</Link>
 					<button
 						className="navbar-toggler"
@@ -44,26 +41,25 @@ const NavSection = () => {
 					<div className="collapse navbar-collapse" id="navbarText">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item">
-								<Link
-									to="/"
-									className="nav-link active nav-style"
-									aria-current="page"
-								>
-									Home
-								</Link>
+								<NavLink to="/" className="nav-link nav-style" aria-current="page">
+									HOME
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<Link to="/allProperty" className="nav-link nav-style">
-									All Places
-								</Link>
+								<NavLink to="/allProperty" className="nav-link nav-style">
+									ALL PLACES
+								</NavLink>
 							</li>
 							{user?.uid && (
 								<>
 									{user?.role === "admin" && (
 										<li className="nav-item">
-											<Link to="/addProperty" className="nav-link nav-style">
-												Add Property
-											</Link>
+											<NavLink
+												to="/addProperty"
+												className="nav-link nav-style"
+											>
+												ADD PLACE
+											</NavLink>
 										</li>
 									)}
 								</>
@@ -74,9 +70,9 @@ const NavSection = () => {
 							<>
 								{user?.role === "admin" && (
 									<span className="navbar-text">
-										<Link to="/dashboard" className="nav-link nav-style">
-											Dashboard
-										</Link>
+										<NavLink to="/dashboard" className="nav-link nav-style">
+											DASHBOARD
+										</NavLink>
 									</span>
 								)}
 								<Dropdown>
@@ -108,7 +104,7 @@ const NavSection = () => {
 										<Dropdown.Item onClick={handleShow}>
 											<div className="d-flex align-items-center gap-1">
 												<MdOutlineSecurityUpdateGood />
-												<span>Update profile</span>
+												<span>UPDATE PROFILE</span>
 											</div>
 										</Dropdown.Item>
 										<Dropdown.Item onClick={handleLogOut}>
@@ -139,7 +135,7 @@ const NavSection = () => {
 									<Link to="/signUp">
 										<button
 											className="nav-button"
-											style={{ backgroundColor: "#7065f0", color: "White" }}
+											style={{ backgroundColor: "#1DC5CE", color: "White" }}
 										>
 											SignUp
 										</button>

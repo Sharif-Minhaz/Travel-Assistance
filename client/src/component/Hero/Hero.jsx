@@ -1,23 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import "./Hero.css";
+import { categories, cities } from "../../constants";
+import { useState } from "react";
 
 const Hero = () => {
 	const navigate = useNavigate();
+	const [data, setData] = useState({ city: "", area: "", category: "" });
+
 	const handleSearch = (event) => {
 		event.preventDefault();
-		const city = event.target.city.value;
-		const area = event.target.area.value;
-		const rent = event.target.rent.value;
 		navigate("/AllProperty", {
-			state: { data: { city: city, area: area, rent: rent } },
+			state: { data: { city: data.city, area: data.area, category: data.category } },
 		});
+	};
+
+	const handleChange = (e) => {
+		setData((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value,
+		}));
 	};
 
 	return (
 		<div className="container d-flex justify-content-center">
 			<div className="hero-title">
-				<p>Find Your Perfect Place</p>
+				<p className="">Find Your Perfect Place</p>
 				<span>Discover and Reserve Your Favorite Tourist Spots</span>
 			</div>
 			<div className="hero-property">
@@ -33,16 +41,14 @@ const Hero = () => {
 									aria-label="Default select example"
 									name="city"
 									required
+									onChange={handleChange}
 								>
 									<option value="">Choose City</option>
-									<option value="Dhaka">Dhaka</option>
-									<option value="Chittagong">Chittagong</option>
-									<option value="Rajshahi">Rajshahi</option>
-									<option value="Rangpur">Rangpur</option>
-									<option value="Barisal">Barisal</option>
-									<option value="Khulna">Khulna</option>
-									<option value="Sylhet">Sylhet</option>
-									<option value="Mymensingh">Mymensingh</option>
+									{Object.keys(cities).map((city, index) => (
+										<option key={index} value={city}>
+											{city}
+										</option>
+									))}
 								</Form.Select>
 							</Form.Group>
 
@@ -52,16 +58,18 @@ const Hero = () => {
 									aria-label="Default select example"
 									name="area"
 									required
+									onChange={handleChange}
 								>
 									<option value="">Choose Area</option>
-									<option value="Dhanmondi">Dhanmondi</option>
-									<option value="Mohammadpur">Mohammadpur</option>
-									<option value="Mirpur">Mirpur</option>
-									<option value="Uttara">Uttara</option>
-									<option value="Bashundhara">Bashundhara</option>
-									<option value="Badda">Badda</option>
-									<option value="Khilkhet">Khilkhet</option>
-									<option value="Farmgate">Farmgate</option>
+									{!cities[data.city] ? (
+										<option value="">Select a city first</option>
+									) : (
+										cities[data.city]?.areas.map((area) => (
+											<option key={area} value={area}>
+												{area}
+											</option>
+										))
+									)}
 								</Form.Select>
 							</Form.Group>
 
@@ -71,27 +79,21 @@ const Hero = () => {
 								</Form.Label>
 								<Form.Select
 									aria-label="Default select example"
-									name="rent"
+									name="category"
 									required
+									onChange={handleChange}
 								>
 									<option value="">Choose</option>
-									<option value="Commercial Space">Commercial Space</option>
-									<option value="Office Space">Office Space</option>
-									<option value="Apartment Building">Apartment Building</option>
-									<option value="Flat Rent">Flat Rent</option>
-									<option value="Hostel Rent">Hostel Rent</option>
-									<option value="Only For Boys">Only For Boys</option>
-									<option value="Only For Girls">Only For Girls</option>
-									<option value="For Family">For Family</option>
-									<option value="Community Center">Community Center</option>
-									<option value="Shop & Restaurant Space">
-										Shop & Restaurant Space
-									</option>
+									{categories.map((data, index) => (
+										<option key={index} value={data.name}>
+											{data.name}
+										</option>
+									))}
 								</Form.Select>
 							</Form.Group>
 							<div className="col-md-2 col-12 col-lg-2 search-category mt-3 mt-md-0 mt-lg-0">
 								<button type="submit" className="browse-property">
-									Browse Properties
+									Browse Available Places
 								</button>
 							</div>
 						</Form>

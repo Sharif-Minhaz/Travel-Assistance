@@ -5,7 +5,7 @@ import axios from "../../lib/axios";
 import Loading from "../../Shared/Loading/Loading";
 
 const Category = ({ categ, setTotalAdd, totalAdd }) => {
-	const { title, icon } = categ;
+	const { name, image } = categ;
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [add, setAdd] = useState();
@@ -13,14 +13,14 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 	const navigate = useNavigate();
 
 	const handleCategory = () => {
-		return navigate("/homeSortProperty", { state: { data: { title } } });
+		return navigate("/homeSortProperty", { state: { data: { name } } });
 	};
 
 	useEffect(() => {
 		function fetchData() {
 			try {
 				setLoading(true);
-				axios.get(`/products/categoryWiseData?title=${title}`).then((res) => {
+				axios.get(`/products/categoryWiseData?title=${name}`).then((res) => {
 					setAdd(res.data?.places?.length);
 					setTotalAdd(totalAdd + res.data?.places?.length);
 				});
@@ -33,7 +33,7 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 
 		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [title]);
+	}, [name]);
 
 	if (loading) return <Loading />;
 
@@ -42,9 +42,9 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 	return (
 		<div className="category-item" onClick={handleCategory}>
 			<button className="bg-white">
-				<img src={icon} alt="" />
-				<p>{title}</p>
-				<span>{add} adds</span>
+				<img className="category-img" src={image} alt="" />
+				<p>{name}</p>
+				<span>{add} venues</span>
 			</button>
 		</div>
 	);
