@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 const PropertyAddress = () => {
 	const data = useLoaderData();
-	const { address, area, city } = data.restaurant;
+	const { address, area, city } = data.place;
 
 	return (
 		<div>

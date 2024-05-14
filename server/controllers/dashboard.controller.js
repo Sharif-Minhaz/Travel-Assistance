@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-// const Restaurant = require("../models/Restaurant.model");
+// const Place = require("../models/Place.model");
 const User = require("../models/User.model");
 
 exports.getAllSellersController = asyncHandler(async (req, res) => {

@@ -8,7 +8,7 @@ const {
 	addRestaurantController,
 	deleteRestaurantController,
 	getRestaurantDetailsController,
-} = require("../controllers/restaurants.controller");
+} = require("../controllers/places.controller");
 
 router.get("/", getRestaurantByEmail);
 router.get("/details/:id", getRestaurantDetailsController);

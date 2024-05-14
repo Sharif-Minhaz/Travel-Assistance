@@ -16,7 +16,7 @@ const HomeSortProperty = () => {
 			setLoading(true);
 			try {
 				axios.get(`/products/categoryWiseData?title=${state?.data.title}`).then((res) => {
-					setAdd(res?.data?.restaurants);
+					setAdd(res?.data?.places);
 				});
 			} catch (error) {
 				console.error(error.message);
@@ -32,19 +32,23 @@ const HomeSortProperty = () => {
 		<section>
 			<div className="sort-property-bg">
 				<div className="sort-banner-title py-5">
-					<p>Find Your Perfect Table</p>
-					<span>Discover and Reserve Your Favorite Dining Spots</span>
+					<p>Find Your Perfect Place</p>
+					<span>Discover and Reserve Your Favorite Tourist Spots</span>
 				</div>
 			</div>
 			<div className="container">
 				<h4 className=" mt-5 ">All property for {state?.data.title}:-</h4>
-				<p className="ms-2 fs-4 text-danger"> {add.length} results</p>
+				<p className="ms-2 fs-4 text-danger"> {add?.length || 0} results</p>
 				<div className="card-content">
 					{loading && <Loading />}
 					{add?.map((post) => (
 						<div key={post._id} className="card">
 							<div className="card-image text-center">
-								<img src={post.image} className="card-img-top" alt="..." />
+								<img
+									src={post.image}
+									className="card-img-top w-100 object-fit-cover"
+									alt="..."
+								/>
 							</div>
 							<div className="card-info">
 								<p className="fw-bold">{post.title}</p>
@@ -78,7 +82,7 @@ const HomeSortProperty = () => {
 										<span className="property-des-style">{post.rent}</span> TK
 									</span>
 								</div>
-								<div className="text-center mt-2">
+								<div className="text-center mt-4 mb-2">
 									<Link to={`/details/${post._id}`} className="details">
 										View Details
 									</Link>
@@ -87,7 +91,7 @@ const HomeSortProperty = () => {
 						</div>
 					))}
 				</div>
-				<div className="text-center my-3">
+				<div className="text-center my-4">
 					<Link to="/allProperty" className="details">
 						View All Property
 					</Link>

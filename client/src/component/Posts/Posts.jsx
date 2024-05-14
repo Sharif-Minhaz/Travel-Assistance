@@ -10,11 +10,11 @@ const Posts = ({ posts, loading }) => {
 	}
 
 	return (
-		<div className="card-content">
-			{posts.map((post) => (
-				<div className="card" key={post._id}>
-					<div className="card-image text-center">
-						<img src={post.image} className="card-img-top" alt="..." />
+		<div className="card-content mt-4">
+			{posts?.map((post) => (
+				<div style={{ minHeight: "465px" }} className="card" key={post._id}>
+					<div className="card-image">
+						<img src={post.image} className="card-img-top text-center" alt="..." />
 					</div>
 					<div className="card-info">
 						<p className="fw-bold">{post.title}</p>
@@ -24,7 +24,7 @@ const Posts = ({ posts, loading }) => {
 							{post.area}, {post.city}
 						</span>
 						<p> Property Type: {post.category}</p>
-						<div className="d-flex justify-content-start gap-4">
+						<div className="d-flex justify-content-start gap-4 my-3">
 							<span>
 								<FaBed className="property-des-style" /> {post.room}
 							</span>
@@ -46,7 +46,7 @@ const Posts = ({ posts, loading }) => {
 								Rent: <span className="property-des-style">{post.rent}</span> TK
 							</span>
 						</div>
-						<div className="text-center mt-2">
+						<div className="text-center mt-4 mb-2">
 							<Link to={`/details/${post._id}`} className="details">
 								View Details
 							</Link>

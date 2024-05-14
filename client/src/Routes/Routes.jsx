@@ -1,13 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-// import DashboardLayout from "../Layout/DashboardLayout";
+
 import Main from "../Layout/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import AddProperty from "../Pages/AddProperty/AddProperty";
 import AllOwners from "../Pages/AllOwners/AllOwners";
-// import AllOwners from "../Pages/AllOwners/AllOwners";
 import AllProperty from "../Pages/AllProperty/AllProperty";
 import AllRenters from "../Pages/AllRenters/AllRenters";
-// import AllRenters from "../Pages/AllRenters/AllRenters";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import HomeSortProperty from "../Pages/HomeSortProperty/HomeSortProperty";
@@ -16,7 +14,9 @@ import MyProperty from "../Pages/MyProperty/MyProperty";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
-// import AdminRoute from "./AdminRoute/AdminRoute";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import LoggedInRoute from "./LoggedInRoute/LoggedInRoute";
+import NotFound from "../Pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
 	{
@@ -34,9 +34,9 @@ const router = createBrowserRouter([
 			{
 				path: "/addProperty",
 				element: (
-					<PrivateRoute>
+					<AdminRoute>
 						<AddProperty />
-					</PrivateRoute>
+					</AdminRoute>
 				),
 			},
 			{
@@ -45,11 +45,19 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/logIn",
-				element: <Login />,
+				element: (
+					<LoggedInRoute>
+						<Login />
+					</LoggedInRoute>
+				),
 			},
 			{
 				path: "/signUp",
-				element: <Signup />,
+				element: (
+					<LoggedInRoute>
+						<Signup />
+					</LoggedInRoute>
+				),
 			},
 			{
 				path: "/homeSortProperty",
@@ -84,6 +92,10 @@ const router = createBrowserRouter([
 				element: <MyProperty />,
 			},
 		],
+	},
+	{
+		path: "*",
+		element: <NotFound />,
 	},
 ]);
 

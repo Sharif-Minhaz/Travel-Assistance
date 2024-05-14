@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Loading from "../../Shared/Loading/Loading";
 
-const AdminRoute = ({ children }) => {
+const LoggedInRoute = ({ children }) => {
 	const { user, loading } = useContext(AuthContext);
 	const location = useLocation();
 
@@ -11,11 +11,11 @@ const AdminRoute = ({ children }) => {
 		return <Loading />;
 	}
 
-	if (user && user?.role === "admin") {
-		return children;
+	if (user) {
+		return <Navigate to="/" state={{ from: location }} replace />;
 	}
 
-	return <Navigate to="/" state={{ from: location }} replace />;
+	return children;
 };
 
-export default AdminRoute;
+export default LoggedInRoute;

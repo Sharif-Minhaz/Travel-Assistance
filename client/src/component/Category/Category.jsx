@@ -21,8 +21,8 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 			try {
 				setLoading(true);
 				axios.get(`/products/categoryWiseData?title=${title}`).then((res) => {
-					setAdd(res.data?.restaurants?.length);
-					setTotalAdd(totalAdd + res.data?.restaurants?.length);
+					setAdd(res.data?.places?.length);
+					setTotalAdd(totalAdd + res.data?.places?.length);
 				});
 			} catch (error) {
 				setError(error);
@@ -40,8 +40,8 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 	if (error) return <p>Error occurred: {error.message}</p>;
 
 	return (
-		<div className="category-item">
-			<button className="bg-white" onClick={handleCategory}>
+		<div className="category-item" onClick={handleCategory}>
+			<button className="bg-white">
 				<img src={icon} alt="" />
 				<p>{title}</p>
 				<span>{add} adds</span>

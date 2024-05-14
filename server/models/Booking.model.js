@@ -7,9 +7,9 @@ const bookingSchema = new Schema(
 			ref: "User",
 			required: true,
 		},
-		restaurant: {
+		place: {
 			type: Schema.Types.ObjectId,
-			ref: "Restaurant",
+			ref: "Place",
 			required: true,
 		},
 		paid: { type: Number, required: true },

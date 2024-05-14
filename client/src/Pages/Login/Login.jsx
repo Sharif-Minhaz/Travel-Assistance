@@ -1,7 +1,6 @@
 import "./Login.css";
 import loginBanner from "../../images/login-banner.png";
 import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -11,11 +10,14 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
+	const [show, setShow] = useState(false);
+
 	const {
 		register,
 		formState: { errors },
 		handleSubmit,
 	} = useForm();
+
 	const { signIn, loginInWithGoogle } = useContext(AuthContext);
 	const [loginError, setLoginError] = useState("");
 	// const [loginUserEmail, setLoginUserEmail] = useState("");
@@ -32,8 +34,6 @@ const Login = () => {
 	const googleSignIn = () => {
 		loginInWithGoogle(googleProvider)
 			.then((result) => {
-				const user = result.user;
-				console.log(user);
 				navigate(from, { replace: true });
 			})
 			.catch((error) => {
@@ -45,8 +45,6 @@ const Login = () => {
 		setLoginError("");
 		signIn(data.email, data.password)
 			.then((result) => {
-				const user = result.user;
-				console.log(user);
 				navigate(from, { replace: true });
 				// setLoginUserEmail(data.email);
 			})
@@ -72,16 +70,13 @@ const Login = () => {
 								</p>
 							</div>
 							<div className="text-center">
-								<h3 className="fw-bolder">Login</h3>
+								<h3 className="fw-bolder">Login Now</h3>
 							</div>
-							<div className="d-flex justify-content-center">
-								<button onClick={googleSignIn}>
+							<div className="d-flex px-3 my-4 w-100 justify-content-center">
+								<button className="px-3 py-2 w-100 rounded" onClick={googleSignIn}>
 									<FcGoogle className="me-2 " />
 									Login with Google
 								</button>
-								<a className="text-decoration-none mx-2" href={{}}>
-									<FaFacebook />
-								</a>
 							</div>
 							<form onSubmit={handleSubmit(handleLogin)}>
 								<div className="m-3">
@@ -112,7 +107,7 @@ const Login = () => {
 												message: "Password must be 6 characters or longer",
 											},
 										})}
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control"
 										placeholder="Enter password"
 										id="inputPassword"
@@ -120,8 +115,15 @@ const Login = () => {
 									{errors.password && (
 										<p className="text-danger">{errors.password?.message}</p>
 									)}
-									<input type="checkbox" className=" m-3" />
-									Show Password
+									<input
+										onClick={() => setShow(!show)}
+										id="show"
+										type="checkbox"
+										className="my-3"
+									/>
+									<label className="ms-1 d-inline-block" htmlFor="show">
+										Show Password
+									</label>
 								</div>
 								{loginError && <p>{loginError.toString()}</p>}
 								<input className="login-btn mb-5" value="login" type="submit" />

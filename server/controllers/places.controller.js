@@ -1,45 +1,45 @@
 const asyncHandler = require("express-async-handler");
-const Restaurant = require("../models/Restaurant.model");
+const Place = require("../models/Place.model");
 
 exports.getRestaurantByEmail = asyncHandler(async (req, res) => {
 	const email = req.query.email;
 	const query = { email: email };
 
-	const restaurant = await Restaurant.find(query);
+	const place = await Place.find(query);
 
 	res.status(200).json({
-		message: "Restaurant information",
-		restaurant,
+		message: "Place information",
+		place,
 	});
 });
 
 exports.deleteRestaurantController = asyncHandler(async (req, res) => {
 	const id = req.params.id;
 
-	const result = await Restaurant.findByIdAndDelete(id);
+	const result = await Place.findByIdAndDelete(id);
 
-	res.status(200).json({ message: "Restaurant deleted", restaurant: result });
+	res.status(200).json({ message: "Place deleted", place: result });
 });
 
 exports.getRestaurantDetailsController = asyncHandler(async (req, res) => {
 	const id = req.params.id;
 
-	const restaurant = await Restaurant.findById(id);
+	const place = await Place.findById(id);
 
 	res.status(200).json({
-		message: "Restaurant information",
-		restaurant,
+		message: "Place information",
+		place,
 	});
 });
 
 exports.addRestaurantController = asyncHandler(async (req, res) => {
 	const data = req.body;
 
-	const result = await Restaurant.create(data);
+	const result = await Place.create(data);
 
 	res.status(200).json({
-		message: "Restaurant added",
-		restaurant: result,
+		message: "Place added",
+		place: result,
 	});
 });
 
@@ -62,7 +62,7 @@ exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 		const washAmountStr = query.washAmount.split(",");
 		const washAmount = washAmountStr.map((wash) => parseInt(wash));
 
-		const findRestaurants = await Restaurant.find({
+		const findRestaurants = await Place.find({
 			city: city,
 			month: month,
 			category: { $in: rentType },
@@ -73,15 +73,15 @@ exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 			.lean();
 
 		res.status(200).json({
-			message: "Restaurant found",
-			restaurants: findRestaurants,
+			message: "Place found",
+			places: findRestaurants,
 		});
 	} else {
-		const sortRestaurant = await Restaurant.find(query).sort({ createdAt: -1 });
+		const sortRestaurant = await Place.find(query).sort({ createdAt: -1 });
 
 		res.status(200).json({
-			message: "Restaurant found",
-			restaurants: sortRestaurant,
+			message: "Place found",
+			places: sortRestaurant,
 		});
 	}
 });
@@ -89,9 +89,9 @@ exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 exports.getAllRestaurants = asyncHandler(async (req, res) => {
 	const query = {};
 
-	const restaurants = await Restaurant.find(query).lean();
+	const places = await Place.find(query).lean();
 
-	res.status(200).json({ message: "Restaurant information", restaurants });
+	res.status(200).json({ message: "Place information", places });
 });
 
 exports.sortRestaurantController = asyncHandler(async (req, res) => {
@@ -99,21 +99,21 @@ exports.sortRestaurantController = asyncHandler(async (req, res) => {
 	const area = req.query.area;
 	const rent = req.query.rent;
 
-	const sortRestaurants = await Restaurant.find({
+	const sortRestaurants = await Place.find({
 		city: city,
 		area: area,
 		category: rent,
 	}).lean();
 
-	res.status(200).json({ message: "Sorted restaurant", restaurants: sortRestaurants });
+	res.status(200).json({ message: "Sorted place", places: sortRestaurants });
 });
 
 exports.categoryWiseDataController = asyncHandler(async (req, res) => {
 	const title = req.query.title;
-	const restaurants = await Restaurant.find({ category: title }).lean();
+	const places = await Place.find({ category: title }).lean();
 
 	res.status(200).json({
 		message: "Category wise data found",
-		restaurants,
+		places,
 	});
 });

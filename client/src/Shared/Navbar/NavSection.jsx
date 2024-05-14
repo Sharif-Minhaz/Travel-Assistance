@@ -5,10 +5,13 @@ import logo from "../../images/logo.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Dropdown from "react-bootstrap/Dropdown";
 import Profile from "../../component/Profile/Profile";
-import { MdOutlineSecurityUpdateGood, MdLogout } from "react-icons/md";
+import { MdOutlineSecurityUpdateGood, MdLogout, MdPhone } from "react-icons/md";
 
 const NavSection = () => {
 	const { user, logOut, loading } = useContext(AuthContext);
+
+	console.log(user.displayName);
+
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -19,6 +22,7 @@ const NavSection = () => {
 			.then(() => {})
 			.catch((err) => console.error(err));
 	};
+
 	return (
 		<div className="container">
 			<nav className="navbar navbar-expand-lg navbar-light">
@@ -50,23 +54,31 @@ const NavSection = () => {
 							</li>
 							<li className="nav-item">
 								<Link to="/allProperty" className="nav-link nav-style">
-									All Properties
+									All Places
 								</Link>
 							</li>
-							<li className="nav-item">
-								<Link to="/addProperty" className="nav-link nav-style">
-									Add Property
-								</Link>
-							</li>
+							{user?.uid && (
+								<>
+									{user?.role === "admin" && (
+										<li className="nav-item">
+											<Link to="/addProperty" className="nav-link nav-style">
+												Add Property
+											</Link>
+										</li>
+									)}
+								</>
+							)}
 						</ul>
 
 						{user?.uid ? (
 							<>
-								<span className="navbar-text">
-									<Link to="/dashboard" className="nav-link nav-style">
-										Dashboard
-									</Link>
-								</span>
+								{user?.role === "admin" && (
+									<span className="navbar-text">
+										<Link to="/dashboard" className="nav-link nav-style">
+											Dashboard
+										</Link>
+									</span>
+								)}
 								<Dropdown>
 									<Dropdown.Toggle variant="light" id="dropdown-basic">
 										<img
@@ -85,6 +97,10 @@ const NavSection = () => {
 												<>
 													<span>{user?.displayName}</span>
 													<span>{user?.email}</span>
+													<div className="d-flex align-items-center gap-1">
+														<MdPhone />
+														<span>{user?.phoneNumber}</span>
+													</div>
 												</>
 											)}
 										</div>
@@ -108,6 +124,7 @@ const NavSection = () => {
 									show={show}
 									displayName={user?.displayName}
 									email={user?.email}
+									phoneNumber={user?.phoneNumber}
 									handleClose={handleClose}
 								/>
 							</>

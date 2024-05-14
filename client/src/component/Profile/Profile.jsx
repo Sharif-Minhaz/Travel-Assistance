@@ -4,13 +4,15 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-function Profile({ show, handleClose, email, displayName }) {
+const DEFAULT_IMAGE = "https://randomuser.me/api/portraits/lego/2.jpg";
+
+function Profile({ show, handleClose, email, displayName, phoneNumber }) {
 	const { user, updateUser } = useContext(AuthContext);
 
 	// State to manage input values
 	const [profileInfo, setProfileInfo] = useState({
-		displayName: displayName,
-		photoURL: user?.photoURL || "https://randomuser.me/api/portraits/lego/2.jpg",
+		displayName,
+		photoURL: user?.photoURL || DEFAULT_IMAGE,
 		image: null,
 	});
 
@@ -38,8 +40,11 @@ function Profile({ show, handleClose, email, displayName }) {
 		})
 			.then((res) => res.json())
 			.then((imageData) => {
-				setProfileInfo((prevInfo) => ({ ...prevInfo, photoURL: imageData?.data.url }));
-				updateUser({ ...profileInfo, photoURL: imageData?.data.url });
+				setProfileInfo((prevInfo) => ({
+					...prevInfo,
+					photoURL: imageData?.data?.url || DEFAULT_IMAGE,
+				}));
+				updateUser({ ...profileInfo, photoURL: imageData?.data?.url || DEFAULT_IMAGE });
 			})
 			.catch((err) => console.error(err));
 
@@ -58,7 +63,7 @@ function Profile({ show, handleClose, email, displayName }) {
 							<Form.Label>Display name</Form.Label>
 							<Form.Control
 								name="displayName"
-								value={profileInfo.displayName}
+								value={profileInfo?.displayName}
 								type="text"
 								placeholder="John Doe"
 								autoFocus
@@ -68,13 +73,11 @@ function Profile({ show, handleClose, email, displayName }) {
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formEmail">
 							<Form.Label>Email address</Form.Label>
-							<Form.Control
-								name="email"
-								value={email}
-								type="email"
-								required
-								disabled
-							/>
+							<Form.Control value={email} type="email" required disabled />
+						</Form.Group>
+						<Form.Group className="mb-3" controlId="formEmail">
+							<Form.Label>Phone number</Form.Label>
+							<Form.Control value={phoneNumber} type="tel" required disabled />
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="formEmail">
 							<Form.Label>Profile picture</Form.Label>

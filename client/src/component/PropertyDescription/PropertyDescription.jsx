@@ -7,8 +7,7 @@ import { useLoaderData } from "react-router-dom";
 const PropertyDescription = () => {
 	const data = useLoaderData();
 
-	const { category, elevator, garage, gas, kitchen, bath, propertySize, rent, room } =
-		data.restaurant;
+	const { category, elevator, garage, gas, kitchen, bath, propertySize, rent, room } = data.place;
 
 	return (
 		<div>

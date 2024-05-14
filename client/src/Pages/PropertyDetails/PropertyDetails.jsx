@@ -9,7 +9,7 @@ import { useLoaderData } from "react-router-dom";
 const PropertyDetails = () => {
 	const data = useLoaderData();
 
-	const { area, city, email, image, phone, title } = data.restaurant;
+	const { area, city, email, image, phone, title } = data?.place;
 
 	return (
 		<div>

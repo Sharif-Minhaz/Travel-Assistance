@@ -14,37 +14,32 @@ const Signup = () => {
 		formState: { errors },
 	} = useForm();
 	const [signUpError, setSignUPError] = useState("");
-	const { createUser, updateUser } = useContext(AuthContext);
+	const { createUser, setSignupKey } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 	useTitle("SignUp");
 
-	const handleSignUp = (data) => {
-		createUser(data.email, data.password, data.userType)
-			.then(() => {
-				const userInfo = {
-					displayName: data.name,
-				};
-				updateUser(userInfo)
-					.then(() => {
-						navigate("/");
-						saveUser(data.name, data.email, data.userType);
-					})
-					.catch((err) => console.error(err));
+	const saveUser = (displayName, email, phoneNumber) => {
+		const userInfo = { displayName, email, phoneNumber };
+		axios
+			.post("/users", userInfo)
+			.then((res) => {
+				setSignupKey(Date.now()); // rerun the auth effect
+				return navigate("/");
 			})
+			.catch((err) => console.error(err));
+	};
 
+	const handleSignUp = (data) => {
+		console.log(data);
+		createUser(data.email, data.password)
+			.then(() => {
+				saveUser(data.displayName, data.email, data.phoneNumber);
+			})
 			.catch((error) => {
 				console.error(error);
 				setSignUPError(error.message);
 			});
-	};
-
-	const saveUser = (name, email, userType) => {
-		const user = { name, email, role: userType };
-
-		axios.post("/users", user).then((res) => {
-			console.log(res.data);
-		});
 	};
 
 	return (
@@ -57,7 +52,7 @@ const Signup = () => {
 					<div className="col-md-5 col-lg-5 col-sm-12 p-2 ">
 						<div className="p-3 login-Form text-center mt-md-0 mt-lg-0 mt-sm-5">
 							<div className="login-heading">
-								<h4 className="fw-bold me-5 text-start">Welcome to RentUs</h4>
+								<h4 className="fw-bold me-5 text-start">Welcome to DinePal</h4>
 								<p>
 									Have an account? <Link to="/logIn">Login</Link>
 								</p>
@@ -68,21 +63,22 @@ const Signup = () => {
 							<form onSubmit={handleSubmit(handleSignUp)}>
 								<div className="m-3">
 									<label
-										for="exampleFormControlInput1"
+										htmlFor="exampleFormControlInput1"
 										className="form-label float-start"
 									>
 										Name
 									</label>
 									<input
-										{...register("name", { required: true })}
+										{...register("displayName", { required: true })}
 										type="text"
 										className="form-control"
 										id="exampleFormControlInput1"
 										placeholder="Enter your name"
+										required
 									/>
 									<label
-										for="exampleFormControlInput2"
-										className="form-label float-start"
+										htmlFor="exampleFormControlInput2"
+										className="form-label float-start mt-2"
 									>
 										Email address
 									</label>
@@ -99,20 +95,21 @@ const Signup = () => {
 										<p className="text-danger">{errors.email?.message}</p>
 									)}
 									<label
-										for="exampleFormControlInput3"
-										className="form-label float-start"
+										htmlFor="exampleFormControlInput3"
+										className="form-label float-start mt-2"
 									>
 										Phone Number
 									</label>
 									<input
-										{...register("number", { required: true })}
-										type="number"
+										{...register("phoneNumber", { required: true })}
+										type="tel"
 										className="form-control"
 										id="exampleFormControlInput3"
 										placeholder="Phone"
+										required
 									/>
 									<label
-										for="inputPassword"
+										htmlFor="inputPassword"
 										className="form-label float-start mt-2"
 									>
 										Password
@@ -132,17 +129,6 @@ const Signup = () => {
 									/>
 									{errors.password && (
 										<p className="text-danger">{errors.password?.message}</p>
-									)}
-									{/* User :  */}
-
-									<label className="float-start"> User Type</label>
-									<select className="form-select" {...register("userType")}>
-										<option value="">Choose</option>
-										<option value="buyer">Renter</option>
-										<option value="seller">Property Owner</option>
-									</select>
-									{errors.userType && (
-										<p className="text-red-500">{errors.userType.message}</p>
 									)}
 								</div>
 								{signUpError && <p className="text-danger">{signUpError}</p>}

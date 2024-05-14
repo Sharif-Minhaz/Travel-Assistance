@@ -26,7 +26,7 @@ const MyProperty = () => {
 					}
 				);
 				const data = await res.json();
-				return data?.restaurants;
+				return data?.places;
 			} catch (error) {}
 		},
 	});

@@ -23,7 +23,7 @@ const TopListingProperty = () => {
 				setLoading(true);
 				axios
 					.get(`/products/productCollection`)
-					.then((res) => setProperty(res.data?.restaurants));
+					.then((res) => setProperty(res.data?.places));
 			} catch (error) {
 				setError(error);
 			} finally {
@@ -40,7 +40,7 @@ const TopListingProperty = () => {
 
 	return (
 		<div className="container mt-5">
-			<div className="text-center category-title">
+			<div className="text-center category-title my-5">
 				<p>Top Listing Property</p>
 			</div>
 			<Swiper
@@ -82,7 +82,11 @@ const TopListingProperty = () => {
 					<SwiperSlide key={pro._id}>
 						<div className="card">
 							<div className="card-image text-center">
-								<img src={pro.image} className="card-img-top" alt="..." />
+								<img
+									src={pro.image}
+									className="card-img-top img-fluid w-100 object-fit-cover"
+									alt="..."
+								/>
 							</div>
 							<div className="card-info">
 								<p className="fw-bold">{pro.title}</p>
@@ -116,7 +120,7 @@ const TopListingProperty = () => {
 										TK
 									</span>
 								</div>
-								<div className="text-center mt-2">
+								<div className="text-center mt-4 mb-3">
 									<Link to={`/details/${pro._id}`} className="details">
 										View Details
 									</Link>
@@ -126,7 +130,7 @@ const TopListingProperty = () => {
 					</SwiperSlide>
 				))}
 			</Swiper>
-			<div className="text-center mt-2 mb-4">
+			<div className="text-center mt-5 mb-5">
 				<Link to="/allProperty" className="details">
 					View All Property
 				</Link>

@@ -38,7 +38,7 @@ const AllProperty = () => {
 		// rent type
 		const rentType = event.target.rentType;
 		const rentCheck = Object.values(rentType).filter((rent) => rent.checked === true);
-		const rentCheckValue = rentCheck.map((check) => {
+		const rentCheckValue = rentCheck?.map((check) => {
 			return check.value;
 		});
 
@@ -47,14 +47,14 @@ const AllProperty = () => {
 		// bed
 		const bedAmount = event.target.bed;
 		const bedCheck = Object.values(bedAmount).filter((bed) => bed.checked === true);
-		const bedCheckValue = bedCheck.map((check) => {
+		const bedCheckValue = bedCheck?.map((check) => {
 			return check.value;
 		});
 
 		// wash
 		const washAmount = event.target.wash;
 		const washCheck = Object.values(washAmount).filter((wash) => wash.checked === true);
-		const washCheckValue = washCheck.map((check) => {
+		const washCheckValue = washCheck?.map((check) => {
 			return check.value;
 		});
 
@@ -62,7 +62,7 @@ const AllProperty = () => {
 			.get(
 				`/products/productCollection?price=${price}&city=${city}&rentType=${rentCheckValue}&bedAmount=${bedCheckValue}&washAmount=${washCheckValue}&month=${month}`
 			)
-			.then((res) => setPosts(res.data?.restaurants));
+			.then((res) => setPosts(res.data?.places));
 	};
 
 	const handleSearch = (event) => {
@@ -73,7 +73,7 @@ const AllProperty = () => {
 
 		axios
 			.get(`/products/sortProducts?city=${city}&area=${area}&rent=${rent}`)
-			.then((res) => setPosts(res.data?.restaurants));
+			.then((res) => setPosts(res.data?.places));
 	};
 
 	useEffect(() => {
@@ -82,12 +82,12 @@ const AllProperty = () => {
 				.get(
 					`/products/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&rent=${homeSearch?.rent}`
 				)
-				.then((res) => setPosts(res.data?.restaurants));
+				.then((res) => setPosts(res.data?.places));
 		} else {
 			const fetchPosts = async () => {
 				setLoading(true);
 				const res = await axios.get("/products/productCollection");
-				setPosts(res.data?.restaurants);
+				setPosts(res.data?.places);
 				setLoading(false);
 			};
 
@@ -110,7 +110,7 @@ const AllProperty = () => {
 						<div className="ms-4">
 							<h3 className="fw-bolder">Apartments in Dhaka</h3>
 							<span>
-								{posts.length} results. {convertDate()}
+								{posts?.length || 0} results. {convertDate()}
 							</span>
 						</div>
 						<div className="all-property-card">
@@ -118,7 +118,7 @@ const AllProperty = () => {
 
 							<Pagination
 								postsPerPage={postsPerPage}
-								totalPosts={posts.length}
+								totalPosts={posts?.length || 0}
 								paginate={paginate}
 							/>
 						</div>

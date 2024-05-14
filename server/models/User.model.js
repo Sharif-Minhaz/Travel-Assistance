@@ -12,8 +12,20 @@ const userSchema = new Schema(
 			required: [true, "User email is required"],
 			trim: true,
 		},
-		role: { type: String, required: true, enum: ["seller", "buyer"] },
-		photoURL: { type: String, default: "https://randomuser.me/api/portraits/lego/2.jpg" },
+		phoneNumber: {
+			type: String,
+			required: [true, "Phone number is required"],
+			trim: true,
+		},
+		role: {
+			type: String,
+			enum: ["user", "admin"],
+			default: "user",
+		},
+		photoURL: {
+			type: String,
+			default: "https://randomuser.me/api/portraits/lego/2.jpg",
+		},
 	},
 	{ timestamps: true }
 );

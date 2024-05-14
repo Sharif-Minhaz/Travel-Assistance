@@ -15,6 +15,7 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
+	const [signupKey, setSignupKey] = useState(0);
 	const [user, setUser] = useState({});
 	const [loading, setLoading] = useState(true);
 
@@ -42,7 +43,9 @@ const AuthProvider = ({ children }) => {
 				setUser({
 					...user,
 					photoURL: res.data?.user?.photoURL,
+					phoneNumber: res.data?.user?.phoneNumber,
 					displayName: res.data?.user?.displayName,
+					role: res.data?.user?.role,
 				});
 			})
 			.catch((err) => console.error(err))
@@ -63,8 +66,11 @@ const AuthProvider = ({ children }) => {
 				axios.get(`/users/current/${currentUser.email}`).then((res) => {
 					setUser({
 						...currentUser,
+						displayName: res.data?.user?.displayName,
+						phoneNumber: res.data?.user?.phoneNumber,
 						photoURL: res.data?.user?.photoURL,
 						_id: res.data?.user?._id,
+						role: res.data?.user?.role,
 					});
 					setLoading(false);
 				});
@@ -75,7 +81,7 @@ const AuthProvider = ({ children }) => {
 		return () => {
 			unsubscribe();
 		};
-	}, []);
+	}, [signupKey]);
 
 	const authInfo = {
 		loginInWithGoogle,
@@ -83,6 +89,7 @@ const AuthProvider = ({ children }) => {
 		signIn,
 		updateUser,
 		logOut,
+		setSignupKey,
 		user,
 		loading,
 	};

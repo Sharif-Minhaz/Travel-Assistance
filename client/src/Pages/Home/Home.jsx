@@ -19,7 +19,7 @@ const Home = () => {
 
 	useEffect(() => {
 		axios.get(`/products/allProducts`).then((res) => {
-			setAdd(res.data?.restaurants);
+			setAdd(res.data?.places);
 		});
 	}, []);
 
@@ -32,7 +32,7 @@ const Home = () => {
 					<div className="category-title mt-sm-5 mt-lg-0 mt-md-0">
 						<p>Top Categories</p>
 						<span>
-							{category.length} categories {add.length} ads
+							{category?.length || 0} categories {add?.length || 0} ads
 						</span>
 					</div>
 					<div className="category">
