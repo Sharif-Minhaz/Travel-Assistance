@@ -13,7 +13,10 @@ const reviewSchema = new Schema(
 			max: 5,
 			default: 3,
 		},
-		text: String,
+		text: {
+			type: String,
+			required: true,
+		},
 	},
 	{
 		timestamps: true,

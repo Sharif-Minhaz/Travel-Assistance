@@ -18,6 +18,7 @@ const bookingSchema = new Schema(
 		numberOfGuest: { type: Number, required: true, min: 1 },
 		numberOfChildren: { type: Number },
 		paidAmount: { type: Number, required: true },
+		duration: { type: Number, required: true },
 		transactionId: {
 			type: String,
 			required: true,

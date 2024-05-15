@@ -47,8 +47,6 @@ export default function PeopleReviews() {
 				navigation={true}
 				modules={[Autoplay, Navigation]}
 				slidesPerView={1}
-				onSlideChange={() => console.log("slide change")}
-				onSwiper={(swiper) => console.log(swiper)}
 			>
 				{reviews.map((review, index) => (
 					<SwiperSlide key={index} className="review-rating">

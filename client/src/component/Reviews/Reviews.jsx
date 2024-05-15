@@ -30,6 +30,7 @@ export default function Reviews() {
 			>
 				<Form.Control
 					as="textarea"
+					required
 					placeholder="Leave a review here"
 					style={{ height: "100px" }}
 				/>

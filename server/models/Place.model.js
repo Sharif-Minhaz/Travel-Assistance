@@ -17,7 +17,7 @@ const placeSchema = new Schema(
 			required: [true, "Address is required"],
 			trim: true,
 		},
-		entryFee: {
+		fee: {
 			type: Number,
 			required: [true, "Entry fee is required"],
 			min: 300,

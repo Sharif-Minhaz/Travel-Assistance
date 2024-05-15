@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { packages } from "../../constants";
 
-export default function OrderInformation() {
+export default function OrderInformation({ fee, baseFee, setFee }) {
+	const [isCalculated, setIsCalculated] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -11,18 +13,45 @@ export default function OrderInformation() {
 		numberOfGuest: "",
 		numberOfChildren: "",
 		paidAmount: 0,
+		duration: 3,
 		transactionId: "",
-		checkMeOut: false,
-		package: "",
+		package: "bronze",
 		transportation: "",
 	});
 
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
+
+		if (name === "package" || name === "transportation") {
+			// required calculation after the package and transportation plan has been changed
+			setIsCalculated(false);
+		} else {
+			// don't required the calculation when other field is invoked
+			setIsCalculated(true);
+		}
+
 		setFormData((prev) => ({
 			...prev,
 			[name]: type === "checkbox" ? checked : value,
 		}));
+
+		if (name === "package") {
+			// update the duration according to the package
+			setFormData((prev) => ({
+				...prev,
+				duration: Number(packages[prev.package || "bronze"].duration),
+			}));
+		}
+	};
+
+	const calculatePrice = () => {
+		// calculate and finalized the overall price for the tour
+		setIsCalculated(true);
+		// combine the package rate and merge with transportation price
+		setFee(
+			baseFee * Number(packages[formData.package || "bronze"].rate || 1) +
+				Number(formData.transportation || 0)
+		);
 	};
 
 	const handleSubmit = (e) => {
@@ -89,6 +118,7 @@ export default function OrderInformation() {
 					<Form.Control
 						type="date"
 						name="dateFrom"
+						min={new Date().toISOString().split("T")[0]}
 						required
 						value={formData.dateFrom}
 						onChange={handleChange}
@@ -101,6 +131,7 @@ export default function OrderInformation() {
 						type="number"
 						name="numberOfGuest"
 						required
+						max={10}
 						placeholder="Number of Guests"
 						value={formData.numberOfGuest}
 						onChange={handleChange}
@@ -113,6 +144,7 @@ export default function OrderInformation() {
 						type="number"
 						name="numberOfChildren"
 						required
+						max={3}
 						placeholder="Number of Children"
 						value={formData.numberOfChildren}
 						onChange={handleChange}
@@ -128,10 +160,25 @@ export default function OrderInformation() {
 						onChange={handleChange}
 					>
 						<option value="">Select a package</option>
-						<option value="1.5">Gold (1.5x)</option>
-						<option value="1.3">Silver (1.3x)</option>
-						<option value="1.1">Bronze (1.1x)</option>
+						<option value="gold">Gold (1.5x)</option>
+						<option value="silver">Silver (1.2x)</option>
+						<option value="bronze">Bronze (default)</option>
 					</Form.Control>
+				</Form.Group>
+
+				<Form.Group className="mb-3" controlId="duration">
+					<Form.Label>Tour Duration</Form.Label>
+					<Form.Control
+						type="number"
+						name="duration"
+						required
+						readOnly
+						max={7}
+						min={3}
+						placeholder="Tour duration"
+						value={formData.duration}
+						onChange={handleChange}
+					/>
 				</Form.Group>
 
 				<Form.Group className="mb-3" controlId="transportation">
@@ -146,16 +193,25 @@ export default function OrderInformation() {
 						<option value="500">Car (+500)</option>
 						<option value="300">Bike (+300)</option>
 						<option value="100">Bus (+100)</option>
+						<option value="0">On Foot (Free)</option>
 					</Form.Control>
 				</Form.Group>
-
+				<div className="d-flex align-items-center gap-2 mb-3">
+					<Button className="text-light" onClick={calculatePrice} variant="info">
+						Calculate price
+					</Button>
+					{isCalculated && <div className="calculated-price">{fee}/- BDT</div>}
+				</div>
 				<Form.Group className="mb-3" controlId="paid">
-					<Form.Label>Paid Amount</Form.Label>
+					<Form.Label>
+						Paid Amount {isCalculated && <span>({fee}/- BDT)</span>}
+					</Form.Label>
 					<Form.Control
 						type="number"
 						name="paidAmount"
 						label="Paid"
 						required
+						disabled={!isCalculated}
 						placeholder="Total amount paid"
 						value={formData.paidAmount}
 						onChange={handleChange}
@@ -168,26 +224,20 @@ export default function OrderInformation() {
 						type="text"
 						name="transactionId"
 						required
-						placeholder="Transaction ID"
+						disabled={!isCalculated}
+						placeholder="nagad/bkash/rocket or upay"
 						value={formData.transactionId}
 						onChange={handleChange}
 					/>
+					<small className="small mt-2">Payment number: +8801340004004</small>
 				</Form.Group>
 
-				<Form.Group className="mb-3" controlId="checkMeOut">
-					<Form.Check
-						type="checkbox"
-						name="checkMeOut"
-						required
-						label="Check me out"
-						checked={formData.checkMeOut}
-						onChange={handleChange}
-					/>
-				</Form.Group>
-
-				<Button variant="primary" type="submit">
+				<Button disabled={!isCalculated} variant="primary" type="submit">
 					Book Now
 				</Button>
+				{!isCalculated && (
+					<p className="mt-2 text-danger">Calculate the overall price to proceed</p>
+				)}
 			</Form>
 		</div>
 	);

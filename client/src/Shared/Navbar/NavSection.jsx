@@ -92,7 +92,7 @@ const NavSection = () => {
 										/>
 									</Dropdown.Toggle>
 
-									<Dropdown.Menu>
+									<Dropdown.Menu className="shadow">
 										<div className="d-flex gap-2 flex-column px-3">
 											{loading ? (
 												"Loading..."
@@ -111,7 +111,7 @@ const NavSection = () => {
 										<Dropdown.Item onClick={handleShow}>
 											<div className="d-flex align-items-center gap-1">
 												<MdOutlineSecurityUpdateGood />
-												<span>UPDATE PROFILE</span>
+												<span>Update profile</span>
 											</div>
 										</Dropdown.Item>
 										<Dropdown.Item onClick={handleLogOut}>

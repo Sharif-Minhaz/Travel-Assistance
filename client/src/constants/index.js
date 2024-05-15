@@ -67,3 +67,56 @@ export const categories = [
 		image: "/categories/food.png",
 	},
 ];
+
+export const packages = {
+	gold: {
+		name: "Gold",
+		image: "/packages/gold.png",
+		rate: 1.5, // Price in your chosen currency
+		duration: 7, // Duration of the package
+		services: [
+			"7 days tour",
+			"24/7 guide includes",
+			"All meals included",
+			"Private transportation",
+			"Luxury accommodation",
+			"Free entrance to all attractions",
+			"Travel insurance",
+			"Personal photographer",
+		],
+		description:
+			"The Gold package offers a premium experience with top-tier services and amenities, perfect for those seeking luxury and comfort during their travels.",
+	},
+	silver: {
+		name: "Silver",
+		image: "/packages/silver.png",
+		rate: 1.2, // Price in your chosen currency
+		duration: 5, // Duration of the package
+		services: [
+			"5 days tour",
+			"12/7 guide includes",
+			"Shared transportation",
+			"Breakfast and dinner included",
+			"Discounted entrance to attractions",
+			"Group activities",
+			"Travel insurance",
+		],
+		description:
+			"The Silver package provides a balanced experience with a mix of guided tours and free time, ideal for those looking for a well-rounded travel experience.",
+	},
+	bronze: {
+		name: "Bronze",
+		image: "/packages/bronze.png",
+		rate: 1, // Price in your chosen currency
+		duration: 3, // Duration of the package
+		services: [
+			"3 days tour",
+			"On-call guide support",
+			"Public transportation",
+			"Breakfast included",
+			"Basic travel insurance",
+		],
+		description:
+			"The Bronze package is a budget-friendly option that still offers essential services and a guided experience for travelers looking to explore on a budget.",
+	},
+};

@@ -2,17 +2,21 @@ import { MdCall, MdLocationOn, MdMail } from "react-icons/md";
 
 import "./PropertyDetails.css";
 import PropertyDescription from "../../component/PropertyDescription/PropertyDescription";
-import PropertyAddress from "../../component/PropertyAddress/PropertyAddress";
-import PropertyFeatures from "../../component/PropertyFeatures/PropertyFeatures";
 import { useLoaderData } from "react-router-dom";
 import Reviews from "../../component/Reviews/Reviews";
 import PeopleReviews from "../../component/Reviews/PeopleReviews";
 import OrderInformation from "../../component/Order/OrderInformation";
+import { useState } from "react";
+import useTitle from "./../../hooks/useTitle";
+import AvailablePackages from "../../component/AvailablePackages/AvailablePackages";
 
 const PropertyDetails = () => {
+	useTitle("Booking");
 	const data = useLoaderData();
 
 	const { area, city, email, image, phone, title } = data?.place;
+	const baseFee = 5000;
+	const [fee, setFee] = useState(baseFee);
 
 	return (
 		<div>
@@ -63,10 +67,7 @@ const PropertyDetails = () => {
 								<PropertyDescription />
 							</div>
 							<div className="features">
-								<PropertyAddress />
-							</div>
-							<div className="features">
-								<PropertyFeatures />
+								<AvailablePackages />
 							</div>
 							<div className="features">
 								<PeopleReviews />
@@ -110,12 +111,12 @@ const PropertyDetails = () => {
 						{/* ------------ payment information ------------ */}
 						<div>
 							<div className="tour-price">
-								<sup>৳</sup> 5000 TK
+								<sup>৳</sup> {fee} TK
 							</div>
 						</div>
 						{/* --------- order information ----------- */}
 						<div>
-							<OrderInformation />
+							<OrderInformation baseFee={baseFee} fee={fee} setFee={setFee} />
 						</div>
 					</div>
 				</div>
