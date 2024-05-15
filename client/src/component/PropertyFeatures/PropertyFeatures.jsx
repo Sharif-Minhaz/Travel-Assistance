@@ -3,7 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 const PropertyFeatures = () => {
 	return (
 		<div>
-			<p className="fs-4 border-bottom pb-2">Features</p>
+			<p className="fs-4 pb-2 heading">Features</p>
 			<div className="all-features">
 				<div>
 					<FaCheckCircle className="font-awesome-icon me-2" /> 24/7 hours CC TV coverage

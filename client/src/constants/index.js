@@ -120,3 +120,78 @@ export const packages = {
 			"The Bronze package is a budget-friendly option that still offers essential services and a guided experience for travelers looking to explore on a budget.",
 	},
 };
+
+export const shoppingMallData = [
+	{
+		_id: crypto.randomUUID(),
+		name: "Bashundhara City",
+		address: "123 Main Street, Cityville",
+		description:
+			"Fashion Square is a premier shopping destination featuring a wide range of luxury and high-end fashion brands. With its modern architecture and upscale atmosphere, it offers an unparalleled shopping experience.",
+		image: "/malls/bashundhara-city-shopping.jpg",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "City Center Mall",
+		address: "456 Elm Avenue, Metro City",
+		description:
+			"City Center Mall is the heart of shopping and entertainment in Metro City. Boasting a diverse mix of stores, restaurants, and entertainment options, it's the perfect destination for a day out with family and friends.",
+		image: "/malls/city-center.jpg",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "Lakeside Plaza",
+		address: "789 Lakeview Drive, Riverside",
+		description:
+			"Lakeside Plaza offers a tranquil shopping experience with its scenic lakeside location. With a variety of shops and dining options, visitors can enjoy both shopping and relaxation in a picturesque setting.",
+		image: "/malls/lake-side-plaza.jpg",
+	},
+];
+
+export const eventData = [
+	{
+		_id: crypto.randomUUID(),
+		name: "Summer Music Festival",
+		date: new Date("2024-07-15"),
+		description:
+			"Join us for the annual Summer Music Festival featuring live performances from top artists across various genres. Enjoy a day filled with music, food, and fun in the sun!",
+		location: "Central Park",
+		image: "/events/summer.webp",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "Food Truck Rally",
+		date: new Date("2024-08-05"),
+		description:
+			"Satisfy your cravings at the Food Truck Rally, where you can indulge in a wide array of delicious street food offerings from local food trucks. Bring your appetite and enjoy a culinary adventure!",
+		location: "Downtown Plaza",
+		image: "/events/food.jpg",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "Artisan Market",
+		date: new Date("2024-09-20"),
+		description:
+			"Discover unique handcrafted goods and artisanal products at the Artisan Market. From handmade jewelry to organic skincare products, there's something for everyone to explore and enjoy.",
+		location: "City Hall Square",
+		image: "/events/art.jpg",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "Family Fun Day",
+		date: new Date("2024-10-10"),
+		description:
+			"Gather the family and join us for a day of fun-filled activities at Family Fun Day. From carnival games to face painting, there's entertainment for all ages to enjoy!",
+		location: "Community Park",
+		image: "/events/family.jpeg",
+	},
+	{
+		_id: crypto.randomUUID(),
+		name: "Holiday Parade",
+		date: new Date("2024-12-01"),
+		description:
+			"Get into the festive spirit at the Holiday Parade, featuring dazzling floats, marching bands, and appearances by Santa Claus himself. Don't miss this magical celebration of the holiday season!",
+		location: "Main Street",
+		image: "/events/holiday.jpg",
+	},
+];

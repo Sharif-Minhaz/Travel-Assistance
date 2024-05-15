@@ -22,7 +22,10 @@ const placeSchema = new Schema(
 			required: [true, "Entry fee is required"],
 			min: 300,
 		},
-		events: [{ name: String, date: Date, description: String, image: String }],
+		shoppingMall: [{ name: String, address: String, description: String, image: String }],
+		events: [
+			{ name: String, location: String, date: Date, description: String, image: String },
+		],
 		transportOptions: {
 			type: [String],
 			enum: ["bike", "car", "bus"],

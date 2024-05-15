@@ -13,7 +13,7 @@ export default function Reviews() {
 
 	return (
 		<div>
-			<p className="fs-4 border-bottom pb-2">Your Review</p>
+			<p className="fs-4 pb-2 heading">Your Review</p>
 			<div style={{ marginTop: "-10px" }}>
 				<ReactStars
 					count={5}

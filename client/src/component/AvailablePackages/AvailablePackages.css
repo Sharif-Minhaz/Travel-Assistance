@@ -6,9 +6,6 @@
 
 .available-packages article {
     border: 1px solid whitesmoke;
-}
-
-.available-packages article {
     text-align: center;
     padding: 15px;
     border-radius: 7px;
@@ -28,7 +25,7 @@
     list-style-image: url("./../../../public/check-1.png");
 }
 
-.available-packages article img {
+.available-packages article.packages-container img {
     width: 100px;
 }
 

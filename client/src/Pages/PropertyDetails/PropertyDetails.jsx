@@ -9,6 +9,8 @@ import OrderInformation from "../../component/Order/OrderInformation";
 import { useState } from "react";
 import useTitle from "./../../hooks/useTitle";
 import AvailablePackages from "../../component/AvailablePackages/AvailablePackages";
+import ShoppingMall from "../../component/ShoppingMall/ShoppingMall";
+import Events from "../../component/Events/Events";
 
 const PropertyDetails = () => {
 	useTitle("Booking");
@@ -68,6 +70,12 @@ const PropertyDetails = () => {
 							</div>
 							<div className="features">
 								<AvailablePackages />
+							</div>
+							<div className="features">
+								<ShoppingMall />
+							</div>
+							<div className="features">
+								<Events />
 							</div>
 							<div className="features">
 								<PeopleReviews />

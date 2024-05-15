@@ -36,7 +36,7 @@ const reviews = [
 export default function PeopleReviews() {
 	return (
 		<section>
-			<p className="fs-4 border-bottom pb-2">Top Reviews For Treker</p>
+			<p className="fs-4 pb-2 heading">Top Reviews For Treker</p>
 			<Swiper
 				autoplay={{
 					delay: 4500,

@@ -6,10 +6,10 @@ const packagesKeys = Object.keys(packages);
 export default function AvailablePackages() {
 	return (
 		<section>
-			<p className="fs-4 border-bottom pb-2">Available packages</p>
+			<p className="fs-4 pb-2 heading">Available packages</p>
 			<div className="available-packages">
 				{packagesKeys.map((key) => (
-					<article key={key} className="shadow-sm">
+					<article key={key} className="shadow-sm packages-container">
 						<img src={packages[key].image} alt="" />
 						<div className="packages-body">
 							<h4 className="mt-2 mb-3">
