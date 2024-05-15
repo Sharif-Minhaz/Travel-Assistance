@@ -19,6 +19,7 @@
     "react-hook-form": "^7.41.0",
     "react-icons": "^4.7.1",
     "react-paginate": "^8.1.4",
+    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "react-simple-typewriter": "^5.0.1",

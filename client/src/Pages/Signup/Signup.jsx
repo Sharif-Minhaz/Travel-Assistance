@@ -8,6 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import axios from "../../lib/axios";
 
 const Signup = () => {
+	const [show, setShow] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -121,7 +122,7 @@ const Signup = () => {
 												message: "Password must be 6 characters or longer",
 											},
 										})}
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control"
 										placeholder="Password"
 										id="password"
@@ -129,6 +130,17 @@ const Signup = () => {
 									{errors.password && (
 										<p className="text-danger">{errors.password?.message}</p>
 									)}
+								</div>
+								<div>
+									<input
+										onClick={() => setShow(!show)}
+										id="show"
+										type="checkbox"
+										className="mb-4"
+									/>
+									<label className="ms-1 d-inline-block" htmlFor="show">
+										Show Password
+									</label>
 								</div>
 								{signUpError && <p className="text-danger">{signUpError}</p>}
 								<input

@@ -11,7 +11,7 @@ const PropertyDescription = () => {
 
 	return (
 		<div>
-			<p className="fs-4 border-bottom">Description</p>
+			<p className="fs-4 border-bottom pb-2">Description</p>
 
 			<div className="description-list">
 				<div className="">

@@ -11,7 +11,7 @@ const LoggedInRoute = ({ children }) => {
 		return <Loading />;
 	}
 
-	if (user) {
+	if (user && Object.keys(user)?.length) {
 		return <Navigate to="/" state={{ from: location }} replace />;
 	}
 

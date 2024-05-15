@@ -5,7 +5,7 @@ const PropertyAddress = () => {
 
 	return (
 		<div>
-			<p className="fs-4 border-bottom">Address</p>
+			<p className="fs-4 border-bottom pb-2">Address</p>
 			<div className="address px-2">
 				<div className="row">
 					<div className="col-6">

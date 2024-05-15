@@ -1,10 +1,13 @@
-import { MdLocationOn } from "react-icons/md";
+import { MdCall, MdLocationOn, MdMail } from "react-icons/md";
 
 import "./PropertyDetails.css";
 import PropertyDescription from "../../component/PropertyDescription/PropertyDescription";
 import PropertyAddress from "../../component/PropertyAddress/PropertyAddress";
 import PropertyFeatures from "../../component/PropertyFeatures/PropertyFeatures";
 import { useLoaderData } from "react-router-dom";
+import Reviews from "../../component/Reviews/Reviews";
+import PeopleReviews from "../../component/Reviews/PeopleReviews";
+import OrderInformation from "../../component/Order/OrderInformation";
 
 const PropertyDetails = () => {
 	const data = useLoaderData();
@@ -18,31 +21,9 @@ const PropertyDetails = () => {
 				<p>
 					<MdLocationOn className="font-awesome-icon me-2" /> {area}, {city}
 				</p>
-				<div className="row gx-5">
+				<div className="row gx-5 gy-4">
 					<div className="col-lg-8 col-md-8 col-12">
 						<div id="carouselExampleIndicators1" className="carousel slide">
-							<div className="carousel-indicators">
-								<button
-									type="button"
-									data-bs-target="#carouselExampleIndicators1"
-									data-bs-slide-to="0"
-									className="active"
-									aria-current="true"
-									aria-label="Slide 1"
-								></button>
-								<button
-									type="button"
-									data-bs-target="#carouselExampleIndicators1"
-									data-bs-slide-to="1"
-									aria-label="Slide 2"
-								></button>
-								<button
-									type="button"
-									data-bs-target="#carouselExampleIndicators1"
-									data-bs-slide-to="2"
-									aria-label="Slide 3"
-								></button>
-							</div>
 							<div className="carousel-inner">
 								<div className="carousel-item active">
 									<img
@@ -87,30 +68,54 @@ const PropertyDetails = () => {
 							<div className="features">
 								<PropertyFeatures />
 							</div>
+							<div className="features">
+								<PeopleReviews />
+							</div>
+							<div className="features">
+								<Reviews />
+							</div>
 						</div>
 					</div>
-					<div className="col-lg-4 col-md-4 col-12 m-3 m-lg-0 m-md-0  contact-section ">
+					<div className="col-lg-4 col-md-4 col-12 contact-section">
 						<h4>Manage By:- </h4>
-						<h5>Treker</h5>
+						<div className="mt-4">
+							<img src="/logo.svg" alt="logo" />
+						</div>
 						<img src="./assets/img/logo.svg" alt="" />
-						<p className="mt-3">Contact With property owner for more information</p>
+						<p className="mt-3">
+							Contact With organizer for more information and further query.
+						</p>
 						<div className="mt-2 fs-5">
-							Chat <i className="fa-solid fa-message font-awesome-icon"></i>
+							Contact us: <i className="fa-solid fa-message font-awesome-icon"></i>
 						</div>
 
-						<div className="row mt-2">
-							<div className="col-6">
-								{" "}
-								<button className="contact-btn">
-									<a href={"tel:" + phone}>Call</a>
-								</button>
+						<div className="d-flex flex-wrap gap-3 mt-2">
+							<button className="contact-btn">
+								<a
+									className="d-flex justify-content-center align-items-center gap-2"
+									href={"tel:" + phone}
+								>
+									<MdCall size={18} /> Call
+								</a>
+							</button>
+							<button className="contact-btn">
+								<a
+									className="d-flex justify-content-center align-items-center gap-2"
+									href={"mailto:" + email}
+								>
+									<MdMail size={18} /> Email
+								</a>
+							</button>
+						</div>
+						{/* ------------ payment information ------------ */}
+						<div>
+							<div className="tour-price">
+								<sup>৳</sup> 5000 TK
 							</div>
-							<div className="col-6">
-								{" "}
-								<button className="contact-btn">
-									<a href={"mailto:" + email}>Email</a>
-								</button>
-							</div>
+						</div>
+						{/* --------- order information ----------- */}
+						<div>
+							<OrderInformation />
 						</div>
 					</div>
 				</div>

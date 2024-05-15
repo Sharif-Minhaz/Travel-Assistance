@@ -17,6 +17,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import LoggedInRoute from "./LoggedInRoute/LoggedInRoute";
 import NotFound from "../Pages/NotFound/NotFound";
+import MyBooking from "../Pages/Booking/MyBooking";
 
 const router = createBrowserRouter([
 	{
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
 					<AdminRoute>
 						<AddProperty />
 					</AdminRoute>
+				),
+			},
+			{
+				path: "/mybooking",
+				element: (
+					<PrivateRoute>
+						<MyBooking />
+					</PrivateRoute>
 				),
 			},
 			{

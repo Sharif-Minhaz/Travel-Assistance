@@ -19,12 +19,12 @@
 }
 
 .active {
-  color: #1DC5CE !important;
+  color: var(--primary-color) !important;
 }
 
 .nav-style:hover {
   background-color: white !important;
-  color: #1DC5CE !important;
+  color: var(--primary-color) !important;
   transition: background-color 0.5s;
 }
 

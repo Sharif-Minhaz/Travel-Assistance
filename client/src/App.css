@@ -8,6 +8,11 @@ body {
 	-moz-font-smoothing: antialiased;
 }
 
+::selection {
+	background: var(--primary-color);
+	color: white;
+}
+
 .App {
 	text-align: center;
 }
@@ -35,7 +40,7 @@ body {
 }
 
 .App-link {
-	color: #61dafb;
+	color: var(--primary-color);
 }
 
 @keyframes App-logo-spin {
@@ -48,6 +53,33 @@ body {
 	}
 }
 
+.review-rating {
+	cursor: grab;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	padding-inline: 20px;
+	user-select: none;
+}
+
+.review-rating:active {
+	cursor: grabbing;
+}
+
+.review-rating>img.quota {
+	width: 50px;
+}
+
+.review-text {
+	color: #2E2E2E !important;
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+	line-height: 1.65em;
+}
+
 /* --------------- utilities classes ---------------- */
 .card {
 	margin-bottom: 20px !important;
@@ -55,4 +87,10 @@ body {
 
 .object-fit-cover {
 	object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	color: rgb(219, 219, 219) !important;
+	opacity: 0.8;
 }

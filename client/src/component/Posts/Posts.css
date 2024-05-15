@@ -61,19 +61,19 @@
 .details {
     text-decoration: none;
     padding: 7px 40px;
-    background-color: #1DC5CE;
+    background-color: var(--primary-color);
     color: white;
     border-radius: 4px;
 }
 
 .details:hover {
     background-color: white;
-    color: #1DC5CE;
-    border: 1px solid #1DC5CE;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     transition: background-color 0.5s;
 
 }
 
 .property-des-style {
-    color: #1DC5CE;
+    color: var(--primary-color);
 }

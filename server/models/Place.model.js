@@ -2,14 +2,14 @@ const { model, Schema } = require("mongoose");
 
 const placeSchema = new Schema(
 	{
-		name: {
-			type: String,
-			required: [true, "User name is required"],
-			trim: true,
+		addedBy: {
+			type: Schema.Types.ObjectId,
+			ref: "User",
+			required: [true, "Added by id is required"],
 		},
-		email: {
+		title: {
 			type: String,
-			required: [true, "User email is required"],
+			required: [true, "title is required"],
 			trim: true,
 		},
 		address: {
@@ -17,17 +17,18 @@ const placeSchema = new Schema(
 			required: [true, "Address is required"],
 			trim: true,
 		},
-		phone: {
-			type: String,
-			required: [true, "Phone is required"],
-			trim: true,
-		},
-		rent: {
+		entryFee: {
 			type: Number,
-			required: [true, "Rent is required"],
-			min: 1000,
+			required: [true, "Entry fee is required"],
+			min: 300,
 		},
-		month: {
+		events: [{ name: String, date: Date, description: String, image: String }],
+		transportOptions: {
+			type: [String],
+			enum: ["bike", "car", "bus"],
+			default: "bus",
+		},
+		bestMonthToVisit: {
 			type: String,
 			required: [true, "Month is required"],
 			trim: true,
@@ -36,10 +37,6 @@ const placeSchema = new Schema(
 			type: String,
 			required: [true, "Area is required"],
 			trim: true,
-		},
-		bath: {
-			type: Number,
-			required: [true, "bath is required"],
 		},
 		category: {
 			type: String,
@@ -51,40 +48,10 @@ const placeSchema = new Schema(
 			required: [true, "City is required"],
 			trim: true,
 		},
+		zipCode: String,
 		details: {
 			type: String,
 			required: [true, "Details is required"],
-			trim: true,
-		},
-		elevator: {
-			type: String,
-			enum: ["Available", "Not Available"],
-			default: "Not Available",
-		},
-		gas: {
-			type: String,
-			enum: ["Available", "Not Available"],
-			default: "Not Available",
-		},
-		garage: {
-			type: Number,
-			required: [true, "Garage information is required"],
-		},
-		kitchen: {
-			type: Number,
-			required: [true, "Kitchen information is required"],
-		},
-		propertySize: {
-			type: Number,
-			required: [true, "Property Size information is required"],
-		},
-		room: {
-			type: Number,
-			required: [true, "Room information is required"],
-		},
-		title: {
-			type: String,
-			required: [true, "title is required"],
 			trim: true,
 		},
 		image: {
@@ -92,6 +59,8 @@ const placeSchema = new Schema(
 			required: [true, "Image is required"],
 			trim: true,
 		},
+		openingTime: String,
+		closingTime: String,
 	},
 	{ timestamps: true }
 );

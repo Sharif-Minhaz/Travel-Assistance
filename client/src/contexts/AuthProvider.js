@@ -17,7 +17,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
 	const [signupKey, setSignupKey] = useState(0);
 	const [user, setUser] = useState({});
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	const createUser = (email, password) => {
 		setLoading(true);
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
 
 	const logOut = () => {
 		setLoading(true);
-		return signOut(auth);
+		signOut(auth).finally(() => setLoading(false));
 	};
 
 	useEffect(() => {

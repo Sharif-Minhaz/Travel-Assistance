@@ -115,15 +115,17 @@ const Login = () => {
 									{errors.password && (
 										<p className="text-danger">{errors.password?.message}</p>
 									)}
-									<input
-										onClick={() => setShow(!show)}
-										id="show"
-										type="checkbox"
-										className="my-3"
-									/>
-									<label className="ms-1 d-inline-block" htmlFor="show">
-										Show Password
-									</label>
+									<div>
+										<input
+											onClick={() => setShow(!show)}
+											id="show"
+											type="checkbox"
+											className="my-3"
+										/>
+										<label className="ms-1 d-inline-block" htmlFor="show">
+											Show Password
+										</label>
+									</div>
 								</div>
 								{loginError && <p>{loginError.toString()}</p>}
 								<input className="login-btn mb-5" value="LOGIN" type="submit" />

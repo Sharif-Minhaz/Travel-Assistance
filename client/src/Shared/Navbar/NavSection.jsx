@@ -47,9 +47,16 @@ const NavSection = () => {
 							</li>
 							<li className="nav-item">
 								<NavLink to="/allProperty" className="nav-link nav-style">
-									ALL PLACES
+									ALL TOURS
 								</NavLink>
 							</li>
+							{user?.uid && (
+								<li className="nav-item">
+									<NavLink to="/mybooking" className="nav-link nav-style">
+										MY BOOKING
+									</NavLink>
+								</li>
+							)}
 							{user?.uid && (
 								<>
 									{user?.role === "admin" && (
@@ -58,7 +65,7 @@ const NavSection = () => {
 												to="/addProperty"
 												className="nav-link nav-style"
 											>
-												ADD PLACE
+												ADD TOUR
 											</NavLink>
 										</li>
 									)}
