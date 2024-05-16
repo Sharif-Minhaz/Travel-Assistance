@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import useTitle from "../../hooks/useTitle";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
+import { baseUrl } from "../../constants";
 
 const AllOwners = () => {
 	useTitle("All Owners");
@@ -15,7 +16,7 @@ const AllOwners = () => {
 		queryKey: ["users"],
 		queryFn: async () => {
 			try {
-				const res = await fetch("http://localhost:5000/api/v1/dashboard/allsellers");
+				const res = await fetch(`${baseUrl}/dashboard/allsellers`);
 				const data = await res.json();
 				return data.users;
 			} catch (error) {}

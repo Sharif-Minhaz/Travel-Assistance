@@ -18,11 +18,14 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import LoggedInRoute from "./LoggedInRoute/LoggedInRoute";
 import NotFound from "../Pages/NotFound/NotFound";
 import MyBooking from "../Pages/Booking/MyBooking";
+import { baseUrl } from "../constants";
+import ErrorPage from "../Pages/Error/ErrorPage";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <Main />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: "/",
@@ -79,14 +82,14 @@ const router = createBrowserRouter([
 						<PropertyDetails />
 					</PrivateRoute>
 				),
-				loader: ({ params }) =>
-					fetch(`http://localhost:5000/api/v1/products/details/${params.id}`),
+				loader: ({ params }) => fetch(`${baseUrl}/products/details/${params.id}`),
 			},
 		],
 	},
 	{
 		path: "/dashboard",
 		element: <Dashboard />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: "/dashboard/allRenters",

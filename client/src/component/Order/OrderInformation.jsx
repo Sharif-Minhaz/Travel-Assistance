@@ -190,9 +190,9 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 						onChange={handleChange}
 					>
 						<option value="">Select a transportation</option>
-						<option value="500">Car (+500)</option>
-						<option value="300">Bike (+300)</option>
-						<option value="100">Bus (+100)</option>
+						<option value="500">Car (+500tk)</option>
+						<option value="300">Bike (+300tk)</option>
+						<option value="100">Bus (+100tk)</option>
 						<option value="0">On Foot (Free)</option>
 					</Form.Control>
 				</Form.Group>

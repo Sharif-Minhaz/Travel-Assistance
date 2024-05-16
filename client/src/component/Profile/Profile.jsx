@@ -40,24 +40,31 @@ function Profile({ show, handleClose, email, displayName, phoneNumber }) {
 	};
 
 	const updateProfileInfo = () => {
-		const formData = new FormData();
-		formData.append("image", profileInfo.image);
+		if (profileInfo.image) {
+			const formData = new FormData();
+			formData.append("image", profileInfo.image);
 
-		const url = `https://api.imgbb.com/1/upload?&key=${process.env.REACT_APP_IMGBB_API}`;
+			const url = `https://api.imgbb.com/1/upload?&key=${process.env.REACT_APP_IMGBB_API}`;
 
-		fetch(url, {
-			method: "POST",
-			body: formData,
-		})
-			.then((res) => res.json())
-			.then((imageData) => {
-				setProfileInfo((prevInfo) => ({
-					...prevInfo,
-					photoURL: imageData?.data?.url || DEFAULT_IMAGE,
-				}));
-				updateUser({ ...profileInfo, photoURL: imageData?.data?.url || DEFAULT_IMAGE });
+			fetch(url, {
+				method: "POST",
+				body: formData,
 			})
-			.catch((err) => console.error(err));
+				.then((res) => res.json())
+				.then((imageData) => {
+					setProfileInfo((prevInfo) => ({
+						...prevInfo,
+						photoURL: imageData?.data?.url || profileInfo.photoURL,
+					}));
+					updateUser({
+						...profileInfo,
+						photoURL: imageData?.data?.url || profileInfo.photoURL,
+					});
+				})
+				.catch((err) => console.error(err));
+		} else {
+			updateUser({ ...profileInfo });
+		}
 
 		handleClose(); // Close modal after updating
 	};

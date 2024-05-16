@@ -1,3 +1,6 @@
+// baseUrl for data fetching from backend api
+export const baseUrl = process.env.REACT_APP_BASE_URL || "https://dinepal.onrender.com/api/v1";
+
 export const cities = {
 	Dhaka: {
 		name: "Dhaka",

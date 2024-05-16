@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
+import { baseUrl } from "../../constants";
 
 const MyProperty = () => {
 	const { user } = useContext(AuthContext);
@@ -19,12 +20,7 @@ const MyProperty = () => {
 		queryKey: ["products"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(
-					`http://localhost:5000/api/v1/products/?email=${user?.email}`,
-					{
-						headers: {},
-					}
-				);
+				const res = await fetch(`${baseUrl}/products/?email=${user?.email}`);
 				const data = await res.json();
 				return data?.places;
 			} catch (error) {}

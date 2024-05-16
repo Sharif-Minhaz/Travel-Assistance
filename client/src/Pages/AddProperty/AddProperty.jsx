@@ -67,7 +67,7 @@ const AddProperty = () => {
 
 	return (
 		<section>
-			<h3 className="text-center text-uppercase mt-4">Add New Tourist Places</h3>
+			<h3 className="text-center text-uppercase mt-4">Add New Tourist Place</h3>
 			<form onSubmit={handleSubmit(handleAddProduct)}>
 				<div className=" d-flex justify-content-center">
 					<div className="add-property-box">
