@@ -108,7 +108,11 @@ const AllProperty = () => {
 	return (
 		<div>
 			<div className="banner-section">
-				<PropertyBanner handleChange={handleChange} handleSearch={handleSearch} />
+				<PropertyBanner
+					data={data}
+					handleChange={handleChange}
+					handleSearch={handleSearch}
+				/>
 			</div>
 			<div className="container">
 				<h3 className="mt-5 fw-bolder">Search results:-</h3>

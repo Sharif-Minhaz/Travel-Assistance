@@ -77,6 +77,7 @@ export const packages = {
 		image: "/packages/gold.png",
 		rate: 1.5, // Price in your chosen currency
 		duration: 7, // Duration of the package
+		roomPrice: 7000, // 7 days room
 		services: [
 			"7 days tour",
 			"24/7 guide includes",
@@ -95,6 +96,7 @@ export const packages = {
 		image: "/packages/silver.png",
 		rate: 1.2, // Price in your chosen currency
 		duration: 5, // Duration of the package
+		roomPrice: 5000,
 		services: [
 			"5 days tour",
 			"12/7 guide includes",
@@ -112,6 +114,7 @@ export const packages = {
 		image: "/packages/bronze.png",
 		rate: 1, // Price in your chosen currency
 		duration: 3, // Duration of the package
+		roomPrice: 3000,
 		services: [
 			"3 days tour",
 			"On-call guide support",
@@ -130,15 +133,14 @@ export const shoppingMallData = [
 		name: "Bashundhara City",
 		address: "123 Main Street, Cityville",
 		description:
-			"Fashion Square is a premier shopping destination featuring a wide range of luxury and high-end fashion brands. With its modern architecture and upscale atmosphere, it offers an unparalleled shopping experience.",
+			"Fashion Square is a premier shopping destination featuring a wide range of luxury and high-end fashion brands.",
 		image: "/malls/bashundhara-city-shopping.jpg",
 	},
 	{
 		_id: crypto.randomUUID(),
 		name: "City Center Mall",
 		address: "456 Elm Avenue, Metro City",
-		description:
-			"City Center Mall is the heart of shopping and entertainment in Metro City. Boasting a diverse mix of stores, restaurants, and entertainment options, it's the perfect destination for a day out with family and friends.",
+		description: "City Center Mall is the heart of shopping and entertainment in Metro City",
 		image: "/malls/city-center.jpg",
 	},
 	{
@@ -146,7 +148,7 @@ export const shoppingMallData = [
 		name: "Lakeside Plaza",
 		address: "789 Lakeview Drive, Riverside",
 		description:
-			"Lakeside Plaza offers a tranquil shopping experience with its scenic lakeside location. With a variety of shops and dining options, visitors can enjoy both shopping and relaxation in a picturesque setting.",
+			"Lakeside Plaza offers a tranquil shopping experience with its scenic lakeside location.",
 		image: "/malls/lake-side-plaza.jpg",
 	},
 ];
@@ -157,7 +159,7 @@ export const eventData = [
 		name: "Summer Music Festival",
 		date: new Date("2024-07-15"),
 		description:
-			"Join us for the annual Summer Music Festival featuring live performances from top artists across various genres. Enjoy a day filled with music, food, and fun in the sun!",
+			"Join us for the annual Summer Music Festival featuring live performances from top artists across various genres. Enjoy a day filled with music, food, and fun.",
 		location: "Central Park",
 		image: "/events/summer.webp",
 	},
@@ -166,7 +168,7 @@ export const eventData = [
 		name: "Food Truck Rally",
 		date: new Date("2024-08-05"),
 		description:
-			"Satisfy your cravings at the Food Truck Rally, where you can indulge in a wide array of delicious street food offerings from local food trucks. Bring your appetite and enjoy a culinary adventure!",
+			"Satisfy your cravings at the Food Truck Rally, where you can indulge in a wide array of delicious street food offerings from local food trucks.",
 		location: "Downtown Plaza",
 		image: "/events/food.jpg",
 	},
@@ -175,7 +177,7 @@ export const eventData = [
 		name: "Artisan Market",
 		date: new Date("2024-09-20"),
 		description:
-			"Discover unique handcrafted goods and artisanal products at the Artisan Market. From handmade jewelry to organic skincare products, there's something for everyone to explore and enjoy.",
+			"Discover unique handcrafted goods and artisanal products at the Artisan Market. From handmade jewelry to organic skincare products.",
 		location: "City Hall Square",
 		image: "/events/art.jpg",
 	},
@@ -184,7 +186,7 @@ export const eventData = [
 		name: "Family Fun Day",
 		date: new Date("2024-10-10"),
 		description:
-			"Gather the family and join us for a day of fun-filled activities at Family Fun Day. From carnival games to face painting, there's entertainment for all ages to enjoy!",
+			"Gather the family and join us for a day of fun-filled activities at Family Fun Day. From carnival games to face painting",
 		location: "Community Park",
 		image: "/events/family.jpeg",
 	},
@@ -193,7 +195,7 @@ export const eventData = [
 		name: "Holiday Parade",
 		date: new Date("2024-12-01"),
 		description:
-			"Get into the festive spirit at the Holiday Parade, featuring dazzling floats, marching bands, and appearances by Santa Claus himself. Don't miss this magical celebration of the holiday season!",
+			"Get into the festive spirit at the Holiday Parade, featuring dazzling floats, marching bands, and appearances by Santa Claus himself.",
 		location: "Main Street",
 		image: "/events/holiday.jpg",
 	},

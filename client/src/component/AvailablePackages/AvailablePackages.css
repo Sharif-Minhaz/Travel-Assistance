@@ -5,7 +5,7 @@
 }
 
 .available-packages article {
-    border: 1px solid whitesmoke;
+    border: 1px solid rgb(230, 230, 230);
     text-align: center;
     padding: 15px;
     border-radius: 7px;

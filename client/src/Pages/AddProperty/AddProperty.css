@@ -32,3 +32,24 @@ h4 {
 .add-property-box label {
     color: #535076;
 }
+
+.add-new-tables {
+    border: 2px dashed rgb(190, 222, 190);
+    padding: 10px 13px;
+    border-radius: 5px;
+}
+
+.add-new-tables span {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.add-new-tables span:first-child {
+    margin-right: 6px;
+}
+
+.separator {
+    width: 100%;
+    border: 1px dashed rgb(238, 238, 238);
+    margin-top: 15px !important;
+}

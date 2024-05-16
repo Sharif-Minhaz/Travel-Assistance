@@ -88,7 +88,11 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/dashboard",
-		element: <Dashboard />,
+		element: (
+			<AdminRoute>
+				<Dashboard />
+			</AdminRoute>
+		),
 		errorElement: <ErrorPage />,
 		children: [
 			{

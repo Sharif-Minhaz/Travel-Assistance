@@ -8,7 +8,12 @@ export default function Events() {
 			<div className="available-packages">
 				{eventData.map((event) => (
 					<article key={event._id} className="shadow-sm shopping-mall-container">
-						<img src={event.image} alt="" />
+						<div>
+							<img src={event.image} alt="" />
+							<div className="description">
+								<small>{event.description}</small>
+							</div>
+						</div>
 						<div className="shopping-mall-body">
 							<h4 className="mt-2 mb-3">
 								<span className="text-uppercase">{event.name} </span>

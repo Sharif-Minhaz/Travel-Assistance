@@ -8,7 +8,12 @@ export default function ShoppingMall() {
 			<div className="available-packages">
 				{shoppingMallData.map((mall) => (
 					<article key={mall._id} className="shadow-sm shopping-mall-container">
-						<img src={mall.image} alt="" />
+						<div>
+							<img src={mall.image} alt="" />
+							<div className="description">
+								<small>{mall.description}</small>
+							</div>
+						</div>
 						<div className="shopping-mall-body">
 							<h4 className="mt-2 mb-3">
 								<span className="text-uppercase">{mall.name} </span>

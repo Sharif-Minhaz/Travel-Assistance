@@ -24,7 +24,7 @@ const placeSchema = new Schema(
 		},
 		shoppingMall: [{ name: String, address: String, description: String, image: String }],
 		events: [
-			{ name: String, location: String, date: Date, description: String, image: String },
+			{ name: String, address: String, datetime: Date, description: String, image: String },
 		],
 		transportOptions: {
 			type: [String],

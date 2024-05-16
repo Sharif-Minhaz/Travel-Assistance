@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import "./PropertyBanner.css";
 import { categories, cities } from "./../../constants/index";
 
-const PropertyBanner = ({ handleChange, handleSearch }) => {
+const PropertyBanner = ({ data, handleChange, handleSearch }) => {
 	return (
 		<div className="banner-background">
 			<div className="container">
@@ -43,11 +43,15 @@ const PropertyBanner = ({ handleChange, handleSearch }) => {
 										onChange={handleChange}
 									>
 										<option value="">Choose Area</option>
-										{categories.map((data, index) => (
-											<option key={index} value={data.name}>
-												{data.name}
-											</option>
-										))}
+										{!cities[data.city] ? (
+											<option value="">Select a city first</option>
+										) : (
+											cities[data.city]?.areas.map((area) => (
+												<option key={area} value={area}>
+													{area}
+												</option>
+											))
+										)}
 									</Form.Select>
 								</Form.Group>
 

@@ -14,6 +14,7 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 		numberOfChildren: "",
 		paidAmount: 0,
 		duration: 3,
+		room: 0,
 		transactionId: "",
 		package: "bronze",
 		transportation: "",
@@ -22,7 +23,7 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
 
-		if (name === "package" || name === "transportation") {
+		if (name === "package" || name === "transportation" || name === "room") {
 			// required calculation after the package and transportation plan has been changed
 			setIsCalculated(false);
 		} else {
@@ -47,10 +48,12 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 	const calculatePrice = () => {
 		// calculate and finalized the overall price for the tour
 		setIsCalculated(true);
-		// combine the package rate and merge with transportation price
+		const selectedPackage = packages[formData.package || "bronze"];
+		// combine the package rate, room rent and merge with transportation price
 		setFee(
-			baseFee * Number(packages[formData.package || "bronze"].rate || 1) +
-				Number(formData.transportation || 0)
+			baseFee * Number(selectedPackage.rate || 1) +
+				Number(formData.transportation || 0) +
+				selectedPackage.roomPrice * formData.room
 		);
 	};
 
@@ -180,7 +183,19 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 						onChange={handleChange}
 					/>
 				</Form.Group>
-
+				<Form.Group className="mb-3" controlId="room">
+					<Form.Label>Number of Room</Form.Label>
+					<Form.Control
+						type="number"
+						name="room"
+						required
+						max={10}
+						min={1}
+						placeholder="Number of room"
+						value={formData.room}
+						onChange={handleChange}
+					/>
+				</Form.Group>
 				<Form.Group className="mb-3" controlId="transportation">
 					<Form.Label>Transportation</Form.Label>
 					<Form.Control

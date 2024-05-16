@@ -10,7 +10,7 @@ export default function AvailablePackages() {
 			<div className="available-packages">
 				{packagesKeys.map((key) => (
 					<article key={key} className="shadow-sm packages-container">
-						<img src={packages[key].image} alt="" />
+						<img src={packages[key].image} alt="badge" />
 						<div className="packages-body">
 							<h4 className="mt-2 mb-3">
 								<span className="text-uppercase">{packages[key].name} </span>(

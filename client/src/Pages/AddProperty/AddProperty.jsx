@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./AddProperty.css";
 import Form from "react-bootstrap/Form";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -6,16 +6,65 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import axios from "../../lib/axios";
+import { categories, cities } from "../../constants";
+import AddShoppingShoppingMall from "../../component/AdditionalFormSection/AddShoppingMall";
+import AddEvents from "../../component/AdditionalFormSection/AddEvents";
+
+const defaultData = {
+	addedBy: "",
+	title: "",
+	details: "",
+	address: "",
+	fee: 0,
+	shoppingMall: [],
+	events: [],
+	transportOptions: [],
+	bestMonthToVisit: "",
+	area: "",
+	category: "",
+	city: "",
+	zipCode: "",
+	image: "",
+	openingTime: "",
+	closingTime: "",
+};
+
+const shoppingMallTemplate = {
+	id: "",
+	name: "",
+	address: "",
+	description: "",
+	image: null,
+	imageURL: "",
+};
+const eventTemplate = {
+	id: "",
+	name: "",
+	address: "",
+	datetime: "",
+	description: "",
+	image: null,
+	imageURL: "",
+};
 
 const AddProperty = () => {
+	const [shoppingMallCount, setShoppingMallCount] = useState([]);
+
+	const [eventCount, setEventCount] = useState([]);
+
 	const { user } = useContext(AuthContext);
 	useTitle("Add Tour");
 
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		defaultValues: defaultData,
+	});
+
+	const cityData = watch("city"); // watch city field's value change
 
 	const navigate = useNavigate();
 
@@ -65,10 +114,60 @@ const AddProperty = () => {
 			});
 	};
 
+	// add a field for input the events field
+	const handleEventField = (type) => {
+		if (type === "inc") {
+			setEventCount((prev) => {
+				return [...prev, { ...eventTemplate, id: crypto.randomUUID() }];
+			});
+		} else {
+			setEventCount((prev) => {
+				if (prev.length === 0) {
+					return [];
+				} else {
+					const newEvent = [...prev];
+					newEvent.pop(); // Remove the last added event data
+					return newEvent;
+				}
+			});
+		}
+	};
+
+	// add a field for input the shopping mall field
+	const handleMallField = (type) => {
+		if (type === "inc") {
+			setShoppingMallCount((prev) => {
+				return [...prev, { ...shoppingMallTemplate, id: crypto.randomUUID() }];
+			});
+		} else {
+			setShoppingMallCount((prev) => {
+				if (prev.length === 0) {
+					return [];
+				} else {
+					const newMalls = [...prev];
+					newMalls.pop(); // Remove the last added shoppingMallData
+					return newMalls;
+				}
+			});
+		}
+	};
+
+	const handleInputChange = (index, field, value) => {
+		const newMalls = [...shoppingMallCount];
+		newMalls[index][field] = value;
+		setShoppingMallCount(newMalls);
+	};
+
+	const handleEventInputChange = (index, field, value) => {
+		const newEvent = [...eventCount];
+		newEvent[index][field] = value;
+		setEventCount(newEvent);
+	};
+
 	return (
 		<section>
 			<h3 className="text-center text-uppercase mt-4">Add New Tourist Place</h3>
-			<form onSubmit={handleSubmit(handleAddProduct)}>
+			<Form onSubmit={handleSubmit(handleAddProduct)}>
 				<div className=" d-flex justify-content-center">
 					<div className="add-property-box">
 						<h4>Personal Information</h4>
@@ -76,38 +175,30 @@ const AddProperty = () => {
 							<div className="col-md-4 col-lg-4 col-sm-12">
 								<Form>
 									<Form.Group>
-										<Form.Label>Name*</Form.Label>
+										<Form.Label>Name</Form.Label>
 										<Form.Control
-											{...register("name", {
-												required: "Name is Required",
-											})}
+											defaultValue={user?.displayName}
+											disabled
 											type="text"
 										/>
-										{errors.name && (
-											<p className="text-danger">{errors.name.message}</p>
-										)}
 									</Form.Group>
 								</Form>
 							</div>
 							<div className="col-md-4 col-lg-4 col-sm-12">
 								<Form>
 									<Form.Group>
-										<Form.Label>Phone No*</Form.Label>
+										<Form.Label>Phone No</Form.Label>
 										<Form.Control
-											{...register("phone", {
-												required: "Phone Number is Required",
-											})}
-											type="number"
+											defaultValue={user?.phoneNumber}
+											disabled
+											type="tel"
 										/>
-										{errors.name && (
-											<p className="text-danger">{errors.phone.message}</p>
-										)}
 									</Form.Group>
 								</Form>
 							</div>
 							<div className="col-md-4 col-lg-4 col-sm-12">
 								<Form>
-									<Form.Label>Email*</Form.Label>
+									<Form.Label>Email</Form.Label>
 									<Form.Control
 										type="email"
 										defaultValue={user?.email}
@@ -116,299 +207,285 @@ const AddProperty = () => {
 								</Form>
 							</div>
 						</div>
-						<h4> Rental information</h4>
-						<Form>
-							<Form.Group className="mb-2" controlId="">
-								<Form.Label>Property Title*</Form.Label>
+						<h4 className="mt-4"> Tour information</h4>
+						<div className="row">
+							<Form.Group className="mb-2 col-6" controlId="">
+								<Form.Label>Tour Title</Form.Label>
 								<Form.Control
 									{...register("title", {
-										required: "Property title is Required",
+										required: "Tour title is Required",
 									})}
 									type="text"
-									placeholder="Enter property title"
+									placeholder="Enter tour title"
 								/>
-								{errors.name && (
-									<p className="text-danger">{errors.title.message}</p>
+								{errors.title && (
+									<p className="text-danger mt-1">{errors.title.message}</p>
 								)}
 							</Form.Group>
-							<Form.Group className="mb-2" controlId="">
-								<Form.Label>Property Details*</Form.Label>
+							<Form.Group className="mb-2 col-6" controlId="">
+								<Form.Label>Tour Address</Form.Label>
 								<Form.Control
-									{...register("details", {
-										required: "Property Details is Required",
+									{...register("address", {
+										required: "Tour address is Required",
 									})}
 									type="text"
-									as="textarea"
-									rows={3}
-									placeholder="write details of a property"
+									placeholder="Enter tour address"
 								/>
-								{errors.name && (
-									<p className="text-danger">{errors.details.message}</p>
+								{errors.address && (
+									<p className="text-danger mt-1">{errors.address.message}</p>
 								)}
 							</Form.Group>
-							<Form.Group className="mb-2">
-								<div className="row">
-									<div className="col-6">
-										<Form.Label>Rent*</Form.Label>
-										<Form.Control
-											{...register("rent", {
-												required: "Rent amount is Required",
-											})}
-											type="number"
-											placeholder="rent amount"
-										/>
-										{errors.name && (
-											<p className="text-danger">{errors.rent.message}</p>
-										)}
-									</div>
-									<div className="col-6">
-										<Form>
-											<Form.Group>
-												<Form.Label>Available From*</Form.Label>
-												<Form.Select
-													{...register("month", {
-														required: "Available month is Required",
-													})}
-													aria-label="Default select example"
-												>
-													<option value="">Select Month</option>
-													<option value="January">January</option>
-													<option value="February">February</option>
-													<option value="March">March</option>
-													<option value="April">April</option>
-													<option value="May">May</option>
-													<option value="June">June</option>
-													<option value="July">July</option>
-													<option value="August">August</option>
-													<option value="September">September</option>
-													<option value="October">October</option>
-													<option value="November">November</option>
-													<option value="December">December</option>
-												</Form.Select>
-												{errors.name && (
-													<p className="text-danger">
-														{errors.month.message}
-													</p>
-												)}
-											</Form.Group>
-										</Form>
-									</div>
+						</div>
+						<Form.Group className="mb-2" controlId="">
+							<Form.Label>Tour Details</Form.Label>
+							<Form.Control
+								{...register("details", {
+									required: "Tour Details is Required",
+								})}
+								type="text"
+								as="textarea"
+								rows={3}
+								placeholder="write details about the tour"
+							/>
+							{errors.details && (
+								<p className="text-danger mt-1">{errors.details.message}</p>
+							)}
+						</Form.Group>
+						<Form.Group className="mb-2">
+							<div className="row">
+								<div className="col-6">
+									<Form.Label>Tour Fees</Form.Label>
+									<Form.Control
+										{...register("fee", {
+											required: "Tour fees is Required",
+										})}
+										min={1}
+										type="number"
+										placeholder="Fees amount"
+									/>
+									{errors.fee && (
+										<p className="text-danger mt-1">{errors.fee.message}</p>
+									)}
 								</div>
-							</Form.Group>
-						</Form>
-
-						<div className="row mb-2">
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
+								<div className="col-6">
 									<Form.Group>
-										<Form.Label>Property Size*</Form.Label>
-										<Form.Control
-											{...register("propertySize", {
-												required: "Property size is Required",
+										<Form.Label>Best month to visit</Form.Label>
+										<Form.Select
+											{...register("bestMonthToVisit", {
+												required: "Month is Required",
 											})}
-											type="number"
-											placeholder="size of a property in sqft."
-										/>
-										{errors.name && (
-											<p className="text-danger">
-												{errors.propertySize.message}
+											aria-label="Default select example"
+										>
+											<option value="">Select Month</option>
+											<option value="January">January</option>
+											<option value="February">February</option>
+											<option value="March">March</option>
+											<option value="April">April</option>
+											<option value="May">May</option>
+											<option value="June">June</option>
+											<option value="July">July</option>
+											<option value="August">August</option>
+											<option value="September">September</option>
+											<option value="October">October</option>
+											<option value="November">November</option>
+											<option value="December">December</option>
+										</Form.Select>
+										{errors.bestMonthToVisit && (
+											<p className="text-danger mt-1">
+												{errors.bestMonthToVisit.message}
 											</p>
 										)}
 									</Form.Group>
-								</Form>
+								</div>
 							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>City*</Form.Label>
-										<Form.Select
-											{...register("city", {
-												required: "city is Required",
-											})}
-											aria-label="Default select example"
-										>
-											<option value="">Choose City</option>
-											<option value="Dhaka">Dhaka</option>
-											<option value="Chittagong">Chittagong</option>
-											<option value="Rajshahi">Rajshahi</option>
-											<option value="Rangpur">Rangpur</option>
-											<option value="Barisal">Barisal</option>
-											<option value="Khulna">Khulna</option>
-											<option value="Sylhet">Sylhet</option>
-											<option value="Mymensingh">Mymensingh</option>
-										</Form.Select>
-										{errors.name && (
-											<p className="text-danger">{errors.city.message}</p>
-										)}
-									</Form.Group>
-								</Form>
+						</Form.Group>
+
+						<div className="row mb-2">
+							<div className="col-md-6 col-lg-6 col-sm-12">
+								<Form.Group>
+									<Form.Label>Opening Time</Form.Label>
+									<Form.Control
+										{...register("openingTime", {
+											required: "Property size is Required",
+										})}
+										type="time"
+										placeholder="Opening time is required."
+									/>
+									{errors.openingTime && (
+										<p className="text-danger mt-1">
+											{errors.openingTime.message}
+										</p>
+									)}
+								</Form.Group>
 							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Area*</Form.Label>
-										<Form.Select
-											{...register("area", {
-												required: "Area is Required",
-											})}
-											aria-label="Default select example"
-										>
-											<option value="">Choose Area</option>
-											<option value="Dhanmondi">Dhanmondi</option>
-											<option value="Mohammadpur">Mohammadpur</option>
-											<option value="Mirpur">Mirpur</option>
-											<option value="Uttara">Uttara</option>
-											<option value="Bashundhara">Bashundhara</option>
-											<option value="Badda">Badda</option>
-											<option value="Khilkhet">Khilkhet</option>
-											<option value="Farmgate">Farmgate</option>
-										</Form.Select>
-										{errors.name && (
-											<p className="text-danger">{errors.area.message}</p>
-										)}
-									</Form.Group>
-								</Form>
+							<div className="col-md-6 col-lg-6 col-sm-12">
+								<Form.Group>
+									<Form.Label>Closing Time</Form.Label>
+									<Form.Control
+										{...register("closingTime", {
+											required: "Closing time is Required",
+										})}
+										type="time"
+										placeholder="Closing time is required."
+									/>
+									{errors.closingTime && (
+										<p className="text-danger mt-1">
+											{errors.closingTime.message}
+										</p>
+									)}
+								</Form.Group>
 							</div>
 						</div>
 						<div className="row mb-2">
 							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Rent Category*</Form.Label>
-										<Form.Select
-											{...register("category", {
-												required: "Category is Required",
-											})}
-											aria-label="Default select example"
-										>
-											<option value="">Choose</option>
-											<option value="Commercial Space">
-												Commercial Space
-											</option>
-											<option value="Office Space">Office Space</option>
-											<option value="Apartment Building">
-												Apartment Building
-											</option>
-											<option value="Flat Rent">Flat Rent</option>
-											<option value="Hostel Rent">Hostel Rent</option>
-											<option value="Only For Boys">Only For Boys</option>
-											<option value="Only For Girls">Only For Girls</option>
-											<option value="For Family">For Family</option>
-											<option value="Community Center">
-												Community Center
-											</option>
-											<option value="Shop & Restaurant Space">
-												Shop & Restaurant Space
-											</option>
-										</Form.Select>
-										{errors.name && (
-											<p className="text-danger">{errors.category.message}</p>
-										)}
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-8 col-sm-8 col-sm-12">
-								<Form>
-									<Form.Group controlId="">
-										<Form.Label>Address*</Form.Label>
-										<Form.Control
-											{...register("address", {
-												required: "Address is Required",
-											})}
-											type="text"
-											as="textarea"
-											rows={3}
-											placeholder="Location / address of your property"
-										/>
-										{errors.name && (
-											<p className="text-danger">{errors.address.message}</p>
-										)}
-									</Form.Group>
-								</Form>
-							</div>
-						</div>
-						<div className="row mb-2">
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Room</Form.Label>
-										<Form.Control {...register("room", {})} type="number" />
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Bath</Form.Label>
-										<Form.Control {...register("bath", {})} type="number" />
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Label>Kitchen</Form.Label>
-									<Form.Control {...register("kitchen", {})} type="number" />
-								</Form>
-							</div>
-						</div>
-						<div className="row mb-2">
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Garage</Form.Label>
-										<Form.Control {...register("garage", {})} type="number" />
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Gas</Form.Label>
-										<Form.Select
-											{...register("gas", {})}
-											aria-label="Default select example"
-										>
-											<option></option>
-											<option value="Available">Available</option>
-											<option value="Not Available">Not Available</option>
-										</Form.Select>
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Label>Elevator</Form.Label>
+								<Form.Group>
+									<Form.Label>City</Form.Label>
 									<Form.Select
-										{...register("elevator", {})}
+										{...register("city", {
+											required: "city is Required",
+										})}
 										aria-label="Default select example"
 									>
-										<option></option>
-										<option value="Available">Available</option>
-										<option value="Not Available">Not Available</option>
+										<option value="">Choose a city</option>
+										{Object.keys(cities).map((city, index) => (
+											<option key={index} value={city}>
+												{city}
+											</option>
+										))}
 									</Form.Select>
-								</Form>
+									{errors.city && (
+										<p className="text-danger mt-1">{errors.city.message}</p>
+									)}
+								</Form.Group>
+							</div>
+							<div className="col-md-4 col-lg-4 col-sm-12">
+								<Form.Group>
+									<Form.Label>Area</Form.Label>
+									<Form.Select
+										{...register("area", {
+											required: "Area is Required",
+										})}
+										aria-label="Default select example"
+									>
+										<option value="">Choose an area</option>
+										{!cities[cityData] ? (
+											<option value="">Select a city first</option>
+										) : (
+											cities[cityData]?.areas.map((area) => (
+												<option key={area} value={area}>
+													{area}
+												</option>
+											))
+										)}
+									</Form.Select>
+									{errors.area && (
+										<p className="text-danger mt-1">{errors.area.message}</p>
+									)}
+								</Form.Group>
+							</div>
+							<div className="col-md-4 col-lg-4 col-sm-12">
+								<Form.Group>
+									<Form.Label>Tour Category</Form.Label>
+									<Form.Select
+										{...register("category", {
+											required: "Category is Required",
+										})}
+										aria-label="Default select example"
+									>
+										<option value="">Choose</option>
+										{categories.map((data, index) => (
+											<option key={index} value={data.name}>
+												{data.name}
+											</option>
+										))}
+									</Form.Select>
+									{errors.name && (
+										<p className="text-danger mt-1">
+											{errors.category.message}
+										</p>
+									)}
+								</Form.Group>
 							</div>
 						</div>
-						<Form.Group controlId="formFileLg" className="mb-2">
-							<Form.Label>Upload Property Image 1</Form.Label>
+						<Form.Group controlId="formFileLg" className="mb-3">
+							<Form.Label>Upload tour Image</Form.Label>
 							<Form.Control
 								{...register("image", {
 									required: "Image is Required",
 								})}
 								type="file"
+								accept="image/*"
 								size="lg"
 							/>
-							{/* {errors.name && (
-                <p className="text-danger">{errors.image.message}</p>
-              )} */}
+							{errors.image && (
+								<p className="text-danger mt-1">{errors.image.message}</p>
+							)}
 						</Form.Group>
 
-						<div className="text-center">
-							<input className="login-btn mt-4" value="Submit" type="submit" />
+						{/* ----------- available transportation selection --------- */}
+						<div className="row mt-3">
+							<div className="col-md-6 col-lg-6 col-sm-12">
+								<Form.Group>
+									<Form.Label>
+										Available transportation (press <kbd>ctrl</kbd> to multi
+										select)
+									</Form.Label>
+									<Form.Select
+										{...register("transportOptions", {
+											required: "Transportation option is Required",
+										})}
+										multiple
+										aria-label="Default select example"
+									>
+										<option value="">--- Choose transportation ----</option>
+										<option value="bus">Bus</option>
+										<option value="train">Train</option>
+										<option value="car">Car</option>
+										<option value="foot">On Foot</option>
+									</Form.Select>
+									{errors.transportation && (
+										<p className="text-danger mt-1">
+											{errors.transportation.message}
+										</p>
+									)}
+								</Form.Group>
+							</div>
+							<div className="col-md-6 col-lg-6 col-sm-12">
+								<Form.Group>
+									<Form.Label>Zip code</Form.Label>
+									<Form.Control
+										{...register("zipCode")}
+										placeholder="0000/0"
+										type="text"
+									/>
+								</Form.Group>
+							</div>
+						</div>
+
+						{/* ----------- add shopping mall section ----------- */}
+						<AddShoppingShoppingMall
+							handleMallField={handleMallField}
+							shoppingMallCount={shoppingMallCount}
+							handleInputChange={handleInputChange}
+						/>
+
+						{/* ------------- add events ------------- */}
+						<AddEvents
+							handleEventField={handleEventField}
+							eventCount={eventCount}
+							handleInputChange={handleEventInputChange}
+						/>
+
+						<div className="text-center mt-4">
+							<input
+								className="login-btn mt-2 text-uppercase"
+								value="Add tourist place"
+								type="submit"
+							/>
 						</div>
 					</div>
 				</div>
-			</form>
+			</Form>
 		</section>
 	);
 };
