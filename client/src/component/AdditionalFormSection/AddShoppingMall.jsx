@@ -68,7 +68,11 @@ export default function AddShoppingMall({ handleMallField, shoppingMallCount, ha
 						<div className="col-md-6 col-lg-6 col-sm-12">
 							<Form.Group className="mt-3">
 								<Form.Control
+									name="image"
 									type="file"
+									onChange={(e) =>
+										handleInputChange(index, "image", e.target.files)
+									}
 									accept="image/*"
 									required
 									placeholder="image"

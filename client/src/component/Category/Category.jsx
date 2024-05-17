@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../lib/axios";
 import Loading from "../../Shared/Loading/Loading";
 
-const Category = ({ categ, setTotalAdd, totalAdd }) => {
+const Category = ({ categ }) => {
 	const { name, image } = categ;
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -20,10 +20,11 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 		function fetchData() {
 			try {
 				setLoading(true);
-				axios.get(`/products/categoryWiseData?title=${name}`).then((res) => {
-					setAdd(res.data?.places?.length);
-					setTotalAdd(totalAdd + res.data?.places?.length);
-				});
+				axios
+					.get(`/products/categoryWiseData?title=${encodeURIComponent(name)}`)
+					.then((res) => {
+						setAdd(res.data?.places?.length);
+					});
 			} catch (error) {
 				setError(error);
 			} finally {
@@ -44,7 +45,9 @@ const Category = ({ categ, setTotalAdd, totalAdd }) => {
 			<button className="bg-white">
 				<img className="category-img" src={image} alt="" />
 				<p>{name}</p>
-				<span>{add} venues</span>
+				<span>
+					{add} {add.length > 1 ? "tours" : "tour"}
+				</span>
 			</button>
 		</div>
 	);

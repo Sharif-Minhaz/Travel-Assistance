@@ -12,7 +12,6 @@ const Home = () => {
 	useTitle("Home");
 
 	const [add, setAdd] = useState([]);
-	const [totalAdd, setTotalAdd] = useState(0);
 
 	useEffect(() => {
 		axios.get(`/products/allProducts`).then((res) => {
@@ -29,17 +28,13 @@ const Home = () => {
 					<div className="category-title mt-sm-5 mt-lg-0 mt-md-0">
 						<p>Top Categories</p>
 						<span>
-							{categories?.length || 0} categories, {add?.length || 0} venues
+							{categories?.length || 0} categories, {add?.length || 0}{" "}
+							{add.length > 1 ? "tours" : "tour"}
 						</span>
 					</div>
 					<div className="category">
 						{categories?.map((categ) => (
-							<Category
-								key={categ.name}
-								categ={categ}
-								setTotalAdd={setTotalAdd}
-								totalAdd={totalAdd}
-							/>
+							<Category key={categ.name} categ={categ} />
 						))}
 					</div>
 				</div>

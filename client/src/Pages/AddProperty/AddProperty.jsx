@@ -9,6 +9,7 @@ import axios from "../../lib/axios";
 import { categories, cities } from "../../constants";
 import AddShoppingShoppingMall from "../../component/AdditionalFormSection/AddShoppingMall";
 import AddEvents from "../../component/AdditionalFormSection/AddEvents";
+import toast from "react-hot-toast";
 
 const defaultData = {
 	addedBy: "",
@@ -24,7 +25,8 @@ const defaultData = {
 	category: "",
 	city: "",
 	zipCode: "",
-	image: "",
+	image: null,
+	imageURL: "",
 	openingTime: "",
 	closingTime: "",
 };
@@ -68,59 +70,93 @@ const AddProperty = () => {
 
 	const navigate = useNavigate();
 
-	const handleAddProduct = (data) => {
-		const image = data.image[0];
-
+	// <----- upload image into imgBB ----->
+	const uploadImageToImgBB = async (image) => {
 		const formData = new FormData();
 		formData.append("image", image);
 
 		const url = `https://api.imgbb.com/1/upload?&key=${process.env.REACT_APP_IMGBB_API}`;
 
-		fetch(url, {
-			method: "POST",
-			body: formData,
-		})
-			.then((res) => res.json())
-			.then((imageData) => {
-				if (imageData) {
-					const product = {
-						name: data.name,
-						address: data.address,
-						rent: parseInt(data.rent),
-						month: data.month,
-						area: data.area,
-						bath: parseInt(data.bath),
-						category: data.category,
-						city: data.city,
-						details: data.details,
-						elevator: data.elevator,
-						email: user.email,
-						garage: parseInt(data.garage),
-						gas: data.gas,
-						kitchen: parseInt(data.kitchen),
-						phone: data.phone,
-						propertySize: parseInt(data.propertySize),
-						room: parseInt(data.room),
-						title: data.title,
-						image: imageData?.data.url,
-					};
+		try {
+			const response = await fetch(url, {
+				method: "POST",
+				body: formData,
+			});
 
-					// Save Products information to the database
-					axios.post("/products/productCollection", product).then((res) => {
-						// toast.success(`${data.name} is added successfully`);
-						navigate("/allProperty");
-					});
+			const data = await response.json();
+			if (data.success) {
+				return data.data.url; // Return the URL of the uploaded image
+			} else {
+				throw new Error("Failed to upload image");
+			}
+		} catch (error) {
+			console.error("Error uploading image:", error);
+			return null;
+		}
+	};
+
+	const uploadAllImagesAndUpdateData = async (data) => {
+		const updatedData = { ...data };
+
+		// Helper function to upload image and update URL
+		const uploadImageAndSetUrl = async (image) => {
+			if (image && image[0]) {
+				return uploadImageToImgBB(image[0]);
+			}
+			return null;
+		};
+
+		// Collect promises for main image
+		const mainImagePromise = uploadImageAndSetUrl(updatedData.image).then((url) => {
+			updatedData.imageURL = url;
+		});
+
+		// Collect promises for shoppingMall images
+		const shoppingMallPromises = updatedData.shoppingMall?.map(async (mall, index) => {
+			const imageUrl = await uploadImageAndSetUrl(mall.image);
+			updatedData.shoppingMall[index].imageURL = imageUrl;
+		});
+
+		// Collect promises for events images
+		const eventPromises = updatedData.events?.map(async (event, index) => {
+			const imageUrl = await uploadImageAndSetUrl(event.image);
+			updatedData.events[index].imageURL = imageUrl;
+		});
+
+		// Wait for all image uploads to complete
+		await Promise.all([mainImagePromise, ...shoppingMallPromises, ...eventPromises]);
+
+		return updatedData;
+	};
+
+	// add the tourist place into database
+	const handleAddPlace = async (data) => {
+		// toast.promise(
+		uploadAllImagesAndUpdateData({
+			...data,
+			addedBy: user?._id,
+			shoppingMall: [...shoppingMallCount],
+			events: [...eventCount],
+		}).then((placeInfo) => {
+			//Save Products information to the database
+			axios.post("/products/productCollection", placeInfo).then((res) => {
+				if (res.data.place) {
+					toast.success("Tour place added successfully");
+					return navigate("/allProperty");
 				}
 			});
+		});
 	};
 
 	// add a field for input the events field
 	const handleEventField = (type) => {
 		if (type === "inc") {
+			// increment
 			setEventCount((prev) => {
 				return [...prev, { ...eventTemplate, id: crypto.randomUUID() }];
 			});
 		} else {
+			// decrement
 			setEventCount((prev) => {
 				if (prev.length === 0) {
 					return [];
@@ -136,10 +172,12 @@ const AddProperty = () => {
 	// add a field for input the shopping mall field
 	const handleMallField = (type) => {
 		if (type === "inc") {
+			// increment
 			setShoppingMallCount((prev) => {
 				return [...prev, { ...shoppingMallTemplate, id: crypto.randomUUID() }];
 			});
 		} else {
+			// decrement
 			setShoppingMallCount((prev) => {
 				if (prev.length === 0) {
 					return [];
@@ -152,59 +190,63 @@ const AddProperty = () => {
 		}
 	};
 
+	// handle shopping mall fields
 	const handleInputChange = (index, field, value) => {
 		const newMalls = [...shoppingMallCount];
-		newMalls[index][field] = value;
+
+		if (field === "image") {
+			const file = value;
+			newMalls[index][field] = file;
+		} else {
+			newMalls[index][field] = value;
+		}
+
 		setShoppingMallCount(newMalls);
 	};
 
+	// handle event fields
 	const handleEventInputChange = (index, field, value) => {
 		const newEvent = [...eventCount];
-		newEvent[index][field] = value;
+		if (field === "image") {
+			const file = value;
+			newEvent[index][field] = file;
+		} else {
+			newEvent[index][field] = value;
+		}
 		setEventCount(newEvent);
 	};
 
 	return (
 		<section>
 			<h3 className="text-center text-uppercase mt-4">Add New Tourist Place</h3>
-			<Form onSubmit={handleSubmit(handleAddProduct)}>
+			<Form onSubmit={handleSubmit(handleAddPlace)}>
 				<div className=" d-flex justify-content-center">
 					<div className="add-property-box">
 						<h4>Personal Information</h4>
 						<div className="row my-2">
 							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Name</Form.Label>
-										<Form.Control
-											defaultValue={user?.displayName}
-											disabled
-											type="text"
-										/>
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Group>
-										<Form.Label>Phone No</Form.Label>
-										<Form.Control
-											defaultValue={user?.phoneNumber}
-											disabled
-											type="tel"
-										/>
-									</Form.Group>
-								</Form>
-							</div>
-							<div className="col-md-4 col-lg-4 col-sm-12">
-								<Form>
-									<Form.Label>Email</Form.Label>
+								<Form.Group>
+									<Form.Label>Name</Form.Label>
 									<Form.Control
-										type="email"
-										defaultValue={user?.email}
+										defaultValue={user?.displayName}
 										disabled
+										type="text"
 									/>
-								</Form>
+								</Form.Group>
+							</div>
+							<div className="col-md-4 col-lg-4 col-sm-12">
+								<Form.Group>
+									<Form.Label>Phone No</Form.Label>
+									<Form.Control
+										defaultValue={user?.phoneNumber}
+										disabled
+										type="tel"
+									/>
+								</Form.Group>
+							</div>
+							<div className="col-md-4 col-lg-4 col-sm-12">
+								<Form.Label>Email</Form.Label>
+								<Form.Control type="email" defaultValue={user?.email} disabled />
 							</div>
 						</div>
 						<h4 className="mt-4"> Tour information</h4>
@@ -426,10 +468,7 @@ const AddProperty = () => {
 						<div className="row mt-3">
 							<div className="col-md-6 col-lg-6 col-sm-12">
 								<Form.Group>
-									<Form.Label>
-										Available transportation (press <kbd>ctrl</kbd> to multi
-										select)
-									</Form.Label>
+									<Form.Label>Available transportation</Form.Label>
 									<Form.Select
 										{...register("transportOptions", {
 											required: "Transportation option is Required",
@@ -437,12 +476,17 @@ const AddProperty = () => {
 										multiple
 										aria-label="Default select example"
 									>
-										<option value="">--- Choose transportation ----</option>
+										<option value="">--- Choose transportation ---</option>
 										<option value="bus">Bus</option>
 										<option value="train">Train</option>
 										<option value="car">Car</option>
+										<option value="boat">Boat</option>
+										<option value="bike">Bike</option>
 										<option value="foot">On Foot</option>
 									</Form.Select>
+									<Form.Text className="text-muted mt-2">
+										Press <kbd>ctrl</kbd> to multi select
+									</Form.Text>
 									{errors.transportation && (
 										<p className="text-danger mt-1">
 											{errors.transportation.message}

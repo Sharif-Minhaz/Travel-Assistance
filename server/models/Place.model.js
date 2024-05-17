@@ -22,13 +22,19 @@ const placeSchema = new Schema(
 			required: [true, "Entry fee is required"],
 			min: 300,
 		},
-		shoppingMall: [{ name: String, address: String, description: String, image: String }],
+		shoppingMall: [{ name: String, address: String, description: String, imageURL: String }],
 		events: [
-			{ name: String, address: String, datetime: Date, description: String, image: String },
+			{
+				name: String,
+				address: String,
+				datetime: Date,
+				description: String,
+				imageURL: String,
+			},
 		],
 		transportOptions: {
 			type: [String],
-			enum: ["bike", "car", "bus"],
+			enum: ["bike", "train", "boat", "car", "bus", "foot"],
 			default: "bus",
 		},
 		bestMonthToVisit: {
@@ -57,7 +63,7 @@ const placeSchema = new Schema(
 			required: [true, "Details is required"],
 			trim: true,
 		},
-		image: {
+		imageURL: {
 			type: String,
 			required: [true, "Image is required"],
 			trim: true,

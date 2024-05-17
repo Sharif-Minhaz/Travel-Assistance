@@ -21,8 +21,8 @@ const NavSection = () => {
 	};
 
 	return (
-		<div className="container">
-			<nav className="navbar z-3 navbar-expand-lg navbar-light">
+		<div className="container nav-container">
+			<nav className="navbar navbar-expand-lg navbar-light">
 				<div className="container-fluid">
 					<Link to="/" className="navbar-brand">
 						<img src="/logo.svg" className="app-logo" alt="logo" />

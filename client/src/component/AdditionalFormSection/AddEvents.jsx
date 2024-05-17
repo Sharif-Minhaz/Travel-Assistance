@@ -78,7 +78,11 @@ export default function AddEvents({ eventCount, handleEventField, handleInputCha
 							<Form.Group className="mt-3">
 								<Form.Control
 									type="file"
+									name="image"
 									accept="image/*"
+									onChange={(e) =>
+										handleInputChange(index, "image", e.target.files)
+									}
 									required
 									placeholder="image"
 									size="lg"

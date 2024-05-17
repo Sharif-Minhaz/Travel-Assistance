@@ -5,7 +5,6 @@ import Loading from "../../Shared/Loading/Loading";
 
 const AdminRoute = ({ children }) => {
 	const { user, loading } = useContext(AuthContext);
-	console.log(user);
 	const location = useLocation();
 
 	if (loading) {

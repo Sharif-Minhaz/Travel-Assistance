@@ -17,6 +17,7 @@ const PropertyDetails = () => {
 	const data = useLoaderData();
 
 	const { area, city, email, image, phone, title } = data?.place;
+
 	const baseFee = 5000;
 	const [fee, setFee] = useState(baseFee);
 

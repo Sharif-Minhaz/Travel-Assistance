@@ -7,6 +7,7 @@ import {
 	signInWithPopup,
 	signOut,
 	updateProfile,
+	deleteUser,
 } from "firebase/auth";
 import axios from "../lib/axios";
 import app from "../firebase/firebase.config";
@@ -16,7 +17,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
 	const [signupKey, setSignupKey] = useState(0);
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState();
 	const [loading, setLoading] = useState(false);
 
 	const createUser = (email, password) => {
@@ -75,7 +76,7 @@ const AuthProvider = ({ children }) => {
 					setLoading(false);
 				});
 			} else {
-				setUser({});
+				setUser();
 			}
 		});
 		return () => {
@@ -90,6 +91,7 @@ const AuthProvider = ({ children }) => {
 		updateUser,
 		logOut,
 		setSignupKey,
+		deleteUser,
 		user,
 		loading,
 	};

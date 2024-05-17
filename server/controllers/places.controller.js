@@ -24,10 +24,10 @@ exports.deleteRestaurantController = asyncHandler(async (req, res) => {
 exports.getRestaurantDetailsController = asyncHandler(async (req, res) => {
 	const id = req.params.id;
 
-	const place = await Place.findById(id);
+	const place = await Place.findById(id).populate("addedBy").lean();
 
 	res.status(200).json({
-		message: "Place information",
+		message: "Tourist Place information",
 		place,
 	});
 });
@@ -37,8 +37,8 @@ exports.addRestaurantController = asyncHandler(async (req, res) => {
 
 	const result = await Place.create(data);
 
-	res.status(200).json({
-		message: "Place added",
+	res.status(201).json({
+		message: "Tourist place added",
 		place: result,
 	});
 });
@@ -89,7 +89,7 @@ exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 exports.getAllRestaurants = asyncHandler(async (req, res) => {
 	const query = {};
 
-	const places = await Place.find(query).lean();
+	const places = await Place.find(query).populate("addedBy").lean();
 
 	res.status(200).json({ message: "Place information", places });
 });
@@ -109,7 +109,8 @@ exports.sortRestaurantController = asyncHandler(async (req, res) => {
 });
 
 exports.categoryWiseDataController = asyncHandler(async (req, res) => {
-	const title = req.query.title;
+	const { title } = req.query;
+
 	const places = await Place.find({ category: title }).lean();
 
 	res.status(200).json({

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FaBed, FaBath, FaSquare } from "react-icons/fa";
+import { FaCloudSun } from "react-icons/fa";
 import { ImLocation2 } from "react-icons/im";
 import { Pagination, Navigation } from "swiper";
 
@@ -11,6 +11,7 @@ import "./TopListingProperty.css";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
+import { MdOutlineNightsStay } from "react-icons/md";
 
 const TopListingProperty = () => {
 	const [loading, setLoading] = useState(false);
@@ -83,41 +84,41 @@ const TopListingProperty = () => {
 						<div className="card">
 							<div className="card-image text-center">
 								<img
-									src={pro.image}
+									src={pro.imageURL}
 									className="card-img-top img-fluid w-100 object-fit-cover"
 									alt="..."
 								/>
 							</div>
-							<div className="card-info">
-								<p className="fw-bold">{pro.title}</p>
+							<div style={{ minHeight: "308px" }} className="card-info">
+								<p style={{ fontSize: "20px" }} className="fw-bold">
+									{pro.title}
+								</p>
 
 								<span>
 									<ImLocation2 className="property-des-style" />
-									{pro.area}, {pro.city}
+									<span className="d-inline-block ms-1">
+										{pro.area}, {pro.city}
+									</span>
 								</span>
-								<p> Property Type: {pro.category}</p>
-								<div className="d-flex justify-content-start gap-4">
-									<span>
-										<FaBed className="property-des-style" /> {pro.room}
+								<p> Category: {pro.category}</p>
+								<div className="d-flex mt-2 justify-content-start gap-4">
+									<span className="fw-semibold">
+										<FaCloudSun className="font-awesome-icon me-1" />{" "}
+										{pro.openingTime}
 									</span>
-									<span>
-										<FaBath className="property-des-style" /> {pro.bath}
+									<span className="fw-semibold">
+										<MdOutlineNightsStay className="font-awesome-icon me-1" />{" "}
+										{pro.closingTime}
 									</span>
+								</div>
+								<div className="mt-3">
 									<span>
-										<FaSquare className="property-des-style" />{" "}
-										{pro.propertySize} sqft.
+										Best Month: <strong>{pro.bestMonthToVisit}</strong>
 									</span>
 								</div>
 								<div className="mt-2">
 									<span>
-										Available From:{" "}
-										<b className="property-des-style">{pro.month}</b>
-									</span>
-								</div>
-								<div className="mt-2">
-									<span>
-										Rent: <span className="property-des-style">{pro.rent}</span>{" "}
-										TK
+										Tour Fees: <strong>{pro.fee} TK</strong>
 									</span>
 								</div>
 								<div className="text-center mt-4 mb-3">
