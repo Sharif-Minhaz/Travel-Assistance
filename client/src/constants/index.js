@@ -71,6 +71,14 @@ export const categories = [
 	},
 ];
 
+export const transportation = {
+	foot: { name: "Foot", price: 0 },
+	train: { name: "Train", price: 350 },
+	car: { name: "Car", price: 800 },
+	bus: { name: "Bus", price: 500 },
+	bike: { name: "Bike", price: 1000 },
+};
+
 export const packages = {
 	gold: {
 		name: "Gold",

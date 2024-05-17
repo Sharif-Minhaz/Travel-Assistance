@@ -16,10 +16,9 @@ const PropertyDetails = () => {
 	useTitle("Booking");
 	const data = useLoaderData();
 
-	const { area, city, email, image, phone, title } = data?.place;
+	const { area, city, imageURL, title, addedBy, fee: tourFee, transportOptions } = data?.place;
 
-	const baseFee = 5000;
-	const [fee, setFee] = useState(baseFee);
+	const [fee, setFee] = useState(tourFee);
 
 	return (
 		<div>
@@ -34,49 +33,26 @@ const PropertyDetails = () => {
 							<div className="carousel-inner">
 								<div className="carousel-item active">
 									<img
-										src={image}
+										draggable={false}
+										src={imageURL}
 										className="d-block w-100 banner-image-resize"
 										alt="..."
 									/>
 								</div>
 							</div>
-							<button
-								className="carousel-control-prev"
-								type="button"
-								data-bs-target="#carouselExampleIndicators1"
-								data-bs-slide="prev"
-							>
-								<span
-									className="carousel-control-prev-icon"
-									aria-hidden="true"
-								></span>
-								<span className="visually-hidden">Previous</span>
-							</button>
-							<button
-								className="carousel-control-next"
-								type="button"
-								data-bs-target="#carouselExampleIndicators1"
-								data-bs-slide="next"
-							>
-								<span
-									className="carousel-control-next-icon"
-									aria-hidden="true"
-								></span>
-								<span className="visually-hidden">Next</span>
-							</button>
 						</div>
 						<div className="features-section mt-3">
 							<div className="features">
-								<PropertyDescription />
+								<PropertyDescription data={data?.place} />
 							</div>
 							<div className="features">
 								<AvailablePackages />
 							</div>
 							<div className="features">
-								<ShoppingMall />
+								<ShoppingMall data={data?.place?.shoppingMall} />
 							</div>
 							<div className="features">
-								<Events />
+								<Events data={data?.place?.events} />
 							</div>
 							<div className="features">
 								<PeopleReviews />
@@ -103,7 +79,7 @@ const PropertyDetails = () => {
 							<button className="contact-btn">
 								<a
 									className="d-flex justify-content-center align-items-center gap-2"
-									href={"tel:" + phone}
+									href={"tel:" + addedBy.phoneNumber}
 								>
 									<MdCall size={18} /> Call
 								</a>
@@ -111,7 +87,7 @@ const PropertyDetails = () => {
 							<button className="contact-btn">
 								<a
 									className="d-flex justify-content-center align-items-center gap-2"
-									href={"mailto:" + email}
+									href={"mailto:" + addedBy.email}
 								>
 									<MdMail size={18} /> Email
 								</a>
@@ -125,7 +101,12 @@ const PropertyDetails = () => {
 						</div>
 						{/* --------- order information ----------- */}
 						<div>
-							<OrderInformation baseFee={baseFee} fee={fee} setFee={setFee} />
+							<OrderInformation
+								transportOptions={transportOptions}
+								baseFee={tourFee}
+								fee={fee}
+								setFee={setFee}
+							/>
 						</div>
 					</div>
 				</div>

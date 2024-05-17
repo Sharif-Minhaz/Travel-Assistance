@@ -3,31 +3,11 @@ import { BiCategory } from "react-icons/bi";
 import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
 import { MdDateRange, MdOutlineNightsStay, MdOutlineQrCode } from "react-icons/md";
 
-// import { useLoaderData } from "react-router-dom";
-
-const data = {
-	category: "Adventure",
-	fee: 5000,
-	transportOptions: ["bus", "car"],
-	bestMonthToVisit: "January",
-	area: "Rangamati",
-	city: "Chattogram",
-	zipCode: 1201,
-	details:
-		"Hanging Bridge(Jhulonto Bridge in Bengali)is the landmark icon of Rangamati. It’s a popular tourist spot and a must go destination. If you don’t visit Rangamati you will not discover a big portion of natural beauties of Bangladesh. From Chittagong a 77 km. road amidst green fields and winding hills will take you to Rangamati. It is also connected by waterway from Kaptai.",
-	openingTime: "9 AM",
-	closingTime: "8 PM",
-};
-
-const PropertyDescription = () => {
-	// const data = useLoaderData();
-
-	// const { category, garage, kitchen, bath, propertySize, rent, room } = data.place;
-
+const PropertyDescription = ({ data }) => {
 	return (
 		<div>
 			<p className="fs-4 pb-2 heading">Description</p>
-			<div className="tour-details-info">{data.details}</div>
+			<div className="tour-details-info">{data?.details}</div>
 			<div className="description-list">
 				<div>
 					<h5>Tour city</h5>
@@ -58,7 +38,7 @@ const PropertyDescription = () => {
 					<h5>Transportation</h5>
 					<span>
 						<FaCarSide className="font-awesome-icon me-1" />{" "}
-						{data.transportOptions.join(", ")}
+						{data.transportOptions?.join(", ")}
 					</span>
 				</div>
 				<div>

@@ -1,15 +1,14 @@
 import "./ShoppingMall.css";
-import { shoppingMallData } from "../../constants";
 
-export default function ShoppingMall() {
+export default function ShoppingMall({ data }) {
 	return (
 		<section>
 			<p className="fs-4 pb-2 heading">Available Shopping mall</p>
 			<div className="available-packages">
-				{shoppingMallData.map((mall) => (
+				{data.map((mall) => (
 					<article key={mall._id} className="shadow-sm shopping-mall-container">
 						<div>
-							<img src={mall.image} alt="" />
+							<img src={mall.imageURL} alt="" />
 							<div className="description">
 								<small>{mall.description}</small>
 							</div>

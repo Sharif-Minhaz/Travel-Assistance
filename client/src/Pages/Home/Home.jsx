@@ -29,7 +29,7 @@ const Home = () => {
 						<p>Top Categories</p>
 						<span>
 							{categories?.length || 0} categories, {add?.length || 0}{" "}
-							{add.length > 1 ? "tours" : "tour"}
+							{add?.length > 1 ? "tours" : "tour"}
 						</span>
 					</div>
 					<div className="category">

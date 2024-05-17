@@ -13,7 +13,7 @@ const Category = ({ categ }) => {
 	const navigate = useNavigate();
 
 	const handleCategory = () => {
-		return navigate("/homeSortProperty", { state: { data: { name } } });
+		return navigate("/sort-tours", { state: { data: { name } } });
 	};
 
 	useEffect(() => {
@@ -46,7 +46,7 @@ const Category = ({ categ }) => {
 				<img className="category-img" src={image} alt="" />
 				<p>{name}</p>
 				<span>
-					{add} {add.length > 1 ? "tours" : "tour"}
+					{add} {add?.length > 1 ? "tours" : "tour"}
 				</span>
 			</button>
 		</div>

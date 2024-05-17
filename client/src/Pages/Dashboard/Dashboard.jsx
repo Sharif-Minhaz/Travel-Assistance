@@ -53,7 +53,7 @@ const Dashboard = () => {
 								</Link>
 							</div>
 							<div className="mt-3">
-								<Link className="dashboard-btn " to="/addProperty">
+								<Link className="dashboard-btn " to="/add-tour">
 									Add Property
 								</Link>
 							</div>

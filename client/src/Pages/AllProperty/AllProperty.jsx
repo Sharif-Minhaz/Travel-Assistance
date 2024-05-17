@@ -122,7 +122,7 @@ const AllProperty = () => {
 					</div>
 					<div className="col-md-9 col-lg-9 col-sm-12">
 						<div className="ms-4">
-							<h3 className="fw-bolder">Apartments in Dhaka</h3>
+							<h3 className="fw-bolder">All Filtered Tours for You</h3>
 							<span>
 								{posts?.length || 0} results. {convertDate()}
 							</span>

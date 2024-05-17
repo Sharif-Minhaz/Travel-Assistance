@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { packages } from "../../constants";
+import { packages, transportation as transportationData } from "../../constants";
 
-export default function OrderInformation({ fee, baseFee, setFee }) {
+export default function OrderInformation({ fee, baseFee, setFee, transportOptions }) {
 	const [isCalculated, setIsCalculated] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
@@ -190,7 +190,6 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 						name="room"
 						required
 						max={10}
-						min={1}
 						placeholder="Number of room"
 						value={formData.room}
 						onChange={handleChange}
@@ -206,9 +205,12 @@ export default function OrderInformation({ fee, baseFee, setFee }) {
 					>
 						<option value="">Select a transportation</option>
 						<option value="500">Car (+500tk)</option>
-						<option value="300">Bike (+300tk)</option>
-						<option value="100">Bus (+100tk)</option>
-						<option value="0">On Foot (Free)</option>
+						{transportOptions?.map((data, index) => (
+							<option key={index} value={transportationData[data]?.price}>
+								{transportationData[data]?.name} (+{transportationData[data]?.price}
+								tk)
+							</option>
+						))}
 					</Form.Control>
 				</Form.Group>
 				<div className="d-flex align-items-center gap-2 mb-3">

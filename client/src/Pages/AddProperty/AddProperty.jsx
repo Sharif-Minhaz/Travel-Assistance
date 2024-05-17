@@ -142,7 +142,7 @@ const AddProperty = () => {
 			axios.post("/products/productCollection", placeInfo).then((res) => {
 				if (res.data.place) {
 					toast.success("Tour place added successfully");
-					return navigate("/allProperty");
+					return navigate("/all-tours");
 				}
 			});
 		});

@@ -32,11 +32,11 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/allProperty",
+				path: "/all-tours",
 				element: <AllProperty />,
 			},
 			{
-				path: "/addProperty",
+				path: "/add-tour",
 				element: (
 					<AdminRoute>
 						<AddProperty />
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: "/homeSortProperty",
+				path: "/sort-tours",
 				element: <HomeSortProperty />,
 			},
 			{

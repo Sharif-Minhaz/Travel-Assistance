@@ -46,7 +46,7 @@ const NavSection = () => {
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink to="/allProperty" className="nav-link nav-style">
+								<NavLink to="/all-tours" className="nav-link nav-style">
 									ALL TOURS
 								</NavLink>
 							</li>
@@ -61,10 +61,7 @@ const NavSection = () => {
 								<>
 									{user?.role === "admin" && (
 										<li className="nav-item">
-											<NavLink
-												to="/addProperty"
-												className="nav-link nav-style"
-											>
+											<NavLink to="/add-tour" className="nav-link nav-style">
 												ADD TOUR
 											</NavLink>
 										</li>

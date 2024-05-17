@@ -106,7 +106,7 @@ const PropertySorting = ({ handleForm }) => {
 				</Form.Group>
 				<div className="my-4 text-center">
 					<button className="all-property-btn " type="submit">
-						Find Property
+						Find Tours
 					</button>
 				</div>
 			</Form>

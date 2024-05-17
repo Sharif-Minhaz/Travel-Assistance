@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FaCloudSun } from "react-icons/fa";
-import { ImLocation2 } from "react-icons/im";
 import { Pagination, Navigation } from "swiper";
 
 import "swiper/css";
@@ -11,7 +9,7 @@ import "./TopListingProperty.css";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
-import { MdOutlineNightsStay } from "react-icons/md";
+import TourCard from "./../TourCard/TourCard";
 
 const TopListingProperty = () => {
 	const [loading, setLoading] = useState(false);
@@ -79,61 +77,15 @@ const TopListingProperty = () => {
 				}}
 				className="mySwiper"
 			>
-				{property?.map((pro) => (
-					<SwiperSlide key={pro._id}>
-						<div className="card">
-							<div className="card-image text-center">
-								<img
-									src={pro.imageURL}
-									className="card-img-top img-fluid w-100 object-fit-cover"
-									alt="..."
-								/>
-							</div>
-							<div style={{ minHeight: "308px" }} className="card-info">
-								<p style={{ fontSize: "20px" }} className="fw-bold">
-									{pro.title}
-								</p>
-
-								<span>
-									<ImLocation2 className="property-des-style" />
-									<span className="d-inline-block ms-1">
-										{pro.area}, {pro.city}
-									</span>
-								</span>
-								<p> Category: {pro.category}</p>
-								<div className="d-flex mt-2 justify-content-start gap-4">
-									<span className="fw-semibold">
-										<FaCloudSun className="font-awesome-icon me-1" />{" "}
-										{pro.openingTime}
-									</span>
-									<span className="fw-semibold">
-										<MdOutlineNightsStay className="font-awesome-icon me-1" />{" "}
-										{pro.closingTime}
-									</span>
-								</div>
-								<div className="mt-3">
-									<span>
-										Best Month: <strong>{pro.bestMonthToVisit}</strong>
-									</span>
-								</div>
-								<div className="mt-2">
-									<span>
-										Tour Fees: <strong>{pro.fee} TK</strong>
-									</span>
-								</div>
-								<div className="text-center mt-4 mb-3">
-									<Link to={`/details/${pro._id}`} className="details">
-										View Details
-									</Link>
-								</div>
-							</div>
-						</div>
+				{property?.map((tourInfo) => (
+					<SwiperSlide key={tourInfo._id}>
+						<TourCard tourInfo={tourInfo} />
 					</SwiperSlide>
 				))}
 			</Swiper>
 			<div className="text-center mt-5 mb-5">
-				<Link to="/allProperty" className="details">
-					View All Places
+				<Link to="/all-tours" className="details">
+					View All Tours
 				</Link>
 			</div>
 		</div>

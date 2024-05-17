@@ -10,7 +10,7 @@ const Hero = () => {
 
 	const handleSearch = (event) => {
 		event.preventDefault();
-		navigate("/AllProperty", {
+		navigate("/all-tours", {
 			state: { data: { city: data.city, area: data.area, category: data.category } },
 		});
 	};
@@ -93,7 +93,7 @@ const Hero = () => {
 							</Form.Group>
 							<div className="col-md-2 col-12 col-lg-2 search-category mt-3 mt-md-0 mt-lg-0">
 								<button type="submit" className="browse-property">
-									Browse Available Places
+									Browse Available Tours
 								</button>
 							</div>
 						</Form>

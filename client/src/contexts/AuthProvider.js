@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			if (currentUser) {
 				axios.get(`/users/current/${currentUser.email}`).then((res) => {
@@ -76,6 +77,7 @@ const AuthProvider = ({ children }) => {
 					setLoading(false);
 				});
 			} else {
+				setLoading(false);
 				setUser();
 			}
 		});

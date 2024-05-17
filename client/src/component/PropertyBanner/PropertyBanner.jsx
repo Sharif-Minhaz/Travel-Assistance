@@ -75,7 +75,7 @@ const PropertyBanner = ({ data, handleChange, handleSearch }) => {
 								</Form.Group>
 								<div className="col-md-2 col-12 col-lg-2 search-category mt-3 mt-md-0 mt-lg-0">
 									<button type="submit" className="browse-property">
-										Browse Available Places
+										Browse Available Tours
 									</button>
 								</div>
 							</Form>
