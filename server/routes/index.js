@@ -1,6 +1,7 @@
 const usersHandler = require("./users.route");
 const placesHandler = require("./places.route");
 const dashboardHandler = require("./dashboard.route");
+const bookingHandler = require("./booking.route");
 
 const routes = [
 	{
@@ -14,6 +15,10 @@ const routes = [
 	{
 		path: "/dashboard",
 		handler: dashboardHandler,
+	},
+	{
+		path: "/booking",
+		handler: bookingHandler,
 	},
 ];
 

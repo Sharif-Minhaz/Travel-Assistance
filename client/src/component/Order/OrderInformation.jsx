@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { packages, transportation as transportationData } from "../../constants";
+import { AuthContext } from "../../contexts/AuthProvider";
+import axios from "../../lib/axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-export default function OrderInformation({ fee, baseFee, setFee, transportOptions }) {
+export default function OrderInformation({ placeId, fee, baseFee, setFee, transportOptions }) {
+	const { user } = useContext(AuthContext);
+	const navigate = useNavigate();
 	const [isCalculated, setIsCalculated] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
@@ -57,13 +63,26 @@ export default function OrderInformation({ fee, baseFee, setFee, transportOption
 		);
 	};
 
+	// add the booking to the database
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (formData.checkMeOut) {
-			console.log(formData);
-		} else {
-			alert("Check out first");
-		}
+		if (!user?._id) return alert("Buyer id not found, try again");
+
+		const bookingInfo = { ...formData, place: placeId, buyer: user._id, actualAmount: fee };
+
+		axios
+			.post("/booking", bookingInfo)
+			.then((res) => {
+				if (res.data.booking) {
+					toast.success("Booking added successfully");
+					return navigate("/mybooking");
+				}
+				return toast.error("Booking failed");
+			})
+			.catch((error) => {
+				console.error(error);
+				throw new Error(error);
+			});
 	};
 
 	return (

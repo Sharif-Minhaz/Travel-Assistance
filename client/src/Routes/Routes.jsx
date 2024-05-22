@@ -20,6 +20,7 @@ import NotFound from "../Pages/NotFound/NotFound";
 import MyBooking from "../Pages/Booking/MyBooking";
 import { baseUrl } from "../constants";
 import ErrorPage from "../Pages/Error/ErrorPage";
+import AllBookings from "../Pages/Dashboard/AllBookings";
 
 const router = createBrowserRouter([
 	{
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
 			{
 				path: "/dashboard/allOwners",
 				element: <AllOwners />,
+			},
+			{
+				path: "/dashboard/all-bookings",
+				element: <AllBookings />,
 			},
 			{
 				path: "/dashboard/myProperty",

@@ -16,7 +16,16 @@ const PropertyDetails = () => {
 	useTitle("Booking");
 	const data = useLoaderData();
 
-	const { area, city, imageURL, title, addedBy, fee: tourFee, transportOptions } = data?.place;
+	const {
+		_id,
+		area,
+		city,
+		imageURL,
+		title,
+		addedBy,
+		fee: tourFee,
+		transportOptions,
+	} = data?.place;
 
 	const [fee, setFee] = useState(tourFee);
 
@@ -106,6 +115,7 @@ const PropertyDetails = () => {
 								baseFee={tourFee}
 								fee={fee}
 								setFee={setFee}
+								placeId={_id}
 							/>
 						</div>
 					</div>

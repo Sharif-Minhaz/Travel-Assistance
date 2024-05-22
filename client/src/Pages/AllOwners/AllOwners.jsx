@@ -4,9 +4,12 @@ import useTitle from "../../hooks/useTitle";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
 import { baseUrl } from "../../constants";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const AllOwners = () => {
-	useTitle("All Owners");
+	const { user: me } = useContext(AuthContext);
+	useTitle("All Admins");
 
 	const {
 		data: allUsers = [],
@@ -16,10 +19,13 @@ const AllOwners = () => {
 		queryKey: ["users"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`${baseUrl}/dashboard/allsellers`);
+				const res = await fetch(`${baseUrl}/dashboard/allbuyers`); // admins
 				const data = await res.json();
 				return data.users;
-			} catch (error) {}
+			} catch (error) {
+				console.error(error);
+				throw new Error(error);
+			}
 		},
 	});
 
@@ -58,6 +64,7 @@ const AllOwners = () => {
 							<td>{user.email}</td>
 							<td>
 								<button
+									disabled={me?.email === user.email}
 									className="btn btn-outline btn-warning btn-xs mr-3 mb-5"
 									onClick={() => handleDelete(user._id)}
 								>

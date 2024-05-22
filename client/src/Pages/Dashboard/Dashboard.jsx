@@ -43,6 +43,14 @@ const Dashboard = () => {
 									All Admins
 								</Link>
 							</div>
+							<div className="mt-3 w-100 text-center">
+								<Link
+									className="dashboard-btn w-100 d-inline-block"
+									to="/dashboard/all-bookings"
+								>
+									All Bookings
+								</Link>
+							</div>
 						</>
 					)}
 					{isSeller && (

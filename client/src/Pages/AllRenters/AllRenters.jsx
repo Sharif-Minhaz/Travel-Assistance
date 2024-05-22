@@ -5,17 +5,17 @@ import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
 
 const AllRenters = () => {
-	useTitle("All Renters");
+	useTitle("All Users");
 
 	const {
 		data: allUsers = [],
 		isLoading,
 		refetch,
 	} = useQuery({
-		queryKey: ["products"],
+		queryKey: ["users"],
 		queryFn: async () => {
 			try {
-				const res = await axios.get("/dashboard/allbuyers");
+				const res = await axios.get("/dashboard/allsellers"); // users
 				return res.data?.users;
 			} catch (error) {}
 		},

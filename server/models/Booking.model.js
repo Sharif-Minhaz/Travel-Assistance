@@ -16,10 +16,11 @@ const bookingSchema = new Schema(
 		time: { type: String, required: true },
 		dateFrom: { type: String, required: true },
 		numberOfGuest: { type: Number, required: true, min: 1 },
-		numberOfChildren: { type: Number },
+		numberOfChildren: Number,
+		actualAmount: { type: Number, required: true },
 		paidAmount: { type: Number, required: true },
 		duration: { type: Number, required: true },
-		room: { type: Number },
+		room: Number,
 		transactionId: {
 			type: String,
 			required: true,
