@@ -54,8 +54,8 @@ const TopListingProperty = () => {
 				navigation={true}
 				modules={[Pagination, Navigation]}
 				breakpoints={{
-					400: {
-						width: 400,
+					300: {
+						width: 270,
 						slidesPerView: 1,
 					},
 					520: {
@@ -68,10 +68,6 @@ const TopListingProperty = () => {
 					},
 					1290: {
 						width: 1290,
-						slidesPerView: 4,
-					},
-					1110: {
-						width: 1110,
 						slidesPerView: 4,
 					},
 				}}
