@@ -8,14 +8,19 @@ export default function BookingInfo({ booking }) {
 				<Card.Body>
 					<Card.Title>{booking.place.title}</Card.Title>
 					<Card.Text>
+						<strong>Order ID:</strong> {booking.orderId}
+						<br />
 						<strong>Buyer:</strong> {booking.buyer.displayName}
 						<br />
 						<strong>Country:</strong> {booking.country}
 						<br />
 						<strong>Status:</strong>{" "}
-						<Badge bg="primary" className="text-capitalize my-2 ms-2">
+						<Badge bg="warning" className="text-capitalize my-2 ms-2">
 							{booking.status}
 						</Badge>
+						<br />
+						<strong>Tour Date:</strong> {new Date(booking.dateFrom).toLocaleString()}
+						<br />
 					</Card.Text>
 				</Card.Body>
 				<ListGroup className="list-group-flush">
@@ -41,9 +46,7 @@ export default function BookingInfo({ booking }) {
 						<strong>Transaction ID:</strong> {booking.transactionId}
 					</ListGroupItem>
 					<div className="p-3 d-flex gap-3">
-						<Button variant="warning" className="text-light">
-							Cancel
-						</Button>
+						<Button variant="outline-secondary">Cancel</Button>
 						<Button variant="danger">Delete</Button>
 					</div>
 				</ListGroup>

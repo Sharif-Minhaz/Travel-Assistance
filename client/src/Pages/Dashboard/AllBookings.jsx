@@ -52,6 +52,7 @@ export default function AllBookings() {
 				<thead>
 					<tr>
 						<th>#</th>
+						<th>OrderID</th>
 						<th>Buyer Name</th>
 						<th>Place</th>
 						<th>Country</th>
@@ -72,6 +73,7 @@ export default function AllBookings() {
 					{data?.map((booking, i) => (
 						<tr key={booking._id}>
 							<th>{i + 1}</th>
+							<td className="text-nowrap">{booking.orderId}</td>
 							<td>{booking.buyer.displayName}</td>
 							<td>{booking.place.title}</td>
 							<td>{booking.country}</td>

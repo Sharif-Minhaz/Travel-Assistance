@@ -116,6 +116,7 @@ const PropertyDetails = () => {
 								fee={fee}
 								setFee={setFee}
 								placeId={_id}
+								city={city}
 							/>
 						</div>
 					</div>

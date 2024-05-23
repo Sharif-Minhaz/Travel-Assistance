@@ -74,7 +74,10 @@ const NavSection = () => {
 							<>
 								{user?.role === "admin" && (
 									<span className="navbar-text">
-										<NavLink to="/dashboard" className="nav-link nav-style">
+										<NavLink
+											to="/dashboard/allUsers"
+											className="nav-link nav-style"
+										>
 											DASHBOARD
 										</NavLink>
 									</span>

@@ -26,11 +26,17 @@
     color: white;
     border: 1px solid transparent;
     border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.dashboard-btn.active {
+    background-color: rgb(1, 134, 92);
+    color: white !important;
 }
 
 .dashboard-btn:hover {
     background-color: white;
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
     border: 1px solid var(--primary-color);
     transition: background-color 0.5s;
 

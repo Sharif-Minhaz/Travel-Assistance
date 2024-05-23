@@ -97,19 +97,20 @@ const router = createBrowserRouter([
 		errorElement: <ErrorPage />,
 		children: [
 			{
-				path: "/dashboard/allRenters",
+				index: true,
+				path: "allUsers",
 				element: <AllRenters />,
 			},
 			{
-				path: "/dashboard/allOwners",
+				path: "allOwners",
 				element: <AllOwners />,
 			},
 			{
-				path: "/dashboard/all-bookings",
+				path: "all-bookings",
 				element: <AllBookings />,
 			},
 			{
-				path: "/dashboard/myProperty",
+				path: "myProperty",
 				element: <MyProperty />,
 			},
 		],

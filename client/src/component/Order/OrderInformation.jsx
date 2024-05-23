@@ -6,13 +6,19 @@ import axios from "../../lib/axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export default function OrderInformation({ placeId, fee, baseFee, setFee, transportOptions }) {
+export default function OrderInformation({
+	placeId,
+	fee,
+	city,
+	baseFee,
+	setFee,
+	transportOptions,
+}) {
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [isCalculated, setIsCalculated] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
-		email: "",
 		country: "",
 		time: "",
 		dateFrom: "",
@@ -68,7 +74,13 @@ export default function OrderInformation({ placeId, fee, baseFee, setFee, transp
 		e.preventDefault();
 		if (!user?._id) return alert("Buyer id not found, try again");
 
-		const bookingInfo = { ...formData, place: placeId, buyer: user._id, actualAmount: fee };
+		const bookingInfo = {
+			...formData,
+			city, // for generate order Id only
+			place: placeId,
+			buyer: user._id,
+			actualAmount: fee,
+		};
 
 		axios
 			.post("/booking", bookingInfo)
@@ -96,18 +108,6 @@ export default function OrderInformation({ placeId, fee, baseFee, setFee, transp
 						required
 						placeholder="Your name"
 						value={formData.name}
-						onChange={handleChange}
-					/>
-				</Form.Group>
-
-				<Form.Group className="mb-3" controlId="email">
-					<Form.Label>Email address</Form.Label>
-					<Form.Control
-						type="email"
-						name="email"
-						required
-						placeholder="Enter email"
-						value={formData.email}
 						onChange={handleChange}
 					/>
 				</Form.Group>

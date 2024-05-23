@@ -1,5 +1,6 @@
 const Booking = require("../models/Booking.model");
 const asyncHandler = require("express-async-handler");
+const { generateCUID } = require("../utils");
 
 exports.getAllUserBookingController = asyncHandler(async (req, res) => {
 	const { buyer } = req.params;
@@ -21,7 +22,11 @@ exports.getAllBookingController = asyncHandler(async (req, res) => {
 });
 
 exports.addBookingController = asyncHandler(async (req, res) => {
-	const addBooking = await Booking.create(req.body);
+	const { city = "XX" } = req.body;
+	const cityID = city.slice(0, 2).toUpperCase(); // chattogram to CH
+	const orderId = `${cityID}-${generateCUID()}`;
+
+	const addBooking = await Booking.create({ ...req.body, orderId });
 
 	if (addBooking) {
 		return res.status(201).json({
