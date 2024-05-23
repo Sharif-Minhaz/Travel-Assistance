@@ -7,6 +7,11 @@ const reviewSchema = new Schema(
 			required: true,
 			ref: "User",
 		},
+		place: {
+			type: Schema.Types.ObjectId,
+			required: true,
+			ref: "Place",
+		},
 		rating: {
 			type: Number,
 			min: 1,

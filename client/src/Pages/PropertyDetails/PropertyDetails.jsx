@@ -6,13 +6,19 @@ import { useLoaderData } from "react-router-dom";
 import Reviews from "../../component/Reviews/Reviews";
 import PeopleReviews from "../../component/Reviews/PeopleReviews";
 import OrderInformation from "../../component/Order/OrderInformation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useTitle from "./../../hooks/useTitle";
 import AvailablePackages from "../../component/AvailablePackages/AvailablePackages";
 import ShoppingMall from "../../component/ShoppingMall/ShoppingMall";
 import Events from "../../component/Events/Events";
+import { useQuery } from "@tanstack/react-query";
+import { baseUrl } from "../../constants";
+import Loading from "../../Shared/Loading/Loading";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const PropertyDetails = () => {
+	const { user, loading } = useContext(AuthContext);
+
 	useTitle("Booking");
 	const data = useLoaderData();
 
@@ -28,6 +34,26 @@ const PropertyDetails = () => {
 	} = data?.place;
 
 	const [fee, setFee] = useState(tourFee);
+
+	const {
+		data: allReviews = [],
+		isLoading,
+		refetch,
+	} = useQuery({
+		queryKey: ["ratings"],
+		queryFn: async () => {
+			try {
+				const res = await fetch(`${baseUrl}/booking/rating/${_id}`);
+				const data = await res.json();
+				return data.ratings;
+			} catch (error) {
+				console.error(error);
+				throw new Error(error);
+			}
+		},
+	});
+
+	if (isLoading || loading) return <Loading />;
 
 	return (
 		<div>
@@ -64,10 +90,10 @@ const PropertyDetails = () => {
 								<Events data={data?.place?.events} />
 							</div>
 							<div className="features">
-								<PeopleReviews />
+								<PeopleReviews allReviews={allReviews} />
 							</div>
 							<div className="features">
-								<Reviews />
+								<Reviews user={user} placeId={_id} refetch={refetch} />
 							</div>
 						</div>
 					</div>

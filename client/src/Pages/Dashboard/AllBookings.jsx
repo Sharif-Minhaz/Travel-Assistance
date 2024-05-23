@@ -23,24 +23,42 @@ export default function AllBookings() {
 	if (isLoading) return <Loading />;
 
 	const handleDelete = (id) => {
-		const agree = window.confirm(`Are you sure you want to delete :${id} `);
+		const agree = window.confirm(`Are you sure you want to delete? `);
 		if (agree) {
-			axios.delete(`/users/${id}`).then((res) => {
-				if (res.status === 0) {
-					toast.success("Delete booking.");
+			axios.delete(`/booking/delete/${id}`).then((res) => {
+				if (res.data?.success) {
+					toast.success("Booking deleted");
 					refetch();
+				} else {
+					toast.error("Something went wrong");
 				}
 			});
 		}
 	};
 
 	const handleAccept = (id) => {
-		const agree = window.confirm(`Are you sure you want to delete :${id} `);
+		const agree = window.confirm(`Are you sure you want to accept? `);
 		if (agree) {
-			axios.delete(`/users/${id}`).then((res) => {
-				if (res.status === 0) {
-					toast.success("Delete booking.");
+			axios.patch(`/booking/approve/${id}`).then((res) => {
+				if (res.data?.success) {
+					toast.success("Booking accepted");
 					refetch();
+				} else {
+					toast.error("Something went wrong");
+				}
+			});
+		}
+	};
+
+	const handleDecline = (id) => {
+		const agree = window.confirm(`Are you sure you want to decline? `);
+		if (agree) {
+			axios.patch(`/booking/cancel/${id}`).then((res) => {
+				if (res.data?.success) {
+					toast.success("Booking declined");
+					refetch();
+				} else {
+					toast.error("Something went wrong");
 				}
 			});
 		}
@@ -88,6 +106,14 @@ export default function AllBookings() {
 							<td>{booking.status}</td>
 							<td>{new Date(booking.createdAt).toLocaleString()}</td>
 							<td className="p-3">
+								<Button
+									variant="warning"
+									size="sm"
+									className="mb-2"
+									onClick={() => handleDecline(booking._id)}
+								>
+									Decline
+								</Button>
 								<Button
 									variant="success"
 									size="sm"

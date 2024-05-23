@@ -10,7 +10,7 @@ const Posts = ({ posts, loading }) => {
 	return (
 		<div className="card-content mt-4">
 			{posts?.map((data) => (
-				<TourCard tourInfo={data} />
+				<TourCard key={data._id} tourInfo={data} />
 			))}
 		</div>
 	);

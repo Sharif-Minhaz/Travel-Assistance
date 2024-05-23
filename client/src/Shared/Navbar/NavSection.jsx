@@ -15,9 +15,7 @@ const NavSection = () => {
 	const handleShow = () => setShow(true);
 
 	const handleLogOut = () => {
-		logOut()
-			.then(() => {})
-			.catch((err) => console.error(err));
+		logOut();
 	};
 
 	return (

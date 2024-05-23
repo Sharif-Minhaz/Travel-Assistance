@@ -26,52 +26,21 @@ const PropertySorting = ({ handleForm }) => {
 						<option value="Mymensingh">Mymensingh</option>
 					</Form.Select>
 				</Form.Group>
-				<h5 className="mt-2">Types of Rent</h5>
-				<Form.Group required>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Apartment Building"
-						value="Apartment Building"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Flat Rent"
-						value="Flat Rent"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Commercial Space"
-						value="Commercial Space"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Office Space"
-						value="Office Space"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Shop & Restaurant"
-						value="Shop & Restaurant"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Community Center"
-						value="Community Center"
-					/>
-					<Form.Check
-						name="rentType"
-						type="checkbox"
-						label="Hostel Rent"
-						value="Hostel Rent"
-					/>
-				</Form.Group>
-				<h5 className="mt-2">Select Month</h5>
+				<h5 className="mt-3">Opening Time</h5>
+				<Form.Control
+					required
+					name="openingTime"
+					type="time"
+					placeholder="Opening time is required."
+				/>
+				<h5 className="mt-3">Closing Time</h5>
+				<Form.Control
+					required
+					name="closingTime"
+					type="time"
+					placeholder="Closing time is required."
+				/>
+				<h5 className="mt-3">Select Month</h5>
 				<Form.Group>
 					<Form.Select aria-label="Default select example" name="month" required>
 						<option value="">Select Month</option>
@@ -89,20 +58,14 @@ const PropertySorting = ({ handleForm }) => {
 						<option value="December">December</option>
 					</Form.Select>
 				</Form.Group>
-				<h5 className="mt-2">Bed Room</h5>
+				<h5 className="mt-3">Transportation</h5>
 				<Form.Group required>
-					<Form.Check label="1" value="1" name="bed" inline />
-					<Form.Check label="2" value="2" name="bed" inline />
-					<Form.Check label="3" value="3" name="bed" inline />
-					<Form.Check label="4" value="4" name="bed" inline />
-					<Form.Check label="5" value="5" name="bed" inline />
-				</Form.Group>
-				<h5 className="mt-2">Wash Room</h5>
-				<Form.Group required>
-					<Form.Check label="1" value="1" name="wash" inline />
-					<Form.Check label="2" value="2" name="wash" inline />
-					<Form.Check label="3" value="3" name="wash" inline />
-					<Form.Check label="4" value="4" name="wash" inline />
+					<Form.Check label="Bike" value="bike" name="bike" inline />
+					<Form.Check label="Train" value="train" name="train" inline />
+					<Form.Check label="Boat" value="boat" name="boat" inline />
+					<Form.Check label="Car" value="car" name="car" inline />
+					<Form.Check label="Bus" value="bus" name="bus" inline />
+					<Form.Check label="Foot" value="foot" name="foot" inline />
 				</Form.Group>
 				<div className="my-4 text-center">
 					<button className="all-property-btn " type="submit">

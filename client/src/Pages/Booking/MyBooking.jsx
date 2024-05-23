@@ -13,7 +13,7 @@ const MyBooking = () => {
 	const { user } = useContext(AuthContext);
 	useTitle("My Booking");
 
-	const { isPending, error, data } = useQuery({
+	const { isPending, error, data, refetch } = useQuery({
 		queryKey: ["booking"],
 		queryFn: () => axios(`/booking/${user._id}`).then((res) => res.data.bookings),
 	});
@@ -27,10 +27,10 @@ const MyBooking = () => {
 			<h3 className="text-center text-uppercase mt-4">My booked tours</h3>
 			<div>
 				{data?.length ? (
-					<BookingList bookings={data} />
+					<BookingList bookings={data} refetch={refetch} />
 				) : (
 					<div className="text-center my-5">
-						<p>There is no booking right available now</p>
+						<p>There is no booking right available now or Admin deleted your booking</p>
 						<Link to="/all-tours">
 							<Button>Book now</Button>
 						</Link>
