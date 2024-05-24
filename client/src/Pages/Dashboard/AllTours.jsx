@@ -3,7 +3,9 @@ import axios from "../../lib/axios";
 import useTitle from "../../hooks/useTitle";
 import toast from "react-hot-toast";
 import Loading from "../../Shared/Loading/Loading";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+
+import TableBody from "../../Shared/TableBody/TableBody";
 
 export default function AllTours() {
 	useTitle("All Tours");
@@ -20,10 +22,8 @@ export default function AllTours() {
 		},
 	});
 
-	if (isLoading) return <Loading />;
-
 	const handleDelete = (id) => {
-		const agree = window.confirm(`Are you sure you want to delete? `);
+		const agree = window.confirm("Are you sure you want to delete?");
 		if (agree) {
 			axios.delete(`/places/${id}`).then((res) => {
 				if (res.data?.success) {
@@ -36,44 +36,48 @@ export default function AllTours() {
 		}
 	};
 
-	return (
-		<section>
-			<Table striped bordered hover responsive>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Title</th>
-						<th>Address</th>
-						<th>Fee</th>
-						<th>Area</th>
-						<th>Category</th>
-						<th>City</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{data?.map((place, i) => (
-						<tr key={place._id}>
-							<th>{i + 1}</th>
-							<td className="text-nowrap">{place.title}</td>
-							<td className="text-nowrap">{place?.address}</td>
-							<td>{place.fee}</td>
-							<td>{place.area}</td>
-							<td>{place.category}</td>
-							<td>{place.city}</td>
-							<td className="p-3">
-								<Button
-									variant="danger"
-									size="sm"
-									onClick={() => handleDelete(place._id)}
-								>
-									Delete
-								</Button>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</section>
-	);
+	const columns = [
+		{
+			Header: "#",
+			accessor: "index",
+			Cell: ({ row }) => <span className="table-numbering">{row.index + 1}</span>,
+		},
+		{
+			Header: "Title",
+			accessor: "title",
+		},
+		{
+			Header: "Address",
+			accessor: "address",
+		},
+		{
+			Header: "Fee",
+			accessor: "fee",
+		},
+		{
+			Header: "Area",
+			accessor: "area",
+		},
+		{
+			Header: "Category",
+			accessor: "category",
+		},
+		{
+			Header: "City",
+			accessor: "city",
+		},
+		{
+			Header: "Actions",
+			accessor: "actions",
+			Cell: ({ row }) => (
+				<Button variant="danger" size="sm" onClick={() => handleDelete(row.original._id)}>
+					Delete
+				</Button>
+			),
+		},
+	];
+
+	if (isLoading) return <Loading />;
+
+	return <TableBody columns={columns} data={data} />;
 }

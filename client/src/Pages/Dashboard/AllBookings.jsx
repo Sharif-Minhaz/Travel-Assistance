@@ -3,7 +3,9 @@ import axios from "../../lib/axios";
 import useTitle from "../../hooks/useTitle";
 import toast from "react-hot-toast";
 import Loading from "../../Shared/Loading/Loading";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import TableBody from "../../Shared/TableBody/TableBody";
+import { useMemo } from "react";
 
 export default function AllBookings() {
 	useTitle("All Users");
@@ -19,8 +21,6 @@ export default function AllBookings() {
 			}
 		},
 	});
-
-	if (isLoading) return <Loading />;
 
 	const handleDelete = (id) => {
 		const agree = window.confirm(`Are you sure you want to delete? `);
@@ -64,76 +64,117 @@ export default function AllBookings() {
 		}
 	};
 
-	return (
-		<section>
-			<Table striped bordered hover responsive>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>OrderID</th>
-						<th>Buyer Name</th>
-						<th>Place</th>
-						<th>Country</th>
-						<th>From</th>
-						<th>Guests</th>
-						<th>Children</th>
-						<th>Paid</th>
-						<th>Amount</th>
-						<th>Duration</th>
-						<th>Rooms</th>
-						<th>TransactionID</th>
-						<th>Status</th>
-						<th>Booking</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{data?.map((booking, i) => (
-						<tr key={booking._id}>
-							<th>{i + 1}</th>
-							<td className="text-nowrap">{booking.orderId}</td>
-							<td>{booking.buyer.displayName}</td>
-							<td>{booking.place.title}</td>
-							<td>{booking.country}</td>
-							<td>{new Date(booking.dateFrom).toLocaleDateString()}</td>
-							<td>{booking.numberOfGuest}</td>
-							<td>{booking.numberOfChildren}</td>
-							<td>{booking.paidAmount}TK</td>
-							<td>{booking.actualAmount}TK</td>
-							<td>{booking.duration} days</td>
-							<td>{booking.room}</td>
-							<td>{booking.transactionId}</td>
-							<td>{booking.status}</td>
-							<td>{new Date(booking.createdAt).toLocaleString()}</td>
-							<td className="p-3">
-								<Button
-									variant="warning"
-									size="sm"
-									className="mb-2"
-									onClick={() => handleDecline(booking._id)}
-								>
-									Decline
-								</Button>
-								<Button
-									variant="success"
-									size="sm"
-									className="mb-2"
-									onClick={() => handleAccept(booking._id)}
-								>
-									Approve
-								</Button>
-								<Button
-									variant="danger"
-									size="sm"
-									onClick={() => handleDelete(booking._id)}
-								>
-									Delete
-								</Button>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</section>
+	// ---------------------------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------------------------
+
+	const columns = useMemo(
+		() => [
+			{
+				Header: "#",
+				accessor: "index",
+				Cell: ({ row }) => <span className="table-numbering">{row.index + 1}</span>,
+			},
+			{
+				Header: "OrderID",
+				accessor: "orderId",
+				Cell: ({ row }) => <span className="text-nowrap">{row.original.orderId}</span>,
+			},
+			{
+				Header: "Order Name",
+				accessor: "orderName",
+			},
+			{
+				Header: "Name",
+				accessor: "buyer.displayName",
+			},
+			{
+				Header: "Place",
+				accessor: "place.title",
+			},
+			{
+				Header: "Country",
+				accessor: "country",
+			},
+			{
+				Header: "From",
+				accessor: "dateFrom",
+				Cell: ({ row }) => new Date(row.original.dateFrom).toLocaleDateString(),
+			},
+			{
+				Header: "Guests",
+				accessor: "numberOfGuest",
+			},
+			{
+				Header: "Children",
+				accessor: "numberOfChildren",
+			},
+			{
+				Header: "Paid",
+				accessor: "paidAmount",
+			},
+			{
+				Header: "Amount",
+				accessor: "actualAmount",
+			},
+			{
+				Header: "Duration",
+				accessor: "duration",
+			},
+			{
+				Header: "Rooms",
+				accessor: "room",
+			},
+			{
+				Header: "TransactionID",
+				accessor: "transactionId",
+			},
+			{
+				Header: "Status",
+				accessor: "status",
+			},
+			{
+				Header: "Booking",
+				accessor: "createdAt",
+				Cell: ({ row }) => new Date(row.original.createdAt).toLocaleString(),
+			},
+			{
+				Header: "Actions",
+				accessor: "actions",
+				Cell: ({ row }) => (
+					<div className="actions-expand-btns">
+						<Button
+							variant="danger"
+							size="sm"
+							className="mb-1"
+							onClick={() => handleDelete(row.original._id)}
+						>
+							Delete
+						</Button>
+						<Button
+							variant="warning"
+							size="sm"
+							className="mb-1"
+							onClick={() => handleDecline(row.original._id)}
+						>
+							Decline
+						</Button>
+						<Button
+							variant="success"
+							size="sm"
+							onClick={() => handleAccept(row.original._id)}
+						>
+							Approve
+						</Button>
+					</div>
+				),
+			},
+		],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
 	);
+
+	if (isLoading) return <Loading />;
+
+	return <TableBody columns={columns} data={data} />;
 }

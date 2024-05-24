@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import Table from "react-bootstrap/Table";
 import useTitle from "../../hooks/useTitle";
 import Loading from "../../Shared/Loading/Loading";
 import axios from "../../lib/axios";
+import { useMemo } from "react";
+import TableBody from "../../Shared/TableBody/TableBody";
+import { Button } from "react-bootstrap";
 
 const AllRenters = () => {
 	useTitle("All Users");
@@ -33,41 +35,44 @@ const AllRenters = () => {
 		}
 	};
 
+	const columns = useMemo(
+		() => [
+			{
+				Header: "#",
+				accessor: "index",
+				Cell: ({ row }) => <span className="table-numbering">{row.index + 1}</span>,
+			},
+			{
+				Header: "Name",
+				accessor: "displayName",
+			},
+			{
+				Header: "Address",
+				accessor: "email",
+			},
+			{
+				Header: "Actions",
+				accessor: "actions",
+				Cell: ({ row }) => (
+					<Button
+						variant="danger"
+						size="sm"
+						onClick={() => handleDelete(row.original._id)}
+					>
+						Delete
+					</Button>
+				),
+			},
+		],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
 	if (isLoading) {
 		return <Loading />;
 	}
 
-	return (
-		<section>
-			<Table striped bordered hover>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{allUsers?.map((user, i) => (
-						<tr key={user._id}>
-							<th>{i + 1}</th>
-							<td>{user.displayName}</td>
-							<td>{user.email}</td>
-							<td>
-								<button
-									className="btn btn-outline btn-warning btn-xs mr-3 mb-5"
-									onClick={() => handleDelete(user._id)}
-								>
-									Delete
-								</button>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</section>
-	);
+	return <TableBody columns={columns} data={allUsers} />;
 };
 
 export default AllRenters;
