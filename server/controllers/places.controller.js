@@ -46,31 +46,39 @@ exports.addRestaurantController = asyncHandler(async (req, res) => {
 exports.getRestaurantCollectionController = asyncHandler(async (req, res) => {
 	const query = req.query;
 
+	const transportation = JSON.parse(query?.transportation || "[]");
+
 	if (Object.keys(query).length) {
-		let price = query.price;
-		if (price === "Low to High") {
-			price = 1;
+		let fee = query.price;
+
+		if (fee === "Low to High") {
+			fee = 1;
 		} else {
-			price = -1;
+			fee = -1;
 		}
 
-		const city = query.city;
-		const month = query.month;
-		const rentType = query.rentType.split(",");
-		const bedAmountStr = query.bedAmount.split(",");
-		const bedAmount = bedAmountStr.map((bed) => parseInt(bed));
-		const washAmountStr = query.washAmount.split(",");
-		const washAmount = washAmountStr.map((wash) => parseInt(wash));
+		const filterOptions = {};
+		if (query.city) {
+			filterOptions.city = query.city;
+		}
 
-		const findRestaurants = await Place.find({
-			city: city,
-			month: month,
-			category: { $in: rentType },
-			room: { $in: bedAmount },
-			bath: { $in: washAmount },
-		})
-			.sort({ rent: price })
-			.lean();
+		if (query.month) {
+			filterOptions.bestMonthToVisit = query.month;
+		}
+
+		if (transportation?.length) {
+			filterOptions.transportOptions = { $all: transportation };
+		}
+
+		if (query.openingTime) {
+			filterOptions.openingTime = query.openingTime;
+		}
+
+		if (query.closingTime) {
+			filterOptions.closingTime = query.closingTime;
+		}
+
+		const findRestaurants = await Place.find(filterOptions).sort({ fee }).lean();
 
 		res.status(200).json({
 			message: "Place found",
@@ -97,12 +105,12 @@ exports.getAllRestaurants = asyncHandler(async (req, res) => {
 exports.sortRestaurantController = asyncHandler(async (req, res) => {
 	const city = req.query.city;
 	const area = req.query.area;
-	const rent = req.query.rent;
+	const category = req.query.category;
 
 	const sortRestaurants = await Place.find({
-		city: city,
-		area: area,
-		category: rent,
+		city,
+		area,
+		category,
 	}).lean();
 
 	res.status(200).json({ message: "Sorted place", places: sortRestaurants });

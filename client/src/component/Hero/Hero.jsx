@@ -11,7 +11,13 @@ const Hero = () => {
 	const handleSearch = (event) => {
 		event.preventDefault();
 		navigate("/all-tours", {
-			state: { data: { city: data.city, area: data.area, category: data.category } },
+			state: {
+				data: {
+					city: data.city,
+					area: data.area,
+					category: encodeURIComponent(data.category),
+				},
+			},
 		});
 	};
 

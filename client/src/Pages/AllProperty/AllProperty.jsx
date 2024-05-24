@@ -39,32 +39,21 @@ const AllProperty = () => {
 		// city
 		const city = event.target.city.value;
 
-		// rent type
-		const rentType = event.target.rentType;
-		const rentCheck = Object.values(rentType).filter((rent) => rent.checked === true);
-		const rentCheckValue = rentCheck?.map((check) => {
-			return check.value;
-		});
+		const openingTime = event.target.openingTime.value;
+		const closingTime = event.target.closingTime.value;
+
+		const transportationType = event.target.transportType;
+		const transportation = Object.values(transportationType)
+			.filter((rent) => rent.checked)
+			.map((rent) => rent.value);
 
 		const month = event.target.month.value;
 
-		// bed
-		const bedAmount = event.target.bed;
-		const bedCheck = Object.values(bedAmount).filter((bed) => bed.checked === true);
-		const bedCheckValue = bedCheck?.map((check) => {
-			return check.value;
-		});
-
-		// wash
-		const washAmount = event.target.wash;
-		const washCheck = Object.values(washAmount).filter((wash) => wash.checked === true);
-		const washCheckValue = washCheck?.map((check) => {
-			return check.value;
-		});
-
 		axios
 			.get(
-				`/products/productCollection?price=${price}&city=${city}&rentType=${rentCheckValue}&bedAmount=${bedCheckValue}&washAmount=${washCheckValue}&month=${month}`
+				`/products/productCollection?price=${price}&city=${city}&transportation=${JSON.stringify(
+					transportation
+				)}&openingTime=${openingTime}&closingTime=${closingTime}&month=${month}`
 			)
 			.then((res) => setPosts(res.data?.places));
 	};
@@ -74,7 +63,9 @@ const AllProperty = () => {
 
 		axios
 			.get(
-				`/products/sortProducts?city=${data.city}&area=${data.area}&category=${data.category}`
+				`/products/sortProducts?city=${data.city}&area=${
+					data.area
+				}&category=${encodeURIComponent(data.category)}`
 			)
 			.then((res) => setPosts(res.data?.places));
 	};
