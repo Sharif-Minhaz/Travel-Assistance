@@ -5,17 +5,17 @@ const {
 	getRestaurantByEmail,
 	categoryWiseDataController,
 	sortRestaurantController,
-	addRestaurantController,
-	deleteRestaurantController,
-	getRestaurantDetailsController,
+	addPlaceController,
+	deletePlaceController,
+	getPlaceDetailsController,
 } = require("../controllers/places.controller");
 
 router.get("/", getRestaurantByEmail);
-router.get("/details/:id", getRestaurantDetailsController);
+router.get("/details/:id", getPlaceDetailsController);
 router.get("/productCollection", getRestaurantCollectionController);
 
-router.delete("/:id", deleteRestaurantController);
-router.post("/productCollection", addRestaurantController);
+router.delete("/:id", deletePlaceController);
+router.post("/productCollection", addPlaceController);
 
 router.get("/allProducts", getAllRestaurants);
 router.get("/sortProducts", sortRestaurantController);

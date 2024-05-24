@@ -15,7 +15,7 @@ const HomeSortProperty = () => {
 			setLoading(true);
 			try {
 				axios
-					.get(`/products/categoryWiseData?title=${encodeURIComponent(state?.data.name)}`)
+					.get(`/places/categoryWiseData?title=${encodeURIComponent(state?.data.name)}`)
 					.then((res) => {
 						setAdd(res?.data?.places);
 					});

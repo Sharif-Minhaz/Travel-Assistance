@@ -14,7 +14,7 @@ const Home = () => {
 	const [add, setAdd] = useState([]);
 
 	useEffect(() => {
-		axios.get(`/products/allProducts`).then((res) => {
+		axios.get(`/places/allProducts`).then((res) => {
 			setAdd(res.data?.places);
 		});
 	}, []);

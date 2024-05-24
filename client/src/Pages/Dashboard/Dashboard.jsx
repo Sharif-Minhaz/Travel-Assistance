@@ -40,6 +40,14 @@ const Dashboard = () => {
 							<div className="mt-3 w-100 text-center">
 								<NavLink
 									className="dashboard-btn w-100 d-inline-block"
+									to="/dashboard/all-tours"
+								>
+									All Tours
+								</NavLink>
+							</div>
+							<div className="mt-3 w-100 text-center">
+								<NavLink
+									className="dashboard-btn w-100 d-inline-block"
 									to="/dashboard/all-bookings"
 								>
 									All Bookings

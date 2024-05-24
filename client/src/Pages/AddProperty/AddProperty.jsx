@@ -139,7 +139,7 @@ const AddProperty = () => {
 			events: [...eventCount],
 		}).then((placeInfo) => {
 			//Save Products information to the database
-			axios.post("/products/productCollection", placeInfo).then((res) => {
+			axios.post("/places/productCollection", placeInfo).then((res) => {
 				if (res.data.place) {
 					toast.success("Tour place added successfully");
 					return navigate("/all-tours");

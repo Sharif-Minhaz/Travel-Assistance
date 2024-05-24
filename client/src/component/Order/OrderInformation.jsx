@@ -18,7 +18,7 @@ export default function OrderInformation({
 	const navigate = useNavigate();
 	const [isCalculated, setIsCalculated] = useState(false);
 	const [formData, setFormData] = useState({
-		name: "",
+		orderName: "",
 		country: "",
 		time: "",
 		dateFrom: "",
@@ -101,10 +101,10 @@ export default function OrderInformation({
 		<div className="order-info">
 			<Form onSubmit={handleSubmit}>
 				<Form.Group className="mb-3" controlId="name">
-					<Form.Label>Name</Form.Label>
+					<Form.Label>Order name</Form.Label>
 					<Form.Control
 						type="text"
-						name="name"
+						name="orderName"
 						required
 						placeholder="Your name"
 						value={formData.name}

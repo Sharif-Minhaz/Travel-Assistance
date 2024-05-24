@@ -20,7 +20,7 @@ const MyProperty = () => {
 		queryKey: ["products"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`${baseUrl}/products/?email=${user?.email}`);
+				const res = await fetch(`${baseUrl}/places/?email=${user?.email}`);
 				const data = await res.json();
 				return data?.places;
 			} catch (error) {}
@@ -30,7 +30,7 @@ const MyProperty = () => {
 	const handleDelete = (id) => {
 		const agree = window.confirm(`Are you sure you want to delete :${id} `);
 		if (agree) {
-			axios.delete(`/products/${id}`).then((res) => {
+			axios.delete(`/places/${id}`).then((res) => {
 				if (res.status === 0) {
 					refetch();
 				}

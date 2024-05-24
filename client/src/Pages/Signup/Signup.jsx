@@ -52,10 +52,9 @@ const Signup = () => {
 					<div className="col-md-5 col-lg-5 col-sm-12 p-2 ">
 						<div className="p-3 login-Form text-center mt-md-0 mt-lg-0 mt-sm-5">
 							<div className="login-heading">
-								<h4 className="fw-bold me-5 text-start">Welcome to Treker</h4>
-								<p>
-									Have an account? <Link to="/logIn">Login</Link>
-								</p>
+								<div>
+									<img src="/logo.svg" alt="logo" />
+								</div>
 							</div>
 							<div className="text-center">
 								<h3 className="fw-bolder">Sign Up</h3>
@@ -143,6 +142,9 @@ const Signup = () => {
 									</label>
 								</div>
 								{signUpError && <p className="text-danger">{signUpError}</p>}
+								<p>
+									Already have an account? <Link to="/logIn">Login now.</Link>
+								</p>
 								<input
 									className="signIn-btn mb-5 login-btn"
 									value="Sign Up"

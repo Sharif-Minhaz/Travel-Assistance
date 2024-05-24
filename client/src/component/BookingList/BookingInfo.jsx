@@ -36,6 +36,8 @@ export default function BookingInfo({ booking, refetch }) {
 					<Card.Text>
 						<strong>Order ID:</strong> {booking.orderId}
 						<br />
+						<strong>Order Name:</strong> {booking.orderName}
+						<br />
 						<strong>Buyer:</strong> {booking.buyer.displayName}
 						<br />
 						<strong>Country:</strong> {booking.country}

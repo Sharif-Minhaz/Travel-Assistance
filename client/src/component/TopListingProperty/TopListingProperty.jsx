@@ -20,9 +20,7 @@ const TopListingProperty = () => {
 		function fetchData() {
 			try {
 				setLoading(true);
-				axios
-					.get(`/products/productCollection`)
-					.then((res) => setProperty(res.data?.places));
+				axios.get(`/places/productCollection`).then((res) => setProperty(res.data?.places));
 			} catch (error) {
 				setError(error);
 			} finally {

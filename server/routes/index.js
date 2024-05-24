@@ -9,7 +9,7 @@ const routes = [
 		handler: usersHandler,
 	},
 	{
-		path: "/products",
+		path: "/places",
 		handler: placesHandler,
 	},
 	{

@@ -1,9 +1,7 @@
 import "./Login.css";
 import loginBanner from "../../images/login-banner.png";
-import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { GoogleAuthProvider } from "firebase/auth";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -18,7 +16,7 @@ const Login = () => {
 		handleSubmit,
 	} = useForm();
 
-	const { signIn, loginInWithGoogle } = useContext(AuthContext);
+	const { signIn } = useContext(AuthContext);
 	const [loginError, setLoginError] = useState("");
 	// const [loginUserEmail, setLoginUserEmail] = useState("");
 
@@ -28,18 +26,6 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const from = location.state?.from?.pathname || "/";
-
-	const googleProvider = new GoogleAuthProvider();
-
-	const googleSignIn = () => {
-		loginInWithGoogle(googleProvider)
-			.then((result) => {
-				navigate(from, { replace: true });
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	};
 
 	const handleLogin = (data) => {
 		setLoginError("");
@@ -64,19 +50,12 @@ const Login = () => {
 					<div className="col-md-5 col-lg-5 col-sm-12 p-2 ">
 						<div className="p-4 login-Form text-center mt-md-0 mt-lg-0 mt-sm-5">
 							<div className="login-heading">
-								<h4 className="fw-bold me-3 text-start">Welcome to RentUs</h4>
-								<p>
-									Don't have an account? <Link to="/signUp">SignUp</Link>
-								</p>
+								<div>
+									<img src="/logo.svg" alt="logo" />
+								</div>
 							</div>
 							<div className="text-center">
 								<h3 className="fw-bolder">Login Now</h3>
-							</div>
-							<div className="d-flex px-3 my-4 w-100 justify-content-center">
-								<button className="px-3 py-2 w-100 rounded" onClick={googleSignIn}>
-									<FcGoogle className="me-2 " />
-									Login with Google
-								</button>
 							</div>
 							<form onSubmit={handleSubmit(handleLogin)}>
 								<div className="m-3">
@@ -128,6 +107,9 @@ const Login = () => {
 									</div>
 								</div>
 								{loginError && <p>{loginError.toString()}</p>}
+								<p>
+									Don't have an account? <Link to="/signUp">SignUp</Link>
+								</p>
 								<input className="login-btn mb-5" value="LOGIN" type="submit" />
 							</form>
 						</div>

@@ -51,7 +51,7 @@ const AllProperty = () => {
 
 		axios
 			.get(
-				`/products/productCollection?price=${price}&city=${city}&transportation=${JSON.stringify(
+				`/places/productCollection?price=${price}&city=${city}&transportation=${JSON.stringify(
 					transportation
 				)}&openingTime=${openingTime}&closingTime=${closingTime}&month=${month}`
 			)
@@ -63,7 +63,7 @@ const AllProperty = () => {
 
 		axios
 			.get(
-				`/products/sortProducts?city=${data.city}&area=${
+				`/places/sortProducts?city=${data.city}&area=${
 					data.area
 				}&category=${encodeURIComponent(data.category)}`
 			)
@@ -81,13 +81,13 @@ const AllProperty = () => {
 		if (homeSearch?.city) {
 			axios
 				.get(
-					`/products/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&category=${homeSearch?.category}`
+					`/places/sortProducts?city=${homeSearch?.city}&area=${homeSearch?.area}&category=${homeSearch?.category}`
 				)
 				.then((res) => setPosts(res.data?.places));
 		} else {
 			const fetchPosts = async () => {
 				setLoading(true);
-				const res = await axios.get("/products/productCollection");
+				const res = await axios.get("/places/productCollection");
 				setPosts(res.data?.places);
 				setLoading(false);
 			};

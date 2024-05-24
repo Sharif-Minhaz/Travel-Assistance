@@ -10,7 +10,6 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import HomeSortProperty from "../Pages/HomeSortProperty/HomeSortProperty";
 import Login from "../Pages/Login/Login";
-import MyProperty from "../Pages/MyProperty/MyProperty";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -21,6 +20,7 @@ import MyBooking from "../Pages/Booking/MyBooking";
 import { baseUrl } from "../constants";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import AllBookings from "../Pages/Dashboard/AllBookings";
+import AllTours from "../Pages/Dashboard/AllTours";
 
 const router = createBrowserRouter([
 	{
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
 						<PropertyDetails />
 					</PrivateRoute>
 				),
-				loader: ({ params }) => fetch(`${baseUrl}/products/details/${params.id}`),
+				loader: ({ params }) => fetch(`${baseUrl}/places/details/${params.id}`),
 			},
 		],
 	},
@@ -110,8 +110,8 @@ const router = createBrowserRouter([
 				element: <AllBookings />,
 			},
 			{
-				path: "myProperty",
-				element: <MyProperty />,
+				path: "all-tours",
+				element: <AllTours />,
 			},
 		],
 	},

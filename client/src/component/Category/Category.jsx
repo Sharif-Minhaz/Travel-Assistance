@@ -21,7 +21,7 @@ const Category = ({ categ }) => {
 			try {
 				setLoading(true);
 				axios
-					.get(`/products/categoryWiseData?title=${encodeURIComponent(name)}`)
+					.get(`/places/categoryWiseData?title=${encodeURIComponent(name)}`)
 					.then((res) => {
 						setAdd(res.data?.places?.length);
 					});

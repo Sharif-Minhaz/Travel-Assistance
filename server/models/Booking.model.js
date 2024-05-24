@@ -3,6 +3,7 @@ const { model, Schema } = require("mongoose");
 const bookingSchema = new Schema(
 	{
 		orderId: { type: String, required: true },
+		orderName: { type: String, required: true },
 		buyer: {
 			type: Schema.Types.ObjectId,
 			ref: "User",

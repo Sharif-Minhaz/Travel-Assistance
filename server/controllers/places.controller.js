@@ -13,15 +13,15 @@ exports.getRestaurantByEmail = asyncHandler(async (req, res) => {
 	});
 });
 
-exports.deleteRestaurantController = asyncHandler(async (req, res) => {
+exports.deletePlaceController = asyncHandler(async (req, res) => {
 	const id = req.params.id;
 
 	const result = await Place.findByIdAndDelete(id);
 
-	res.status(200).json({ message: "Place deleted", place: result });
+	res.status(200).json({ message: "Place deleted", place: result, success: true });
 });
 
-exports.getRestaurantDetailsController = asyncHandler(async (req, res) => {
+exports.getPlaceDetailsController = asyncHandler(async (req, res) => {
 	const id = req.params.id;
 
 	const place = await Place.findById(id).populate("addedBy").lean();
@@ -32,7 +32,7 @@ exports.getRestaurantDetailsController = asyncHandler(async (req, res) => {
 	});
 });
 
-exports.addRestaurantController = asyncHandler(async (req, res) => {
+exports.addPlaceController = asyncHandler(async (req, res) => {
 	const data = req.body;
 
 	const result = await Place.create(data);
