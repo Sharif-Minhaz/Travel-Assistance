@@ -12,7 +12,7 @@ const Footer = () => {
 							<img src="/logo.svg" alt="logo" />
 						</Link>
 						<div className="col-lg-3 col-md-3 col-sm-12 text-start">
-							<h3 className="mb-3">Rent a Home</h3>
+							<h3 className="mb-3">Book a tour</h3>
 							<p>Request an offer</p>
 							<p>Pricing</p>
 							<p>Reviews</p>
