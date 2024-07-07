@@ -7,6 +7,7 @@ import { useContext, useMemo } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { Button } from "react-bootstrap";
 import TableBody from "../../Shared/TableBody/TableBody";
+import toast from "react-hot-toast";
 
 const AllOwners = () => {
 	const { user: me } = useContext(AuthContext);
@@ -69,7 +70,7 @@ const AllOwners = () => {
 		if (agree) {
 			axios.delete(`/users/${id}`).then((res) => {
 				if (res.status === 200) {
-					// toast.success('Make admin successful.')
+					toast.success("Admin deleted successful.");
 					refetch();
 				}
 			});

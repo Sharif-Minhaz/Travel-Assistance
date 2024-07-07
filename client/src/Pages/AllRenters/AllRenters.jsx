@@ -5,6 +5,7 @@ import axios from "../../lib/axios";
 import { useMemo } from "react";
 import TableBody from "../../Shared/TableBody/TableBody";
 import { Button } from "react-bootstrap";
+import { toast } from "react-hot-toast";
 
 const AllRenters = () => {
 	useTitle("All Users");
@@ -28,7 +29,7 @@ const AllRenters = () => {
 		if (agree) {
 			axios.delete(`/users/${id}`).then((res) => {
 				if (res.status === 0) {
-					// toast.success('Make admin successful.')
+					toast.success("User deleted successfully");
 					refetch();
 				}
 			});
