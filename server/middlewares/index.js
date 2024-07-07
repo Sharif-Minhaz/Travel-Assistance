@@ -14,7 +14,7 @@ const limiter = rateLimit({
 });
 
 const middlewares = [
-	cors({ origin: ["http://localhost:3000", "https://dinepal.netlify.app"] }),
+	cors({ origin: ["http://localhost:3000", "https://travel-assistant-v1.netlify.app"] }),
 	express.static("public"),
 	express.json(),
 	express.urlencoded({ extended: true }),
