@@ -34,6 +34,10 @@ export const cities = {
 			"Shahjalal University of Science and Technology",
 		],
 	},
+	Rangamati: {
+		name: "Rangamati",
+		areas: ["Khagrachuri"],
+	},
 };
 
 export const categories = [

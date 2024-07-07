@@ -32,7 +32,7 @@ const MyBooking = () => {
 					<div className="text-center my-5">
 						<p>There is no booking right available now or Admin deleted your booking</p>
 						<Link to="/all-tours">
-							<Button>Book now</Button>
+							<Button style={{ background: "pink" }}>Book now</Button>
 						</Link>
 					</div>
 				)}
