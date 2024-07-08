@@ -114,7 +114,7 @@ const PropertyDetails = () => {
 							<button className="contact-btn">
 								<a
 									className="d-flex justify-content-center align-items-center gap-2"
-									href={"tel:" + addedBy.phoneNumber}
+									href={"tel:" + addedBy?.phoneNumber}
 								>
 									<MdCall size={18} /> Call
 								</a>
@@ -122,7 +122,7 @@ const PropertyDetails = () => {
 							<button className="contact-btn">
 								<a
 									className="d-flex justify-content-center align-items-center gap-2"
-									href={"mailto:" + addedBy.email}
+									href={"mailto:" + addedBy?.email}
 								>
 									<MdMail size={18} /> Email
 								</a>
