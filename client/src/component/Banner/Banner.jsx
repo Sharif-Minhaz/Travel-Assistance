@@ -1,7 +1,7 @@
 import "./Banner.css";
 import banner1 from "../../images/banner1.jpg";
-import banner2 from "../../images/banner2.jpeg";
-import banner4 from "../../images/banner4.jpg";
+import banner2 from "../../images/banner2.jpg";
+import banner3 from "../../images/banner3.jpg";
 
 const Banner = () => {
 	return (
@@ -48,7 +48,7 @@ const Banner = () => {
 						</div>
 						<div className="carousel-item carousel-Item">
 							<img
-								src={banner4}
+								src={banner3}
 								className="d-block w-100 banner-image-resize"
 								alt="..."
 							/>

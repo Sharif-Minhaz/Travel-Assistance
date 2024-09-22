@@ -33,7 +33,7 @@ const HomeSortProperty = () => {
 		<section>
 			<div className="sort-property-bg">
 				<div className="sort-banner-title py-5">
-					<p>Find Your Perfect Place</p>
+					<p style={{ fontFamily: "sans-serif" }}>Find Your Perfect Place</p>
 					<span>Discover and Reserve Your Favorite Tourist Spots</span>
 				</div>
 			</div>

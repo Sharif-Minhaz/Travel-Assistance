@@ -31,7 +31,7 @@ const Hero = () => {
 	return (
 		<div className="container d-flex justify-content-center">
 			<div className="hero-title">
-				<p className="">Find Your Perfect Place</p>
+				<p style={{ fontFamily: "sans-serif" }}>Find Your Perfect Place</p>
 				<span>Discover and Reserve Your Favorite Tourist Spots</span>
 			</div>
 			<div className="hero-property">

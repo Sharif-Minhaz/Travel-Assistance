@@ -1,8 +1,7 @@
 .banner-image-resize {
   height: 500px;
-  background: no-repeat;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  object-position: top;
 }
 
 .carousel-Item::before {
